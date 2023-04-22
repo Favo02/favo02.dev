@@ -1,7 +1,7 @@
 import { FC } from "react"
 import { Outlet } from "react-router-dom"
 
-const ContentWrapper: FC<{}> = () => {
+const ContentWrapper: FC = () => {
   return (
     <>
       <p>header</p>
