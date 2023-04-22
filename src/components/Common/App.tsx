@@ -1,7 +1,7 @@
-import { FC } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import ContentWrapper from "./ContentWrapper";
-import Home from "../../pages/Home";
+import { FC } from "react"
+import { createBrowserRouter, RouterProvider } from "react-router-dom"
+import ContentWrapper from "./ContentWrapper"
+import Home from "../../pages/Home"
 
 const router = createBrowserRouter([
   {
@@ -15,7 +15,7 @@ const router = createBrowserRouter([
   }
 ])
 
-const App: FC<{}> = () => {
+const App: FC<null> = () => {
   return (
     <RouterProvider router={router} />
   )
