@@ -2,6 +2,10 @@
   "name": "favo02.dev",
   "version": "0.0.1",
   "private": true,
+  "engines": {
+    "node": ">=18",
+    "npm": ">=9"
+  },
   "dependencies": {
     "@types/node": "^18.15.13",
     "@types/react": "^18.0.38",
