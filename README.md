@@ -128,6 +128,6 @@ Issues should describe and include each of the following components:
 
 > Versioning is done automatically by [GitVersion](https://gitversion.net) each time a commit is pushed to the `main branch`.
 
-- **Major** version: manually incremented
+- **Major** version: `release|major` commit types
 - **Minor** version: `feat` commit types
 - **Patch** version: `repo|build|docs|fix|style|refactor|revert` commit types
