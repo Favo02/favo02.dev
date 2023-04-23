@@ -55,7 +55,7 @@ Each commit message consists of a **header**, a **body**, and a **footer**.
   │       │
   │       └─⫸ Commit Scope: pages|components|utils|css|services
   │
-  └─⫸ Commit Type: repo|build|docs|feat|fix|style|refactor|revert
+  └─⫸ Commit Type: repo|build|docs|feat|fix|style|refactor|revert|bump|release|major
 ```
 
 The `<type>` and `<summary>` fields are mandatory, the `(<scope>)` field is optional.
@@ -72,6 +72,8 @@ Must be one of the following:
 * **style**: trailing spaces, semi-colons, tab size...
 * **refactor**: a code change that neither fixes a bug nor adds a feature
 * **revert**: revert a previous change
+* **bump**: version bump
+* **release|major**: major version release
 
 ##### Scope
 
