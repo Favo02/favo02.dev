@@ -17,6 +17,9 @@ module.exports = {
           900: "#102a43"
         }
       }
+    },
+    fontFamily: {
+      sans: ["Lato"],
     }
   },
   plugins: []
