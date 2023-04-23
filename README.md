@@ -126,6 +126,8 @@ Issues should describe and include each of the following components:
 
 ### Versioning
 
-_Work in progess, not yet working_
+> Versioning is done automatically by [GitVersion](https://gitversion.net) each time a commit is pushed to the `main branch`.
 
-~~> Versioning is done automatically by [GitVersion](https://gitversion.net) each time a PR is successfully merged into the `main branch`.~~
+- **Major** version: manually incremented
+- **Minor** version: `feat` commit types
+- **Patch** version: `repo|build|docs|fix|style|refactor|revert` commit types
