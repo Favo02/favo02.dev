@@ -49,6 +49,6 @@ jobs:
           git tag v${{ needs.detect-version.outputs.newVersion }}
           npm --no-git-tag-version version ${{ needs.detect-version.outputs.newVersion }}
           git add .
-          git commit -m "bump: `${{ needs.detect-version.outputs.newVersion }}`"
+          git commit -m "bump: \\\`${{ needs.detect-version.outputs.newVersion }}\\\`"
           git push
           git push --tags
