@@ -15,7 +15,7 @@ const Header: FC = () => {
       <div className={`w-10/12 max-w-5xl ${isOpen ? "h-28" : "h-14"} mt-8 bg-gray-400 bg-opacity-20 rounded-xl backdrop-blur-lg drop-shadow-l transition-all duration-700 overflow-hidden`}>
         
         {/* Logo + Menu toggle */}
-        <div className="flex justify-between items-center transition-all h-14">
+        <div className="flex justify-between items-center h-14">
           <Link to="/home">
             <div className="flex justify-center items-center">
               <img src={Logo} className="ml-4 w-8 brightness-0 invert" />
