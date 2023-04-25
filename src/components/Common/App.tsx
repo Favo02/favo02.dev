@@ -1,5 +1,5 @@
 import { FC } from "react"
-import { createBrowserRouter, RouterProvider } from "react-router-dom"
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom"
 import ContentWrapper from "./ContentWrapper"
 import Home from "../../pages/Home"
 
@@ -9,7 +9,7 @@ const router = createBrowserRouter([
     element: <ContentWrapper />,
     errorElement: <p>404</p>,
     children: [
-      { path: "", element: <Home /> },
+      { index: true, element: <Navigate to="/home" replace /> },
       { path: "home", element: <Home /> }
     ]
   }
