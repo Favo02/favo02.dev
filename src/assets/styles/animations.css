@@ -104,3 +104,44 @@
     transform: scale(1);
   }
 }
+
+/* Header name slide animation */
+
+.slide-animation {
+  animation-name: slide, pause;
+  animation-duration: 15s, 30s;
+  animation-timing-function: cubic-bezier(1, 0, 0, 1), linear;
+  animation-iteration-count: infinite;
+}
+
+.slide-animation-inverse {
+  animation-name: slide, pause-inverse;
+  animation-duration: 15s, 30s;
+  animation-timing-function: cubic-bezier(1, 0, 0, 1), linear;
+  animation-iteration-count: infinite;
+}
+
+
+@keyframes slide {
+  0%, 100% {
+    transform: translateX(-120px) rotate(-5deg);
+  }
+  50% {
+    transform: translateX(0px) rotate(0deg);
+  }
+}
+
+@keyframes pause {
+  0% { opacity: 1; }
+  50% { opacity: 1; }
+  50.01% { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+@keyframes pause-inverse {
+  0% { opacity: 0; }
+  50% { opacity: 0; }
+  50.01% { opacity: 1; }
+  100% { opacity: 1; }
+}
+
