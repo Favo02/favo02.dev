@@ -9,7 +9,7 @@ const Header: FC = () => {
   const [isOpen, setOpen] = useState<boolean>(false)
 
   return (
-    <div className="w-full flex justify-center items-center fixed">
+    <div className="w-full flex justify-center items-center fixed z-10">
 
       <div className={`w-10/12 max-w-5xl ${isOpen ? "h-28" : "h-14"} mt-8 bg-gray-400 bg-opacity-20 rounded-xl backdrop-blur-lg drop-shadow-l transition-all duration-700 overflow-hidden`}>
         
