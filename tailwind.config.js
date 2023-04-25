@@ -1,11 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 // eslint-disable-next-line no-undef
 module.exports = {
-  content: ["./src/**/*.{js,jsx,ts,tsx}",],
+  content: ["./src/**/*.{js,jsx,ts,tsx}","./public/index.html"],
   theme: {
     extend: {
       colors: {
-        bluegray: {
+        "bluegray": {
           50: "#f0f4f8",
           100: "#d9e2ec",
           200: "#bcccdc",
@@ -16,6 +16,10 @@ module.exports = {
           700: "#334e68",
           800: "#243b53",
           900: "#102a43"
+        },
+        "bluegithub": {
+          light: "#222d3d",
+          dark: "#010409"
         }
       }
     },

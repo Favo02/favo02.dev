@@ -1,0 +1,147 @@
+/* MenuButton animation */
+
+.active.first {
+  animation: ease .7s top forwards;
+}
+
+.not-active.first {
+  animation: ease .7s top-2 forwards;
+}
+
+.active.second {
+  animation: ease .7s scaled forwards;
+}
+
+.not-active.second {
+  animation: ease .7s scaled-2 forwards;
+}
+
+.active.third {
+  animation: ease .7s bottom forwards;
+}
+
+.not-active.third {
+  animation: ease .7s bottom-2 forwards;
+}
+
+@keyframes top {
+  0% {
+    top: 0;
+    transform: rotate(0);
+  }
+  50% {
+    top: 5px;
+    transform: rotate(0);
+  }
+  100% {
+    top: 5px;
+    transform: rotate(45deg);
+  }
+}
+
+@keyframes top-2 {
+  0% {
+    top: 5px;
+    transform: rotate(45deg);
+  }
+  50% {
+    top: 5px;
+    transform: rotate(0deg);
+  }
+  100% {
+    top: 0;
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes bottom {
+  0% {
+    bottom: 0;
+    transform: rotate(0);
+  }
+  50% {
+    bottom: 5px;
+    transform: rotate(0);
+  }
+  100% {
+    bottom: 5px;
+    transform: rotate(135deg);
+  }
+}
+
+@keyframes bottom-2 {
+  0% {
+    bottom: 5px;
+    transform: rotate(135deg);
+  }
+  50% {
+    bottom: 5px;
+    transform: rotate(0);
+  }
+  100% {
+    bottom: 0;
+    transform: rotate(0);
+  }
+}
+
+@keyframes scaled {
+  50% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+
+@keyframes scaled-2 {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Header name slide animation */
+
+.slide-animation {
+  animation-name: slide, pause;
+  animation-duration: 15s, 30s;
+  animation-timing-function: cubic-bezier(1, 0, 0, 1), linear;
+  animation-iteration-count: infinite;
+}
+
+.slide-animation-inverse {
+  animation-name: slide, pause-inverse;
+  animation-duration: 15s, 30s;
+  animation-timing-function: cubic-bezier(1, 0, 0, 1), linear;
+  animation-iteration-count: infinite;
+}
+
+
+@keyframes slide {
+  0%, 100% {
+    transform: translateX(-120px) rotate(-5deg);
+  }
+  50% {
+    transform: translateX(0px) rotate(0deg);
+  }
+}
+
+@keyframes pause {
+  0% { opacity: 1; }
+  50% { opacity: 1; }
+  50.01% { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+@keyframes pause-inverse {
+  0% { opacity: 0; }
+  50% { opacity: 0; }
+  50.01% { opacity: 1; }
+  100% { opacity: 1; }
+}
+
