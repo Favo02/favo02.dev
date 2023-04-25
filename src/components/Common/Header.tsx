@@ -16,7 +16,7 @@ const Header: FC = () => {
         
         {/* Logo + Menu toggle */}
         <div className="flex justify-between items-center transition-all h-14">
-          <Link to="/">
+          <Link to="/home">
             <div className="flex justify-center items-center">
               <img src={Logo} className="ml-4 w-8 brightness-0 invert" />
               <div className="relative flex items-center w-28 h-14 overflow-hidden">
