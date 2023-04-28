@@ -1,17 +1,15 @@
 interface Repository {
-  description: string,
-  fork: boolean,
   id: number,
-  language: string,
-  license: string,
   name: string,
   full_name: string,
+  description: string,
+  license: string,
   private: boolean,
-  collaborators_url: string,
-  languages_url: string,
-  commits_url: string,
+  fork: boolean,
+  language: string,
+  created_at: string,
+  pushed_at: string,
   svn_url: string
 }
-
 
 export default Repository
