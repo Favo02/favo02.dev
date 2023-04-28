@@ -5,14 +5,12 @@ import axios from "axios"
 const baseUrl = "https://api.github.com"
 
 const getAll = async () => {
-
   const res = await axios.get(`${baseUrl}/users/Favo02/repos`)
-
   return res.data
 }
 
-const projectsService = {
+const repositoriesService = {
   getAll
 }
 
-export default projectsService
+export default repositoriesService
