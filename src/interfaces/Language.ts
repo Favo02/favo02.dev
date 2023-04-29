@@ -1,5 +1,8 @@
 interface Language {
-  [key: string]: number
+  language: string,
+  rows: number,
+  percentage?: number | null,
+  color?: string | null
 }
 
 export default Language
