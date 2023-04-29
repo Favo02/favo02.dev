@@ -1,4 +1,4 @@
-import { FC, useState } from "react"
+import { FC, useState, useEffect, useRef } from "react"
 import Logo from "../../assets/images/Logo.png"
 import { Link } from "react-router-dom"
 import MenuButton from "./MenuButton"
@@ -9,8 +9,23 @@ const Header: FC = () => {
 
   const [isOpen, setOpen] = useState<boolean>(false)
 
+  const headerRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+
+    // close on click outside component
+    const handleClickOutside = (e: MouseEvent) => {
+      if (headerRef.current && !headerRef.current.contains(e.target as Node)) {
+        setOpen(false)
+      }
+    }
+    
+    document.addEventListener("mousedown", handleClickOutside)
+
+  }, [headerRef])
+
   return (
-    <div className="w-full flex justify-center items-center fixed z-10">
+    <div className="w-full flex justify-center items-center fixed z-10" ref={headerRef}>
 
       <div className={`w-10/12 max-w-5xl ${isOpen ? "h-28" : "h-14"} mt-8 bg-gray-400 bg-opacity-20 rounded-xl backdrop-blur-lg drop-shadow-l transition-all duration-700 overflow-hidden`}>
         
