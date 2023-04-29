@@ -25,6 +25,7 @@ module.exports = {
     },
     fontFamily: {
       sans: ["Lato"],
+      mono: ["DroidSans"]
     }
   },
   plugins: []

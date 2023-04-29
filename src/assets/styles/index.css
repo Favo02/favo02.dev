@@ -83,3 +83,10 @@ body {
   font-style: italic;
   src: url('../fonts/Lato-BlackItalic.ttf');
 }
+
+@font-face {
+  font-family: 'DroidSans';
+  font-weight: 400;
+  font-style: monospace;
+  src: url('../fonts/DroidSansMono.ttf');
+}
