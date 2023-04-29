@@ -49,9 +49,9 @@ const Header : FC = () => {
 
         {/* Menu */}
         <div className="flex justify-evenly items-center h-14 text-gray-300">
-          <NavLink to="/home" text="Home" setOpen={setOpen} />
-          <NavLink to="/projects" text="Projects" setOpen={setOpen} />
-          <NavLink to="/about" text="About" setOpen={setOpen} />
+          <NavLink to="/home" text="home" setOpen={setOpen} />
+          <NavLink to="/projects" text="projects" setOpen={setOpen} />
+          <NavLink to="/about" text="about" setOpen={setOpen} />
         </div>
 
       </div>
