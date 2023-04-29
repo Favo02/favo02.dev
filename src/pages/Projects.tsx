@@ -2,7 +2,7 @@ import { FC } from "react"
 import { Link } from "react-router-dom"
 import ProjectsList from "../components/Projects/ProjectsList"
 
-const Projects: FC = () => {
+const Projects : FC = () => {
   return (
     <div className="pt-36 w-10/12 max-w-6xl m-auto">
       <div>

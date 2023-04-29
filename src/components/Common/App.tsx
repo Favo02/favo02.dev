@@ -17,7 +17,7 @@ const router = createBrowserRouter([
   }
 ])
 
-const App: FC<null> = () => {
+const App : FC<null> = () => {
   return (
     <RouterProvider router={router} />
   )

@@ -2,7 +2,7 @@ import { FC } from "react"
 import { Outlet } from "react-router-dom"
 import Header from "./Header"
 
-const ContentWrapper: FC = () => {
+const ContentWrapper : FC = () => {
   return (
     <>
       <Header />

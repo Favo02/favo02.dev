@@ -5,7 +5,7 @@ import MenuButton from "./MenuButton"
 import NavLink from "./NavLink"
 import "../../assets/styles/animations.css"
 
-const Header: FC = () => {
+const Header : FC = () => {
 
   const [isOpen, setOpen] = useState<boolean>(false)
 
@@ -14,7 +14,7 @@ const Header: FC = () => {
   useEffect(() => {
 
     // close on click outside component
-    const handleClickOutside = (e: MouseEvent) => {
+    const handleClickOutside = (e : MouseEvent) => {
       if (headerRef.current && !headerRef.current.contains(e.target as Node)) {
         setOpen(false)
       }

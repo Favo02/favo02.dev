@@ -7,7 +7,7 @@ import colorsService from "../../services/languageColor"
 import Collaborator from "../../interfaces/Collaborator"
 import Language from "../../interfaces/Language"
 
-const ProjectCard: FC<{ repository: Repository }> = ({ repository }) => {
+const ProjectCard : FC<{ repository : Repository }> = ({ repository }) => {
 
   const [collaborators, setCollaborators] = useState<Collaborator[]>()
   const [languages, setLanguages] = useState<Language[]>()
@@ -21,7 +21,7 @@ const ProjectCard: FC<{ repository: Repository }> = ({ repository }) => {
     const fetchLanguages = async () => {
       const rawLangs = await repositoriesService.languages(repository.full_name)
       
-      const langs: Language[] = []
+      const langs : Language[] = []
       let sum = 0
       for (const l in rawLangs) {
         langs.push({
@@ -65,7 +65,7 @@ const ProjectCard: FC<{ repository: Repository }> = ({ repository }) => {
             <div className="opacity-60">
               <div>
                 {languages &&
-                  languages.map((l: Language) => (
+                  languages.map((l : Language) => (
                     <div key={l.language} className="text-bluegray-500 italic inline-block overflow-hidden mx-2" >{l.percentage}% {l.language}</div>
                   ))
                 }
@@ -73,7 +73,7 @@ const ProjectCard: FC<{ repository: Repository }> = ({ repository }) => {
 
               <div className="-mt-5">
                 {languages &&
-                  languages.map((l: Language) => (
+                  languages.map((l : Language) => (
                     <div
                       key={l.language}
                       className="inline-block h-1 overflow-hidden"
@@ -95,7 +95,7 @@ const ProjectCard: FC<{ repository: Repository }> = ({ repository }) => {
 
               <div className="flex justify-center align-middle flex-row">
                 {collaborators &&
-                  collaborators.map((c: Collaborator) => (
+                  collaborators.map((c : Collaborator) => (
                     <Link to={c.html_url} target="_blank" rel="noopener noreferrer" key={c.id} className="-mx-0.5">
                       <img src={c.avatar_url} className="h-5 w-5 rounded-full" title={c.login} alt={c.login} />
                     </Link>
