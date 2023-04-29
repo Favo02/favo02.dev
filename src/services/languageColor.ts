@@ -4,12 +4,12 @@
 import colorsFile from "../utils/colors.json"
 
 interface colors {
-  [key: string]: { color: string | null }
+  [key : string] : { color : string | null }
 }
 
-const colors: colors = colorsFile
+const colors : colors = colorsFile
 
-const getColor = async (language: string) => {
+const getColor = async (language : string) => {
   return colors[language].color
 }
 

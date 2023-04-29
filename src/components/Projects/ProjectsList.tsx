@@ -3,7 +3,7 @@ import repositoriesService from "../../services/repositories"
 import Repository from "../../interfaces/Repository"
 import ProjectCard from "./ProjectCard"
 
-const Projects: FC = () => {
+const Projects : FC = () => {
 
   const [repositories, setRepositories] = useState<Repository[]>()
 
