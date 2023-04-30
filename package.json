@@ -1,6 +1,6 @@
 {
   "name": "favo02.dev",
-  "version": "0.6.3",
+  "version": "0.7.0",
   "private": true,
   "engines": {
     "node": ">=18",
