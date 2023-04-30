@@ -11,8 +11,52 @@
 
     <title>favo02.dev</title>
   </head>
+
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+    <div id="root">
+      <div class="wrapper">
+        <span class="loader"></span>
+      </div>
+    </div>
   </body>
+
+  <style>
+    .wrapper {
+      display: flex;
+      height: 100vh;
+      align-items: center;
+      justify-content: center;
+      background-color: #010409;
+    }
+    .loader {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: inline-block;
+      position: relative;
+      border: 2px solid #f3f4f6;
+      box-sizing: border-box;
+      animation: rotation 1s linear infinite;
+    }
+    .loader::after {
+      content: '';  
+      box-sizing: border-box;
+      position: absolute;
+      left: 4px;
+      top: 4px;
+      border: 2px solid #627d98;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+    @keyframes rotation {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    } 
+  </style>
 </html>
