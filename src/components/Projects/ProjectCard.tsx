@@ -6,19 +6,24 @@ import repositoriesService from "../../services/repositories"
 import colorsService from "../../services/languageColor"
 import Collaborator from "../../interfaces/Collaborator"
 import Language from "../../interfaces/Language"
+import Loading from "../Common/Loading"
 
 const ProjectCard : FC<{ repository : Repository }> = ({ repository }) => {
 
+  const [loading, setLoading] = useState<boolean>(true)
   const [collaborators, setCollaborators] = useState<Collaborator[]>()
   const [languages, setLanguages] = useState<Language[]>()
 
   useEffect(() => {
     const fetchCollaborators = async () => {
+      setLoading(true)
       const colls = await repositoriesService.collaborators(repository.full_name)
       setCollaborators(colls)
+      setLoading(false)
     }
 
     const fetchLanguages = async () => {
+      setLoading(true)
       const rawLangs = await repositoriesService.languages(repository.full_name)
       
       const langs : Language[] = []
@@ -38,11 +43,20 @@ const ProjectCard : FC<{ repository : Repository }> = ({ repository }) => {
       }
 
       setLanguages(langs)
+      setLoading(false)
     }
 
     fetchCollaborators()
     fetchLanguages()
   }, [])
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center w-80 h-72 m-6 p-0.5 text-center rounded-md bg-gradient-to-br from-gray-400 via-transparent to-bluegray-600">
+        <Loading />
+      </div>
+    )
+  }
 
   return (
     <div className="flex items-center justify-center w-80 h-72 m-6 p-0.5 text-center rounded-md bg-gradient-to-br from-gray-400 via-transparent to-bluegray-600">

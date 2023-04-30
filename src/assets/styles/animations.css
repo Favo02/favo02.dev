@@ -145,3 +145,17 @@
   100% { opacity: 1; }
 }
 
+/* Loading animation */
+
+.loading-animation {
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
