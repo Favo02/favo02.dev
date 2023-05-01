@@ -22,6 +22,9 @@ const Header : FC = () => {
     
     document.addEventListener("mousedown", handleClickOutside)
 
+    return () => {
+      window.removeEventListener("mousedown", handleClickOutside)
+    }
   }, [headerRef])
 
   return (
