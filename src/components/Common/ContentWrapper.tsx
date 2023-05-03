@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom"
 import Header from "./Header"
 import Loading from "./Loading"
 import AnimatedCursor from "react-animated-cursor"
+import LateralLinks from "./LateralLinks"
 
 const ContentWrapper : FC = () => {
 
@@ -24,6 +25,7 @@ const ContentWrapper : FC = () => {
     <>
       <Header />
       <Outlet />
+      <LateralLinks />
       <p>footer</p>
       <AnimatedCursor
         color="159, 179, 200"
