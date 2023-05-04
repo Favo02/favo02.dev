@@ -69,7 +69,7 @@ const ProjectCard : FC<{ repository : Repository }> = ({ repository }) => {
 
     const lastCommit = new Date(repository.pushed_at)
 
-    setAdditionalData({totalCommits: commits, lastCommit})
+    setAdditionalData({ totalCommits: commits, lastCommit })
 
     setLoading(false)
   }, [collaborators])
