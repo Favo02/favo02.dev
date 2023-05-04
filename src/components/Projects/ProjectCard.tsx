@@ -1,6 +1,8 @@
 import { FC, useEffect, useState } from "react"
 import Repository from "../../interfaces/Repository"
 import { FaGithub } from "react-icons/fa"
+import { GoGitCommit } from "react-icons/go"
+import { RiGitRepositoryCommitsLine } from "react-icons/ri"
 import { Link } from "react-router-dom"
 import repositoriesService from "../../services/repositories"
 import colorsService from "../../services/languageColor"
@@ -13,8 +15,13 @@ const ProjectCard : FC<{ repository : Repository }> = ({ repository }) => {
   const [loading, setLoading] = useState<boolean>(true)
   const [collaborators, setCollaborators] = useState<Collaborator[]>()
   const [languages, setLanguages] = useState<Language[]>()
+  const [additionalData, setAdditionalData] = useState<{totalCommits : number, lastCommit : Date}>()
 
+  const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+
+  // fetch collaborators, languages (call to API) at component load
   useEffect(() => {
+
     const fetchCollaborators = async () => {
       setLoading(true)
       const colls = await repositoriesService.collaborators(repository.full_name)
@@ -48,7 +55,22 @@ const ProjectCard : FC<{ repository : Repository }> = ({ repository }) => {
 
     fetchCollaborators()
     fetchLanguages()
+    
   }, [])
+
+  // calculate additional data (commits, last commit), triggered at collaborators load
+  useEffect(() => {
+    setLoading(true)
+
+    let commits = 0
+    collaborators?.forEach(c => commits += c.contributions)
+
+    const lastCommit = new Date(repository.pushed_at) 
+
+    setAdditionalData({totalCommits: commits, lastCommit})
+
+    setLoading(false)
+  }, [collaborators])
 
   if (loading) {
     return (
@@ -104,7 +126,16 @@ const ProjectCard : FC<{ repository : Repository }> = ({ repository }) => {
 
           </div>
 
-          <div className="flex justify-center align-middle w-full basis-2/12">
+          <div className="flex justify-evenly w-full basis-1/12 italic opacity-60 -mt-1 mb-1">
+            <h4 className="text-bluegray-500" title="Commits">
+              {additionalData?.totalCommits} <GoGitCommit className="inline" />
+            </h4>
+            <h4 className="text-bluegray-500" title="Last commit">
+              {additionalData?.lastCommit.getDate()} {additionalData ? monthNames[additionalData.lastCommit.getMonth()] : ""} {additionalData?.lastCommit.getFullYear()} <RiGitRepositoryCommitsLine className="inline -mt-px" />
+            </h4>
+          </div>
+
+          <div className="flex justify-center align-middle w-full basis-1/12">
             <div className="flex my justify-center align-middle">
 
               <div className="flex justify-center align-middle flex-row">

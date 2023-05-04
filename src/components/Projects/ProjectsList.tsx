@@ -13,6 +13,9 @@ const Projects : FC = () => {
     const fetch = async () => {
       setLoading(true)
       const repos = await repositoriesService.getAll()
+      repos.sort((a : Repository, b : Repository) => {
+        return new Date(b.pushed_at).valueOf() - new Date(a.pushed_at).valueOf()
+      })
       setRepositories(repos)
       setLoading(false)
     }
