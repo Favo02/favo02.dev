@@ -34,7 +34,7 @@ const ProjectCard : FC<{ repository : Repository }> = ({ repository }) => {
     const fetchLanguages = async () => {
       setLoading(true)
       const rawLangs = await repositoriesService.languages(repository.full_name)
-      
+
       const langs : Language[] = []
       let sum = 0
       for (const l in rawLangs) {
@@ -57,7 +57,7 @@ const ProjectCard : FC<{ repository : Repository }> = ({ repository }) => {
 
     fetchCollaborators()
     fetchLanguages()
-    
+
   }, [])
 
   // calculate additional data (commits, last commit), triggered at collaborators load
@@ -67,7 +67,7 @@ const ProjectCard : FC<{ repository : Repository }> = ({ repository }) => {
     let commits = 0
     collaborators?.forEach(c => commits += c.contributions)
 
-    const lastCommit = new Date(repository.pushed_at) 
+    const lastCommit = new Date(repository.pushed_at)
 
     setAdditionalData({totalCommits: commits, lastCommit})
 
@@ -99,7 +99,7 @@ const ProjectCard : FC<{ repository : Repository }> = ({ repository }) => {
           </div>
 
           <div className="flex justify-center align-middle flex-col w-full basis-2/12">
-            
+
             <div className="opacity-60">
               <div>
                 {languages &&
@@ -157,8 +157,6 @@ const ProjectCard : FC<{ repository : Repository }> = ({ repository }) => {
               </div>
 
             </div>
-
-              
           </div>
 
         </div>
