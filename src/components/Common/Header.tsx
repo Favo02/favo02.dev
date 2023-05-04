@@ -1,8 +1,12 @@
-import { FC, useState, useEffect, useRef } from "react"
-import Logo from "../../assets/images/Logo.png"
+import type { FC } from "react"
+import { useEffect, useRef,useState } from "react"
 import { Link } from "react-router-dom"
+
+import Logo from "../../assets/images/Logo.png"
+
 import MenuButton from "./MenuButton"
 import NavLink from "./NavLink"
+
 import "../../assets/styles/animations.css"
 
 const Header : FC = () => {
@@ -19,7 +23,7 @@ const Header : FC = () => {
         setOpen(false)
       }
     }
-    
+
     document.addEventListener("mousedown", handleClickOutside)
 
     return () => {
@@ -31,7 +35,7 @@ const Header : FC = () => {
     <div className="w-full flex justify-center items-center fixed z-10" ref={headerRef}>
 
       <div className={`w-10/12 max-w-5xl ${isOpen ? "h-28" : "h-14"} mt-8 bg-gray-400 bg-opacity-20 rounded-xl backdrop-blur-lg drop-shadow-l transition-all duration-700 overflow-hidden`}>
-        
+
         {/* Logo + Menu toggle */}
         <div className="flex justify-between items-center h-14">
           <Link to="/home" onClick={() => setOpen(false)}>

@@ -1,13 +1,15 @@
-import { FC, useEffect, useState } from "react"
-import Repository from "../../interfaces/Repository"
+import type { FC } from "react"
+import { useEffect, useState } from "react"
 import { FaGithub } from "react-icons/fa"
 import { GoGitCommit } from "react-icons/go"
 import { RiGitRepositoryCommitsLine } from "react-icons/ri"
 import { Link } from "react-router-dom"
-import repositoriesService from "../../services/repositories"
+
+import type Collaborator from "../../interfaces/Collaborator"
+import type Language from "../../interfaces/Language"
+import type Repository from "../../interfaces/Repository"
 import colorsService from "../../services/languageColor"
-import Collaborator from "../../interfaces/Collaborator"
-import Language from "../../interfaces/Language"
+import repositoriesService from "../../services/repositories"
 import Loading from "../Common/Loading"
 
 const ProjectCard : FC<{ repository : Repository }> = ({ repository }) => {
@@ -32,7 +34,7 @@ const ProjectCard : FC<{ repository : Repository }> = ({ repository }) => {
     const fetchLanguages = async () => {
       setLoading(true)
       const rawLangs = await repositoriesService.languages(repository.full_name)
-      
+
       const langs : Language[] = []
       let sum = 0
       for (const l in rawLangs) {
@@ -55,7 +57,7 @@ const ProjectCard : FC<{ repository : Repository }> = ({ repository }) => {
 
     fetchCollaborators()
     fetchLanguages()
-    
+
   }, [])
 
   // calculate additional data (commits, last commit), triggered at collaborators load
@@ -65,9 +67,9 @@ const ProjectCard : FC<{ repository : Repository }> = ({ repository }) => {
     let commits = 0
     collaborators?.forEach(c => commits += c.contributions)
 
-    const lastCommit = new Date(repository.pushed_at) 
+    const lastCommit = new Date(repository.pushed_at)
 
-    setAdditionalData({totalCommits: commits, lastCommit})
+    setAdditionalData({ totalCommits: commits, lastCommit })
 
     setLoading(false)
   }, [collaborators])
@@ -97,12 +99,12 @@ const ProjectCard : FC<{ repository : Repository }> = ({ repository }) => {
           </div>
 
           <div className="flex justify-center align-middle flex-col w-full basis-2/12">
-            
+
             <div className="opacity-60">
               <div>
                 {languages &&
                   languages.map((l : Language) => (
-                    <div key={l.language} className="text-bluegray-500 italic inline-block overflow-hidden mx-2" >{l.percentage}% {l.language}</div>
+                    <div key={l.language} className="text-bluegray-500 italic inline-block overflow-hidden mx-2">{l.percentage}% {l.language}</div>
                   ))
                 }
               </div>
@@ -155,8 +157,6 @@ const ProjectCard : FC<{ repository : Repository }> = ({ repository }) => {
               </div>
 
             </div>
-
-              
           </div>
 
         </div>

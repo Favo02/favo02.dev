@@ -1,8 +1,11 @@
-import { FC, useEffect, useState } from "react"
+import type { FC } from "react"
+import { useEffect, useState } from "react"
 import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom"
-import ContentWrapper from "./ContentWrapper"
+
 import Home from "../../pages/Home"
 import Projects from "../../pages/Projects"
+
+import ContentWrapper from "./ContentWrapper"
 import Loading from "./Loading"
 
 const router = createBrowserRouter([

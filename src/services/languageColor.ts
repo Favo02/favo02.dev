@@ -9,9 +9,9 @@ interface colors {
 
 const colors : colors = colorsFile
 
-const getColor = async (language : string) => {
-  return colors[language].color
-}
+const getColor = async (language : string) => (
+  colors[language].color
+)
 
 const colorsService = {
   getColor

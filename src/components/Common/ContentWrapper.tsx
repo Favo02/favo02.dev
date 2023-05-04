@@ -1,9 +1,11 @@
-import { FC, useState, useEffect } from "react"
-import { Outlet } from "react-router-dom"
-import Header from "./Header"
-import Loading from "./Loading"
+import type { FC } from "react"
+import { useEffect,useState } from "react"
 import AnimatedCursor from "react-animated-cursor"
+import { Outlet } from "react-router-dom"
+
+import Header from "./Header"
 import LateralLinks from "./LateralLinks"
+import Loading from "./Loading"
 
 const ContentWrapper : FC = () => {
 

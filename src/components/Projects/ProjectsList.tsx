@@ -1,8 +1,11 @@
-import { FC, useState, useEffect } from "react"
+import type { FC } from "react"
+import { useEffect,useState } from "react"
+
+import type Repository from "../../interfaces/Repository"
 import repositoriesService from "../../services/repositories"
-import Repository from "../../interfaces/Repository"
-import ProjectCard from "./ProjectCard"
 import Loading from "../Common/Loading"
+
+import ProjectCard from "./ProjectCard"
 
 const Projects : FC = () => {
 
@@ -13,9 +16,9 @@ const Projects : FC = () => {
     const fetch = async () => {
       setLoading(true)
       const repos = await repositoriesService.getAll()
-      repos.sort((a : Repository, b : Repository) => {
-        return new Date(b.pushed_at).valueOf() - new Date(a.pushed_at).valueOf()
-      })
+      repos.sort((a : Repository, b : Repository) => (
+        new Date(b.pushed_at).valueOf() - new Date(a.pushed_at).valueOf())
+      )
       setRepositories(repos)
       setLoading(false)
     }
