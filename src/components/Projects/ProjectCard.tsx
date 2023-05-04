@@ -104,7 +104,7 @@ const ProjectCard : FC<{ repository : Repository }> = ({ repository }) => {
               <div>
                 {languages &&
                   languages.map((l : Language) => (
-                    <div key={l.language} className="text-bluegray-500 italic inline-block overflow-hidden mx-2" >{l.percentage}% {l.language}</div>
+                    <div key={l.language} className="text-bluegray-500 italic inline-block overflow-hidden mx-2">{l.percentage}% {l.language}</div>
                   ))
                 }
               </div>
