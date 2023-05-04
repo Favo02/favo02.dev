@@ -1,6 +1,6 @@
-import { FC } from "react"
-import { Link } from "react-router-dom"
+import type { FC } from "react"
 import { FaGithub, FaTelegramPlane, FaTwitter } from "react-icons/fa"
+import { Link } from "react-router-dom"
 
 const LateralLinks : FC = () => {
 

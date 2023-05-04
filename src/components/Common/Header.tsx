@@ -1,8 +1,12 @@
-import { FC, useState, useEffect, useRef } from "react"
-import Logo from "../../assets/images/Logo.png"
+import type { FC } from "react"
+import { useEffect, useRef,useState } from "react"
 import { Link } from "react-router-dom"
+
+import Logo from "../../assets/images/Logo.png"
+
 import MenuButton from "./MenuButton"
 import NavLink from "./NavLink"
+
 import "../../assets/styles/animations.css"
 
 const Header : FC = () => {

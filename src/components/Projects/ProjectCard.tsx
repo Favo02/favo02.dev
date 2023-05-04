@@ -1,13 +1,15 @@
-import { FC, useEffect, useState } from "react"
-import Repository from "../../interfaces/Repository"
+import type { FC } from "react"
+import { useEffect, useState } from "react"
 import { FaGithub } from "react-icons/fa"
 import { GoGitCommit } from "react-icons/go"
 import { RiGitRepositoryCommitsLine } from "react-icons/ri"
 import { Link } from "react-router-dom"
-import repositoriesService from "../../services/repositories"
+
+import type Collaborator from "../../interfaces/Collaborator"
+import type Language from "../../interfaces/Language"
+import type Repository from "../../interfaces/Repository"
 import colorsService from "../../services/languageColor"
-import Collaborator from "../../interfaces/Collaborator"
-import Language from "../../interfaces/Language"
+import repositoriesService from "../../services/repositories"
 import Loading from "../Common/Loading"
 
 const ProjectCard : FC<{ repository : Repository }> = ({ repository }) => {

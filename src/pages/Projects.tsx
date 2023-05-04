@@ -1,5 +1,6 @@
-import { FC } from "react"
+import type { FC } from "react"
 import { Link } from "react-router-dom"
+
 import ProjectsList from "../components/Projects/ProjectsList"
 
 const Projects : FC = () => {

@@ -1,4 +1,5 @@
-import { FC } from "react"
+import type { FC } from "react"
+
 import "../../assets/styles/animations.css"
 
 const MenuButton : FC<{isOpen : boolean}> = ({ isOpen }) => {

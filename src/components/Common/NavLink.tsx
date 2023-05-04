@@ -1,4 +1,4 @@
-import { FC } from "react"
+import type { FC } from "react"
 import { NavLink as NL } from "react-router-dom"
 
 const NavLink : FC<{to : string, text : string, setOpen : (value : boolean) => void}> = ({to, text, setOpen}) => {

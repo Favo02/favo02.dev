@@ -1,8 +1,11 @@
-import { FC, useState, useEffect } from "react"
+import type { FC } from "react"
+import { useEffect,useState } from "react"
+
+import type Repository from "../../interfaces/Repository"
 import repositoriesService from "../../services/repositories"
-import Repository from "../../interfaces/Repository"
-import ProjectCard from "./ProjectCard"
 import Loading from "../Common/Loading"
+
+import ProjectCard from "./ProjectCard"
 
 const Projects : FC = () => {
 
