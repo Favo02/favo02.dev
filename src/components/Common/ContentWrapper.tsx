@@ -4,6 +4,7 @@ import AnimatedCursor from "react-animated-cursor"
 import { Outlet } from "react-router-dom"
 
 import Header from "./Header"
+import LateralInfo from "./LateralInfo"
 import LateralLinks from "./LateralLinks"
 import Loading from "./Loading"
 
@@ -27,6 +28,7 @@ const ContentWrapper : FC = () => {
     <>
       <Header />
       <Outlet />
+      <LateralInfo />
       <LateralLinks />
       <p>footer</p>
       <AnimatedCursor
