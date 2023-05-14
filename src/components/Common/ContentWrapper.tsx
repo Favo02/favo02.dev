@@ -43,6 +43,8 @@ const ContentWrapper : FC = () => {
           "a",
           ".pointer"
         ]}
+        showSystemCursor={true}
+        showSystemCursorOnClickable={true}
       />
     </>
   )
