@@ -8,9 +8,7 @@ const Home : FC = () => {
   const underlineClass = "bg-gradient-to-r from-gray-400 via-bluegray-600 to-transparent bg-no-repeat bg-[size:100%_20%] bg-[position:0_90%]"
 
   return (
-    <div className="pt-36 w-10/12 max-w-6xl m-auto text-center">
-      <h1 className="text-gray-100 text-4xl font-mono tracking-tighter"><span className="text-bluegray-400">/</span>home</h1>
-
+    <div className="w-10/12 max-w-6xl m-auto text-center">
       <div className="mt-14 text-center text-gray-100">
 
         <h4 className="text-3xl uppercase font-light">Hello, I&apos;m</h4>

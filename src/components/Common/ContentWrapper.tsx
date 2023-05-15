@@ -7,6 +7,7 @@ import Header from "./Header"
 import LateralInfo from "./LateralInfo"
 import LateralLinks from "./LateralLinks"
 import Loading from "./Loading"
+import PagePath from "./PagePath"
 import ResetScroll from "./ResetScroll"
 
 const ContentWrapper : FC = () => {
@@ -28,6 +29,7 @@ const ContentWrapper : FC = () => {
   return (
     <ResetScroll>
       <Header />
+      <PagePath />
       <Outlet />
       <LateralInfo />
       <LateralLinks />
