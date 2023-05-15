@@ -4,8 +4,10 @@ import AnimatedCursor from "react-animated-cursor"
 import { Outlet } from "react-router-dom"
 
 import Header from "./Header"
+import LateralInfo from "./LateralInfo"
 import LateralLinks from "./LateralLinks"
 import Loading from "./Loading"
+import ResetScroll from "./ResetScroll"
 
 const ContentWrapper : FC = () => {
 
@@ -24,9 +26,10 @@ const ContentWrapper : FC = () => {
   }
 
   return (
-    <>
+    <ResetScroll>
       <Header />
       <Outlet />
+      <LateralInfo />
       <LateralLinks />
       <p>footer</p>
       <AnimatedCursor
@@ -44,7 +47,7 @@ const ContentWrapper : FC = () => {
           ".pointer"
         ]}
       />
-    </>
+    </ResetScroll>
   )
 }
 
