@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom"
 
 import Home from "../../pages/Home"
+import Interests from "../../pages/Interests"
 import Projects from "../../pages/Projects"
 
 import ContentWrapper from "./ContentWrapper"
@@ -16,7 +17,8 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Navigate to="/home" replace /> },
       { path: "home", element: <Home /> },
-      { path: "projects", element: <Projects /> }
+      { path: "projects", element: <Projects /> },
+      { path: "interests", element: <Interests /> }
     ]
   }
 ])

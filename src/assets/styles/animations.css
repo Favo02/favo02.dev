@@ -159,3 +159,23 @@
     transform: rotate(360deg);
   }
 }
+
+/* Languages scrolling animation */
+
+.scrolling-animation {
+  animation: scrolling 8s linear infinite;
+}
+
+.scrolling-animation-delay {
+  animation: scrolling 8s linear infinite;
+  animation-delay: 2s;
+}
+
+@keyframes scrolling {
+  0% {
+    top: -120%;
+  }
+  100% {
+    top: 120%;
+  }
+}
