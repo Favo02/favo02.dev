@@ -41,7 +41,7 @@ const Home : FC = () => {
             "text": "All my projects: the works I'm proud of (and even the ones I'm not)."
           },
           {
-            "title": "Expertise", "path": "/expertise",
+            "title": "Interests", "path": "/interests",
             "text": "My interest in technological field: languages and technologies I am comfortable using."
           },
           {

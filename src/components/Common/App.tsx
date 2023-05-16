@@ -2,8 +2,8 @@ import type { FC } from "react"
 import { useEffect, useState } from "react"
 import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom"
 
-import Expertise from "../../pages/Expertise"
 import Home from "../../pages/Home"
+import Interests from "../../pages/Interests"
 import Projects from "../../pages/Projects"
 
 import ContentWrapper from "./ContentWrapper"
@@ -18,7 +18,7 @@ const router = createBrowserRouter([
       { index: true, element: <Navigate to="/home" replace /> },
       { path: "home", element: <Home /> },
       { path: "projects", element: <Projects /> },
-      { path: "expertise", element: <Expertise /> }
+      { path: "interests", element: <Interests /> }
     ]
   }
 ])
