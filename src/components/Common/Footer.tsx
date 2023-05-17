@@ -48,12 +48,13 @@ const Footer : FC = () => {
           <Link to="https://twitter.com/imprudenza" title="Twitter"
             target="_blank" className={iconsClasses}><FaTwitter /></Link>
         </div>
-        <div title="Email">
-          <span className="text-gray-500 hover:text-gray-300 transition-all duration-700">
+        <div>
+          <span className="text-gray-500 hover:text-gray-300 transition-all duration-700 group">
             <HiMail className="inline text-xl" />
-            <Link to="mailto:luca.favini.02@gmail.com" target="_blank"
-              className="underline underline-offset-4 decoration-dotted ml-1">luca.favini.02@gmail.com
-            </Link>
+            <span className="underline underline-offset-4 decoration-dotted ml-1">luca.favini.02</span>
+            <span className="italic"> AT </span>
+            <span className="underline underline-offset-4 decoration-dotted">gmail.com</span>
+            <div className="absolute text-center w-full  opacity-0 group-hover:opacity-100 m-auto transition-all duration-700">Dumb and bot filter: if you can&apos;t correctly understand this email you shouldn&apos;t contact me.</div>
           </span>
         </div>
       </div>
