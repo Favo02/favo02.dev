@@ -22,6 +22,7 @@ const Footer : FC = () => {
   return (
     <div className="flex flex-col gap-8 mt-32 w-10/12 max-w-5xl m-auto h-80 bg-gray-400 bg-opacity-20 rounded-t-2xl backdrop-blur-lg shadow-xl shadow-black text-gray-400 text-center">
 
+      {/* Menu links */}
       <div className="mt-6 flex justify-evenly items-center h-14">
         {navLinks.map(n =>
           <NavLink
@@ -35,6 +36,7 @@ const Footer : FC = () => {
         }
       </div>
 
+      {/* Social links */}
       <div className="opacity-80">
         <div className="flex justify-center gap-4 text-2xl mb-2">
           <Link to="https://github.com/Favo02" title="Github"
@@ -56,11 +58,13 @@ const Footer : FC = () => {
         </div>
       </div>
 
+      {/* Author, Version */}
       <div className="opacity-80">
         <h1 className="text-lg">Build with <GiHearts className="inline" /> and <GiBrain className="inline" /> by Luca Favini</h1>
         <h2 className="text-gray-500 text-sm">v{packageInfo.version} - 2023</h2>
       </div>
 
+      {/* Source code, License */}
       <div className="mb-8 underline underline-offset-4 decoration-dotted text-gray-500">
         <Link to="https://github.com/Favo02/favo02.dev" target="_blank" className="mr-6 hover:text-gray-300 transition-all duration-700">
           <FaGithub className="inline mr-1 mb-1" />Source code
