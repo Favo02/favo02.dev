@@ -90,7 +90,7 @@ const ProjectCard : FC<{ repository : Repository }> = ({ repository }) => {
           <div className="basis-3/12 mb-4">
             <h1 className="text-2xl font-black text-gray-100 capitalize">{repository.name.replaceAll("-", " ")}</h1>
             <div className="text-sm font-bold text-gray-600 italic">
-              <Link to={repository.svn_url} target="_blank" rel="noopener noreferrer">{repository.full_name}</Link>
+              <Link to={repository.svn_url} target="_blank">{repository.full_name}</Link>
             </div>
           </div>
 
@@ -143,7 +143,7 @@ const ProjectCard : FC<{ repository : Repository }> = ({ repository }) => {
               <div className="flex justify-center align-middle flex-row">
                 {collaborators &&
                   collaborators.map((c : Collaborator) => (
-                    <Link to={c.html_url} target="_blank" rel="noopener noreferrer" key={c.id} className="-mx-0.5">
+                    <Link to={c.html_url} target="_blank" key={c.id} className="-mx-0.5">
                       <img src={c.avatar_url} className="h-5 w-5 rounded-full" title={c.login} alt={c.login} />
                     </Link>
                   ))
@@ -151,7 +151,7 @@ const ProjectCard : FC<{ repository : Repository }> = ({ repository }) => {
               </div>
 
               <div className="ml-4">
-                <Link to={repository.svn_url} target="_blank" rel="noopener noreferrer">
+                <Link to={repository.svn_url} target="_blank">
                   <FaGithub className="text-xl text-gray-100" />
                 </Link>
               </div>

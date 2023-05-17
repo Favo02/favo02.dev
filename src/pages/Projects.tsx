@@ -10,7 +10,7 @@ const Projects : FC = () => (
     <ProjectsList />
 
     <div className="text-gray-500 text-center mt-10">
-      <div>This page uses <Link to="https://docs.github.com/en/rest" target="_blank" rel="noopener noreferrer" className="underline">Github v3 REST API</Link>.</div>
+      <div>This page uses <Link to="https://docs.github.com/en/rest" target="_blank" className="underline">Github v3 REST API</Link>.</div>
 
       <div className="italic mt-2">This page does not include private projects.</div>
       <div className="italic">This page is work in progress.</div>
