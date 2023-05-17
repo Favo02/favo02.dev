@@ -32,7 +32,7 @@ const Home : FC = () => {
         </h1>
       </div>
 
-      <div className="my-20">
+      <div className="mt-20">
         <h1 className="text-3xl uppercase font-bold mb-10 bg-gradient-to-br from-gray-200 via-bluegray-200 to-bluegray-600 bg-clip-text text-transparent">Find out more</h1>
 
         <OverlappingCards content={[
