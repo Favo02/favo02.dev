@@ -13,12 +13,14 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <ContentWrapper />,
-    errorElement: <p>404</p>,
+    errorElement: <p className="text-4xl text-white text-center mt-20 h-screen">404 Not found</p>,
     children: [
       { index: true, element: <Navigate to="/home" replace /> },
       { path: "home", element: <Home /> },
       { path: "projects", element: <Projects /> },
-      { path: "interests", element: <Interests /> }
+      { path: "interests", element: <Interests /> },
+      { path: "about", element: <p className="text-4xl text-white text-center mt-20 h-screen">Work in progress</p> },
+      { path: "imprudenza", element: <p className="text-4xl text-white text-center mt-20 h-screen">Work in progress</p> }
     ]
   }
 ])
