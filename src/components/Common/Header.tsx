@@ -31,6 +31,12 @@ const Header : FC = () => {
     }
   }, [headerRef])
 
+  const navLinks = [ "home", "projects", "interests", "about" ]
+
+  const navLinkActiveClasses = "font-mono pl-1 text-gray-100 bg-gradient-to-r from-gray-400 to-transparent bg-no-repeat bg-[size:100%_20%] bg-[position:0_88%] transition-all duration-700"
+
+  const navLinkInactiveClasses = "font-mono pl-1 text-gray-300 hover:text-gray-100 hover:tracking-widest hover:bg-gradient-to-r hover:from-gray-600 hover:to-transparent bg-no-repeat bg-[size:100%_0.3em] bg-[position:0_88%] transition-all duration-700"
+
   return (
     <div className="w-full flex justify-center items-center fixed z-10" ref={headerRef}>
 
@@ -56,10 +62,17 @@ const Header : FC = () => {
 
         {/* Menu */}
         <div className="flex justify-evenly items-center h-14 text-gray-300">
-          <NavLink to="/home" text="home" setOpen={setOpen} />
-          <NavLink to="/projects" text="projects" setOpen={setOpen} />
-          <NavLink to="/interests" text="interests" setOpen={setOpen} />
-          <NavLink to="/about" text="about" setOpen={setOpen} />
+          {navLinks.map(n =>
+            <NavLink
+              key={n}
+              to={`/${n}`}
+              text={n}
+              setOpen={setOpen}
+              activeClass={navLinkActiveClasses}
+              inactiveClass={navLinkInactiveClasses}
+              addSlash={true}
+            />)
+          }
         </div>
 
       </div>

@@ -3,30 +3,36 @@ import { FaGithub, FaTelegramPlane, FaTwitter } from "react-icons/fa"
 import { GiBrain,GiHearts } from "react-icons/gi"
 import { HiMail } from "react-icons/hi"
 import { TbLicense } from "react-icons/tb"
-import { Link, NavLink } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 import packageInfo from "../../../package.json"
+
+import NavLink from "./NavLink"
 
 const Footer : FC = () => {
 
   const iconsClasses = "hover:text-gray-100 transition-all duration-700 hover:mx-2 hover:text-3xl hover:-mt-2"
 
-  const navLinkActiveClasses = "font-mono pl-1 text-gray-300 bg-gradient-to-r from-gray-400 to-transparent bg-no-repeat bg-[size:100%_20%] bg-[position:0_88%] transition-all duration-700"
+  const navLinks = [ "home", "projects", "interests", "about" ]
 
-  const navLinkClasses = "font-mono pl-1 text-gray-400 hover:text-gray-200 hover:tracking-widest hover:bg-gradient-to-r hover:from-gray-600 hover:to-transparent bg-no-repeat bg-[size:100%_0.3em] bg-[position:0_88%] transition-all duration-700"
+  const navLinkActiveClasses = "uppercase font-mono pl-1 text-gray-300 bg-gradient-to-r from-gray-400 to-transparent bg-no-repeat bg-[size:100%_20%] bg-[position:0_88%] transition-all duration-700"
+
+  const navLinkInactiveClasses = "uppercase font-mono pl-1 text-gray-500 hover:text-gray-200 hover:tracking-widest hover:bg-gradient-to-r hover:from-gray-600 hover:to-transparent bg-no-repeat bg-[size:100%_0.3em] bg-[position:0_88%] transition-all duration-700"
 
   return (
     <div className="flex flex-col gap-8 mt-32 w-10/12 max-w-5xl m-auto h-80 bg-gray-400 bg-opacity-20 rounded-t-2xl backdrop-blur-lg shadow-xl shadow-black text-gray-400 text-center">
 
-      <div className="mt-6 flex justify-evenly items-center h-14 uppercase font-mono">
-        <NavLink to="/home" className={({ isActive } : {isActive : boolean}) => ( isActive
-          ? navLinkActiveClasses : navLinkClasses)}>home</NavLink>
-        <NavLink to="/projects" className={({ isActive } : {isActive : boolean}) => ( isActive
-          ? navLinkActiveClasses : navLinkClasses)}>projects</NavLink>
-        <NavLink to="/interests" className={({ isActive } : {isActive : boolean}) => ( isActive
-          ? navLinkActiveClasses : navLinkClasses)}>interests</NavLink>
-        <NavLink to="/about" className={({ isActive } : {isActive : boolean}) => ( isActive
-          ? navLinkActiveClasses : navLinkClasses)}>about</NavLink>
+      <div className="mt-6 flex justify-evenly items-center h-14">
+        {navLinks.map(n =>
+          <NavLink
+            key={n}
+            to={`/${n}`}
+            text={n}
+            activeClass={navLinkActiveClasses}
+            inactiveClass={navLinkInactiveClasses}
+            addSlash={false}
+          />)
+        }
       </div>
 
       <div className="opacity-80">
