@@ -76,7 +76,7 @@ const ProjectCard : FC<{ repository : Repository }> = ({ repository }) => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center w-80 h-72 m-6 p-0.5 text-center rounded-md bg-gradient-to-br from-gray-400 via-transparent to-bluegray-600">
+      <div className="flex items-center justify-center w-80 h-72 m-6 p-0.5 text-center bg-gray-400 bg-opacity-20 rounded-xl backdrop-blur-lg shadow-xl shadow-black">
         <Loading />
       </div>
     )
