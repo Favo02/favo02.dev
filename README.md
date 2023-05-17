@@ -1,3 +1,22 @@
+## `favo02.dev`
+
+Personal website (and portfolio), built using `React Typescript` and `Tailwind`.
+
+Deployed _(automatically)_ at [favo02.dev](https://favo02.dev).
+
+⚠️ Still work in progress ⚠️
+
+<br>
+
+### License and Credits
+
+This project is licensed under the [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/) license.
+You can copy, edit and use (also for commercial use) this software. The conditions are no warranty, attribution required (just a small link is enough) and no additional restrictions.
+
+The resources I used to build this project are linked in the [RESOURCES](RESOURCES.md) file.
+
+<br>
+
 ## Workflow
 
 ### Branching Strategy
@@ -133,3 +152,9 @@ Issues should describe and include each of the following components:
 - **Major** version: `release|major` commit types
 - **Minor** version: `feat` commit types
 - **Patch** version: `repo|build|docs|fix|style|refactor|revert` commit types
+
+### Deploy
+
+Every time a new version in bumped by GitVersion, a deploy workflow is triggered. A new **Docker image** is generated and served to the internet.
+
+_Due to the poor performances of the server, the deploy can take up to 15 minutes._
