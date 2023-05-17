@@ -1,0 +1,22 @@
+name: serve
+
+on:
+  workflow_run:
+    workflows: ["version"]
+    types:
+      - completed
+
+jobs:
+  serve:
+    name: Serve
+    runs-on: ubuntu-latest
+    steps:
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@v0.1.10
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        port: ${{ secrets.PORT }}
+        key: ${{ secrets.KEY }}
+        script: |
+          ${{ secrets.SCRIPT }}
