@@ -12,7 +12,7 @@ const Interests : FC = () => {
   const interests = [
     {
       "title": "Competitive programming",
-      "description": "I love solving complex problems as fast as possible: the only context I tolerate messy code. But when time is over I refactor it.",
+      "description": "I love solving complex problems as fast as possible: the only context where I tolerate messy code. But when time is over I refactor it.",
       "languages": "Java, Go, (Python)",
       "icons": [
         <FaJava key="Java" />,
