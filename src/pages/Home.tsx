@@ -16,7 +16,7 @@ const Home : FC = () => {
         <h4 className="text-5xl mt-6 font-light">
           <Link to="/about"><span className={`text-6xl font-bold ${underlineClass}`}>Luca</span></Link>
           <span className="mx-2"> aka </span>
-          <Link to="/projects"><span className={`text-6xl font-mono font-bold ${underlineClass}`}>favo02</span></Link>
+          <Link to="/interests"><span className={`text-6xl font-mono font-bold ${underlineClass}`}>favo02</span></Link>
         </h4>
 
         <h4 className="text-2xl mt-6 italic font-light">or should I say <Link to="/imprudenza"><span className={`pr-0.5 font-normal ${underlineClass}`}>imprudenza</span></Link>?</h4>

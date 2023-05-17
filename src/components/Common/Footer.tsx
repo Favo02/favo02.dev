@@ -1,5 +1,5 @@
 import type { FC } from "react"
-import { FaGithub, FaTelegramPlane, FaTwitter } from "react-icons/fa"
+import { FaGithub, FaInstagram, FaLinkedin, FaTelegramPlane, FaTwitter } from "react-icons/fa"
 import { GiBrain,GiHearts } from "react-icons/gi"
 import { HiMail } from "react-icons/hi"
 import { TbLicense } from "react-icons/tb"
@@ -11,7 +11,7 @@ import NavLink from "./NavLink"
 
 const Footer : FC = () => {
 
-  const iconsClasses = "hover:text-gray-100 transition-all duration-700 hover:mx-2 hover:text-3xl hover:-mt-2"
+  const iconsClasses = "hover:text-gray-100 transition-all duration-700 hover:mx-2"
 
   const navLinks = [ "home", "projects", "interests", "about" ]
 
@@ -39,21 +39,34 @@ const Footer : FC = () => {
       {/* Social links */}
       <div className="opacity-80">
         <div className="flex justify-center gap-4 text-2xl mb-2">
-          <Link to="https://github.com/Favo02" title="Github"
-            target="_blank" className={iconsClasses}><FaGithub /></Link>
+          <Link to="https://github.com/Favo02" target="_blank">
+            <FaGithub title="GitHub" className={iconsClasses} />
+          </Link>
 
-          <Link to="https://t.me/Favo02" title="Telegram"
-            target="_blank" className={iconsClasses}><FaTelegramPlane /></Link>
+          <Link to="https://linkedin.com/in/lucafavini" target="_blank">
+            <FaLinkedin title="Linkedin" className={iconsClasses} />
+          </Link>
 
-          <Link to="https://twitter.com/imprudenza" title="Twitter"
-            target="_blank" className={iconsClasses}><FaTwitter /></Link>
+          <Link to="https://twitter.com/Favos02" target="_blank">
+            <FaTwitter title="Twitter" className={iconsClasses} />
+          </Link>
+
+          <Link to="https://instagram.com/lcfvn" target="_blank">
+            <FaInstagram title="Instagram" className={iconsClasses} />
+          </Link>
+
+          <Link to="https://t.me/Favo02" target="_blank">
+            <FaTelegramPlane title="Telegram" className={iconsClasses} />
+          </Link>
+
         </div>
-        <div title="Email">
-          <span className="text-gray-500 hover:text-gray-300 transition-all duration-700">
+        <div>
+          <span className="text-gray-500 hover:text-gray-300 transition-all duration-700 group">
             <HiMail className="inline text-xl" />
-            <Link to="mailto:luca.favini.02@gmail.com" target="_blank"
-              className="underline underline-offset-4 decoration-dotted ml-1">luca.favini.02@gmail.com
-            </Link>
+            <span className="underline underline-offset-4 decoration-dotted ml-1">luca.favini.02</span>
+            <span className="italic"> AT </span>
+            <span className="underline underline-offset-4 decoration-dotted">gmail.com</span>
+            <div className="absolute text-center w-full  opacity-0 group-hover:opacity-100 m-auto transition-all duration-700">Dumb and bot filter: if you can&apos;t correctly understand this email you shouldn&apos;t contact me.</div>
           </span>
         </div>
       </div>

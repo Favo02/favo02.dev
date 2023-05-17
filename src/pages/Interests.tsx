@@ -49,7 +49,7 @@ const Interests : FC = () => {
   ]
 
   return (
-    <div className="w-10/12 max-w-5xl m-auto mt-12 mb-20 text-gray-200 divide-y-2 divide-bluegray-600/50 divide-dashed  bg-gray-400 bg-opacity-20 rounded-xl backdrop-blur-lg shadow-xl shadow-black">
+    <div className="w-10/12 max-w-6xl m-auto mt-12 mb-20 text-gray-200 divide-y-2 divide-bluegray-600/50 divide-dashed  bg-gray-400 bg-opacity-20 rounded-xl backdrop-blur-lg shadow-xl shadow-black">
 
       <InterestSection interests={interests} />
 

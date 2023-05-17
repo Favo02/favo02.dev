@@ -9,7 +9,7 @@ interface content {
 }
 
 const OverlappingCards : FC<{content : content[]}> = ({ content }) => (
-  <div className="flex justify-center max-w-5xl m-auto">
+  <div className="flex justify-center max-w-6xl m-auto">
     {content.map(c => <Card key={c.title} c={c} />)}
   </div>
 )
