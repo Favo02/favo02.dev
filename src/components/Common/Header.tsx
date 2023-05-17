@@ -34,7 +34,7 @@ const Header : FC = () => {
   return (
     <div className="w-full flex justify-center items-center fixed z-10" ref={headerRef}>
 
-      <div className={`w-10/12 max-w-5xl ${isOpen ? "h-28" : "h-14"} mt-8 bg-gray-400 bg-opacity-20 rounded-xl backdrop-blur-lg drop-shadow-l transition-all duration-700 overflow-hidden`}>
+      <div className={`w-10/12 max-w-5xl ${isOpen ? "h-28" : "h-14"} mt-8 bg-gray-400 bg-opacity-20 rounded-xl backdrop-blur-lg shadow-xl shadow-black/30 transition-all duration-700 overflow-hidden`}>
 
         {/* Logo + Menu toggle */}
         <div className="flex justify-between items-center h-14">
