@@ -9,7 +9,8 @@ interface Repository {
   language : string,
   created_at : string,
   pushed_at : string,
-  svn_url : string
+  svn_url : string,
+  homepage : string
 }
 
 export default Repository

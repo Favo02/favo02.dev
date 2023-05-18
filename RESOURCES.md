@@ -5,3 +5,5 @@
 - https://codepen.io/Wking/pen/BdmpVx
 - https://cssloaders.github.io
 - https://codepen.io/william-goldsworthy/pen/JzVajj
+- https://stackoverflow.com/a/70024111/14853184
+- https://stackoverflow.com/a/73902563/14853184
