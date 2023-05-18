@@ -27,7 +27,7 @@ const InterestProjectExample : FC<{ name : string }> = ({ name }) => {
 
   if (loading || !repo) {
     return (
-      <div className="w-full h-full min-h-[calc(100vh-300px)] flex justify-center items-center">
+      <div className="flex items-center justify-center w-80 h-72 m-6 p-0.5 text-center bg-gray-400 bg-opacity-20 rounded-xl backdrop-blur-lg shadow-xl shadow-black">
         <Loading />
       </div>
     )
