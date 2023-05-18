@@ -12,7 +12,8 @@ const Projects : FC = () => (
     <div className="text-gray-500 text-center mt-6">
       <div>This page uses <Link to="https://docs.github.com/en/rest" target="_blank" className="underline">Github v3 REST API</Link>.</div>
 
-      <div className="italic mt-2">This page does not include private projects.</div>
+      <div className="italic mt-4">This page does not include private projects.</div>
+      <div className="italic">Some repositories have been filtered out (like profile README or incomplete projects). Visit my GitHub to see all.</div>
     </div>
   </div>
 )
