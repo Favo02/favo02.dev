@@ -6,6 +6,7 @@ import repositoriesService from "../../services/repositories"
 import Loading from "../Common/Loading"
 
 import FeaturedProjectCard from "./FeaturedProjectCard"
+import FetchRepositoryDetails from "./FetchRepositoryDetails"
 import ProjectCard from "./ProjectCard"
 
 const Projects : FC = () => {
@@ -54,15 +55,41 @@ const Projects : FC = () => {
   return (
     <div className="flex flex-wrap justify-center">
       <div className="w-full">
-        {featuredRepos?.map((r, i) => <FeaturedProjectCard
-          key={r.id}
-          repository={r}
-          reverse={i % 2 === 0 ? false : true}
-        />)}
+        {featuredRepos?.map((r, i) =>
+          <FetchRepositoryDetails
+            key={r.id}
+            repository={r}
+            reverse={i % 2 === 0 ? false : true}
+          >
+            {(loading, repository, reverse, collaborators, languages, additionalData) =>
+              (<FeaturedProjectCard
+                loading={loading}
+                repository={repository}
+                reverse={reverse ?? false}
+                collaborators={collaborators}
+                languages={languages}
+                additionalData={additionalData}
+              />)}
+          </FetchRepositoryDetails>
+        )}
       </div>
 
       <div className="flex flex-wrap justify-center mt-4">
-        {normalRepos?.map(r => <ProjectCard key={r.id} repository={r} />)}
+        {normalRepos?.map(r =>
+          <FetchRepositoryDetails
+            key={r.id}
+            repository={r}
+          >
+            {(loading, repository, reverse, collaborators, languages, additionalData) =>
+              (<ProjectCard
+                loading={loading}
+                repository={repository}
+                collaborators={collaborators}
+                languages={languages}
+                additionalData={additionalData}
+              />)}
+          </FetchRepositoryDetails>
+        )}
       </div>
     </div>
   )
