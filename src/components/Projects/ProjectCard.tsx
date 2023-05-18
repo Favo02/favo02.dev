@@ -1,6 +1,6 @@
 import type { FC } from "react"
 import { useEffect, useState } from "react"
-import { FaGithub } from "react-icons/fa"
+import { FaGithub, FaGlobe } from "react-icons/fa"
 import { GoGitCommit } from "react-icons/go"
 import { RiGitRepositoryCommitsLine } from "react-icons/ri"
 import { Link } from "react-router-dom"
@@ -149,10 +149,15 @@ const ProjectCard : FC<{ repository : Repository }> = ({ repository }) => {
               }
             </div>
 
-            <div className="ml-4">
+            <div className="ml-4 flex justify-center align-middle flex-row gap-0.5">
               <Link to={repository.svn_url} target="_blank">
                 <FaGithub className="text-xl text-gray-100" />
               </Link>
+              {repository.homepage &&
+                <Link to={repository.homepage} target="_blank">
+                  <FaGlobe className="text-xl text-gray-100" />
+                </Link>
+              }
             </div>
 
           </div>
