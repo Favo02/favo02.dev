@@ -1,6 +1,6 @@
 import type { FC } from "react"
-import { FaGithub, FaGlobe } from "react-icons/fa"
-import { GoGitCommit } from "react-icons/go"
+import { FaGithub, FaGlobe, FaRegStar } from "react-icons/fa"
+import { GoGitCommit, GoRepoForked } from "react-icons/go"
 import { RiGitRepositoryCommitsLine } from "react-icons/ri"
 import { Link } from "react-router-dom"
 
@@ -64,8 +64,18 @@ const RepositoryContent : FC<props> = ({ repository, languages, collaborators, a
       </div>
 
       <div className="flex justify-evenly w-full basis-1/12 italic opacity-60 -mt-1 mb-1">
+        {repository.stargazers_count > 0 &&
+          <h4 className="text-bluegray-500" title="Stars">
+            {repository.stargazers_count} <FaRegStar className="inline -mt-1" />
+          </h4>
+        }
+        {repository.forks > 0 &&
+          <h4 className="text-bluegray-500" title="Forks">
+            {repository.forks} <GoRepoForked className="inline -mt-0.5" />
+          </h4>
+        }
         <h4 className="text-bluegray-500" title="Commits">
-          {additionalData?.totalCommits} <GoGitCommit className="inline" />
+          {additionalData?.totalCommits} <GoGitCommit className="inline -mt-0.5" />
         </h4>
         <h4 className="text-bluegray-500" title="Last commit">
           {additionalData?.lastCommit.getDate()} {additionalData ? monthNames[additionalData.lastCommit.getMonth()] : ""} {additionalData?.lastCommit.getFullYear()} <RiGitRepositoryCommitsLine className="inline -mt-px" />
