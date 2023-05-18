@@ -5,21 +5,38 @@ import type Repository from "../../interfaces/Repository"
 import repositoriesService from "../../services/repositories"
 import Loading from "../Common/Loading"
 
+import FeaturedProjectCard from "./FeaturedProjectCard"
 import ProjectCard from "./ProjectCard"
 
 const Projects : FC = () => {
 
   const [loading, setLoading] = useState<boolean>(true)
-  const [repositories, setRepositories] = useState<Repository[]>()
+  const [normalRepos, setNormalRepos] = useState<Repository[]>()
+  const [featuredRepos, setFeaturedRepos] = useState<Repository[]>()
+
+  const featRepos : string[] = ["favo02.dev", "workspaces-by-open-apps"]
+  const ignoredRepos : string[] = ["Favo02", "docker-compose", "preatoni-giardini", "FullStackOpen"]
 
   useEffect(() => {
     const fetch = async () => {
       setLoading(true)
-      const repos = await repositoriesService.getAll()
-      repos.sort((a : Repository, b : Repository) => (
+      const allRepos = await repositoriesService.getAll()
+
+      const nrepos = allRepos
+        .filter((r : Repository) => !ignoredRepos.includes(r.name))
+        .filter((r : Repository) => !featRepos.includes(r.name))
+
+      const frepos = allRepos
+        .filter((r : Repository) => !ignoredRepos.includes(r.name))
+        .filter((r : Repository) => featRepos.includes(r.name))
+
+      nrepos.sort((a : Repository, b : Repository) => (
         new Date(b.pushed_at).valueOf() - new Date(a.pushed_at).valueOf())
       )
-      setRepositories(repos)
+
+      setNormalRepos(nrepos)
+      setFeaturedRepos(frepos)
+
       setLoading(false)
     }
 
@@ -35,8 +52,18 @@ const Projects : FC = () => {
   }
 
   return (
-    <div className="flex flex-wrap justify-center mt-6">
-      {repositories?.map(repository => <ProjectCard key={repository.id} repository={repository} />)}
+    <div className="flex flex-wrap justify-center">
+      <div className="w-full">
+        {featuredRepos?.map((r, i) => <FeaturedProjectCard
+          key={r.id}
+          repository={r}
+          reverse={i % 2 === 0 ? false : true}
+        />)}
+      </div>
+
+      <div className="flex flex-wrap justify-center mt-4">
+        {normalRepos?.map(r => <ProjectCard key={r.id} repository={r} />)}
+      </div>
     </div>
   )
 }
