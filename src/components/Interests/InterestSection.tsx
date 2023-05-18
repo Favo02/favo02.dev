@@ -1,4 +1,5 @@
 import type { FC } from "react"
+import { Link } from "react-router-dom"
 
 import InterestProjectExample from "./InterestProjectExample"
 import ScrollingIcons from "./ScrollingIcons"
@@ -23,8 +24,17 @@ const InterestSection : FC<{interests : props[]}> = ({ interests }) => (
         <p className="text-xl w-7/12 m-auto my-6 text-gray-400 group-hover:text-gray-200 transition-all duration-700">{i.description}</p>
         <p className="font-mono text-gray-500">{i.languages}</p>
 
-        <div className="opacity-0 h-0 group-hover:h-80 group-hover:opacity-100 transition-all duration-700 flex justify-center">
-          {i.projects.map(p => <InterestProjectExample key={p} name={p} />)}
+        <div className="opacity-0 h-0 group-hover:h-[22rem] group-hover:opacity-100 transition-all duration-700">
+          <div className="flex justify-center">
+            {i.projects.map(p => <InterestProjectExample key={p} name={p} />)}
+          </div>
+          <p className="italic text-gray-600">
+            And more... Visit
+            <Link to="/projects">
+              <span className="font-mono text-gray-400 tracking-tighter mx-2">/projects</span>
+            </Link>
+            page to view all projects.
+          </p>
         </div>
 
         <ScrollingIcons repeat={i.iconsRepeat} delay={false} position="left-3">
