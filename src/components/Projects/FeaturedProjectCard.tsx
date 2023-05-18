@@ -40,6 +40,7 @@ const FeaturedProjectCard : FC<props> = ({ loading, repository, reverse, collabo
           languages={languages}
           collaborators={collaborators}
           additionalData={additionalData}
+          customClasses="!w-5/6"
         />
       </div>
 

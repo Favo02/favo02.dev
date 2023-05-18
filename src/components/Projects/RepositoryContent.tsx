@@ -12,15 +12,16 @@ interface props {
   repository : Repository,
   languages ?: Language[],
   collaborators ?: Collaborator[],
-  additionalData ?: {totalCommits : number, lastCommit : Date}
+  additionalData ?: {totalCommits : number, lastCommit : Date},
+  customClasses ?: string
 }
 
-const RepositoryContent : FC<props> = ({ repository, languages, collaborators, additionalData }) => {
+const RepositoryContent : FC<props> = ({ repository, languages, collaborators, additionalData, customClasses }) => {
 
   const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
   return (
-    <div className="m-auto w-5/6 h-full py-4 px-2 flex items-center justify-center flex-col">
+    <div className={`m-auto w-full h-full py-4 px-2 flex items-center justify-center flex-col ${customClasses}`}>
 
       <div className="basis-3/12 mb-4">
         <h1 className="text-2xl font-black text-gray-100 capitalize">{repository.name.replaceAll("-", " ")}</h1>
