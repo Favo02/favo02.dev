@@ -10,7 +10,9 @@ interface Repository {
   created_at : string,
   pushed_at : string,
   svn_url : string,
-  homepage : string
+  homepage : string,
+  stargazers_count : number,
+  forks : number
 }
 
 export default Repository

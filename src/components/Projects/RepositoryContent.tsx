@@ -1,6 +1,6 @@
 import type { FC } from "react"
-import { FaGithub, FaGlobe } from "react-icons/fa"
-import { GoGitCommit } from "react-icons/go"
+import { FaGithub, FaGlobe, FaRegStar } from "react-icons/fa"
+import { GoGitCommit, GoRepoForked } from "react-icons/go"
 import { RiGitRepositoryCommitsLine } from "react-icons/ri"
 import { Link } from "react-router-dom"
 
@@ -12,15 +12,16 @@ interface props {
   repository : Repository,
   languages ?: Language[],
   collaborators ?: Collaborator[],
-  additionalData ?: {totalCommits : number, lastCommit : Date}
+  additionalData ?: {totalCommits : number, lastCommit : Date},
+  customClasses ?: string
 }
 
-const RepositoryContent : FC<props> = ({ repository, languages, collaborators, additionalData }) => {
+const RepositoryContent : FC<props> = ({ repository, languages, collaborators, additionalData, customClasses }) => {
 
   const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
   return (
-    <div className="m-auto w-5/6 h-full py-4 px-2 flex items-center justify-center flex-col">
+    <div className={`m-auto w-full h-full py-4 px-2 flex items-center justify-center flex-col ${customClasses}`}>
 
       <div className="basis-3/12 mb-4">
         <h1 className="text-2xl font-black text-gray-100 capitalize">{repository.name.replaceAll("-", " ")}</h1>
@@ -64,8 +65,18 @@ const RepositoryContent : FC<props> = ({ repository, languages, collaborators, a
       </div>
 
       <div className="flex justify-evenly w-full basis-1/12 italic opacity-60 -mt-1 mb-1">
+        {repository.stargazers_count > 0 &&
+          <h4 className="text-bluegray-500" title="Stars">
+            {repository.stargazers_count} <FaRegStar className="inline -mt-1" />
+          </h4>
+        }
+        {repository.forks > 0 &&
+          <h4 className="text-bluegray-500" title="Forks">
+            {repository.forks} <GoRepoForked className="inline -mt-0.5" />
+          </h4>
+        }
         <h4 className="text-bluegray-500" title="Commits">
-          {additionalData?.totalCommits} <GoGitCommit className="inline" />
+          {additionalData?.totalCommits} <GoGitCommit className="inline -mt-0.5" />
         </h4>
         <h4 className="text-bluegray-500" title="Last commit">
           {additionalData?.lastCommit.getDate()} {additionalData ? monthNames[additionalData.lastCommit.getMonth()] : ""} {additionalData?.lastCommit.getFullYear()} <RiGitRepositoryCommitsLine className="inline -mt-px" />

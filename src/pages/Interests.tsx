@@ -19,7 +19,8 @@ const Interests : FC = () => {
         <TbBrandGolang key="Go" />,
         <FaPython key="Python" />
       ],
-      iconsRepeat: 2
+      "iconsRepeat": 4,
+      "projects": ["advent-of-code", "cloudflight-coding-contest-2023"]
     },
     {
       "title": "Full stack web development",
@@ -34,7 +35,8 @@ const Interests : FC = () => {
         <SiMongodb key="Mongo" />,
         <SiPostgresql key="Postgres" />
       ],
-      iconsRepeat: 1
+      "iconsRepeat": 2,
+      "projects": ["favo02.dev"]
     },
     {
       "title": "Open source software",
@@ -44,7 +46,8 @@ const Interests : FC = () => {
         <FaJava key="Java" />,
         <TbBrandJavascript key="Javascript" />
       ],
-      iconsRepeat: 3
+      "iconsRepeat": 6,
+      "projects": ["workspaces-by-open-apps", "java-algorithms-and-structures"]
     },
   ]
 
