@@ -85,19 +85,16 @@ const RepositoryContent : FC<props> = ({ repository, languages, collaborators, a
             }
           </div>
 
-          <div className="ml-4">
+          <div className="flex justify-center align-middle flex-row ml-4">
             <Link to={repository.svn_url} target="_blank">
               <FaGithub className="text-xl text-gray-100" />
             </Link>
-          </div>
-
-          {repository.homepage &&
-            <div className="ml-4">
-              <Link to={repository.homepage} target="_blank">
+            {repository.homepage &&
+              <Link to={repository.homepage} target="_blank" className="mx-0.5">
                 <FaGlobe className="text-xl text-gray-100" />
               </Link>
-            </div>
-          }
+            }
+          </div>
 
         </div>
       </div>
