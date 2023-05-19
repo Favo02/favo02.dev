@@ -160,22 +160,17 @@
   }
 }
 
-/* Languages scrolling animation */
+/* Buonce icons animation */
 
-.scrolling-animation {
-  animation: scrolling 8s linear infinite;
+.bounce-animation {
+  animation: buonce 5s ease-in-out infinite;
 }
 
-.scrolling-animation-delay {
-  animation: scrolling 8s linear infinite;
-  animation-delay: 2s;
-}
-
-@keyframes scrolling {
-  0% {
-    top: -120%;
+@keyframes buonce {
+  0%, 100% {
+    top: -40px;
   }
-  100% {
-    top: 120%;
+  50% {
+    top: 0px;
   }
 }
