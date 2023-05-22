@@ -6,7 +6,7 @@ import roundtext from "../../assets/images/about/RoundText.png"
 
 const BioPicture : FC = () => (
   <div
-    className="float-right w-96 h-96 relative group rounded-full m-10"
+    className="float-right w-80 h-80 relative group rounded-full m-4"
     style={{ shapeOutside: "circle()" }}
   >
     <img className="absolute rounded-full" src={propic1} />
