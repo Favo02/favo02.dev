@@ -7,9 +7,17 @@ import InterestSection from "../components/Interests/InterestSection"
 
 import "../assets/styles/animations.css"
 
+interface Interest {
+  title : string,
+  description : string,
+  languages : string,
+  icons : React.ReactNode[],
+  projects : string[]
+}
+
 const Interests : FC = () => {
 
-  const interests = [
+  const interests : Interest[] = [
     {
       "title": "Competitive programming",
       "description": "I love solving complex problems as fast as possible: the only context where I tolerate messy code. But when time is over I refactor it.",
@@ -19,7 +27,6 @@ const Interests : FC = () => {
         <TbBrandGolang key="Go" />,
         <FaPython key="Python" />
       ],
-      "iconsRepeat": 4,
       "projects": ["advent-of-code", "cloudflight-coding-contest-2023"]
     },
     {
@@ -35,7 +42,6 @@ const Interests : FC = () => {
         <SiMongodb key="Mongo" />,
         <SiPostgresql key="Postgres" />
       ],
-      "iconsRepeat": 2,
       "projects": ["favo02.dev"]
     },
     {
@@ -46,7 +52,6 @@ const Interests : FC = () => {
         <FaJava key="Java" />,
         <TbBrandJavascript key="Javascript" />
       ],
-      "iconsRepeat": 6,
       "projects": ["workspaces-by-open-apps", "java-algorithms-and-structures"]
     }
   ]
