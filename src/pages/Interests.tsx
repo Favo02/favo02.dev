@@ -48,7 +48,7 @@ const Interests : FC = () => {
       ],
       "iconsRepeat": 6,
       "projects": ["workspaces-by-open-apps", "java-algorithms-and-structures"]
-    },
+    }
   ]
 
   return (

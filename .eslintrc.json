@@ -82,6 +82,7 @@
           ["^.+\\.?(css)$"]
         ]
       }
-    ]
+    ],
+    "comma-dangle": ["error", "never"]
   }
 }
