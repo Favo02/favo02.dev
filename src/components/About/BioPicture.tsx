@@ -1,8 +1,8 @@
 import type { FC } from "react"
 
-import propic1 from "../../assets/images/about/Propic1.jpg"
-import propic2 from "../../assets/images/about/Propic2.jpg"
-import roundtext from "../../assets/images/about/RoundText.png"
+import propic1 from "../../assets/images/about/Propic1.webp"
+import propic2 from "../../assets/images/about/Propic2.webp"
+import roundtext from "../../assets/images/about/RoundText.webp"
 
 const BioPicture : FC = () => (
   <div

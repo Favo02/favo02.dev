@@ -46,7 +46,7 @@ const FeaturedProjectCard : FC<props> = ({ loading, repository, reverse, collabo
 
       <Link to={repository.homepage} target="_blank" className="w-1/2 h-full flex justify-center items-center">
         <div className="relative w-11/12 h-[260px] rounded-xl overflow-hidden shadow-md shadow-black/50">
-          <DynamicImage fileName={`featured/${repository.name}.jpg`} alt="Preview" className="group-hover:translate-y-[calc(-100%+260px)] translate-y-0 transition-transform duration-[3s] opacity-70" />
+          <DynamicImage fileName={`featured/${repository.name}.webp`} alt="Preview" className="group-hover:translate-y-[calc(-100%+260px)] translate-y-0 transition-transform duration-[3s] opacity-70" />
         </div>
         <div className="absolute flex justify-center items-center w-24 h-24 bg-black/80 rounded-full group-hover:opacity-100 opacity-0 transition-all duration-700">
           <h1 className="text-white">Visit now</h1>
