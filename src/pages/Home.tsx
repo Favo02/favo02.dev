@@ -19,7 +19,7 @@ const Home : FC = () => {
           <Link to="/interests"><span className={`text-6xl font-mono font-bold ${underlineClass}`}>favo02</span></Link>
         </h4>
 
-        <h4 className="text-2xl mt-6 italic font-light">or should I say <Link to="/imprudenza"><span className={`pr-0.5 font-normal ${underlineClass}`}>imprudenza</span></Link>?</h4>
+        <h4 className="text-2xl mt-6 italic font-light">or should I say <Link to="/about"><span className={`pr-0.5 font-normal ${underlineClass}`}>imprudenza</span></Link>?</h4>
 
       </div>
 
