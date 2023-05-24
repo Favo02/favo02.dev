@@ -57,11 +57,14 @@ const Interests : FC = () => {
   ]
 
   return (
-    <div className="w-10/12 max-w-6xl m-auto mt-12 mb-20 text-gray-200 divide-y-2 divide-bluegray-600/50 divide-dashed  bg-gray-400 bg-opacity-20 rounded-xl backdrop-blur-lg shadow-xl shadow-black">
+    <>
+      <h4 className="mt-4 text-2xl text-gray-200 text-center">My tech <span className="font-bold bg-gradient-to-r from-gray-400 via-bluegray-600 to-transparent bg-no-repeat bg-[size:100%_15%] bg-[position:0_98%]">interests</span>.</h4>
 
-      <InterestSection interests={interests} />
 
-    </div>
+      <div className="w-10/12 max-w-6xl m-auto mt-12 mb-20 text-gray-200 divide-y-2 divide-bluegray-600/50 divide-dashed  bg-gray-400 bg-opacity-20 rounded-xl backdrop-blur-lg shadow-xl shadow-black">
+        {interests.map(i => <InterestSection interest={i} key={i.title} />)}
+      </div>
+    </>
   )
 }
 
