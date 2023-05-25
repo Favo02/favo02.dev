@@ -19,7 +19,7 @@ const Projects : FC = () => {
 
     const featRepos : string[] = ["favo02.dev", "workspaces-by-open-apps"]
 
-    const ignoredRepos : string[] = ["Favo02", "docker-compose", "preatoni-giardini", "FullStackOpen"]
+    const ignoredRepos : string[] = ["Favo02", "preatoni-giardini", "FullStackOpen"]
 
     const fetch = async () => {
       setLoading(true)
