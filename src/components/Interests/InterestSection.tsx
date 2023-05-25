@@ -33,7 +33,8 @@ const InterestSection : FC<{interest : props}> = ({ interest }) => {
     <div
       ref={ref} key={interest.title}
       onClick={() => setOpen(!isOpen)}
-      className="relative flex flex-col w-full py-8 text-center overflow-hidden group transition-all duration-700">
+      className="cursor-pointer relative flex flex-col w-full py-8 text-center overflow-hidden group transition-all duration-700">
+
       <h2 className="text-2xl uppercase font-bold">
         <span className="bg-gradient-to-r from-gray-400 to-bluegray-600 bg-no-repeat bg-[size:80%_30%] bg-[position:50%_97%] group-hover:bg-[size:100%_30%] group-hover:bg-[position:0%_97%] transition-all duration-700">{interest.title}</span>
       </h2>
