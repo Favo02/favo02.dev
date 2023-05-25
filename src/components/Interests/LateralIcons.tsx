@@ -19,8 +19,8 @@ const LateralIcons : FC<Props> = ({ children, position, height }) => {
   const repeat = ((height + CARD_HEIGHT) / CHILDREN_HEIGHT) + 1
 
   const render = []
-  for (let i = 0; i < repeat; i++) {
-    render.push(children)
+  for (let ri = 0; ri < repeat; ri++) {
+    render.push(children.map((icon, i) => <div className="my-1" key={`${ri}-${i}`}>{icon}</div>))
   }
 
   return (
