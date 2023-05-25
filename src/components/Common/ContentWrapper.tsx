@@ -41,10 +41,9 @@ const ContentWrapper : FC = () => {
         }}
         clickables={[
           "a",
-          ".pointer"
+          ".cursor-pointer"
         ]}
         showSystemCursor={true}
-        showSystemCursorOnClickable={true}
       />
     </>
   )

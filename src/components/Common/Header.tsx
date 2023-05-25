@@ -48,7 +48,7 @@ const Header : FC = () => {
             </div>
           </Link>
 
-          <div className="pointer pr-4 pl-4 h-full flex items-center" onClick={() => setOpen(!isOpen)}>
+          <div className="cursor-pointer pr-4 pl-4 h-full flex items-center" onClick={() => setOpen(!isOpen)}>
             <h1 className="text-gray-300 tracking-[4px]">MENU</h1>
             <MenuButton isOpen={isOpen} />
           </div>
