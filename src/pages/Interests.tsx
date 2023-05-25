@@ -1,6 +1,7 @@
 import type { FC } from "react"
-import { FaJava, FaPython } from "react-icons/fa"
-import { SiExpress, SiMongodb, SiPostgresql,SiReact, SiTailwindcss } from "react-icons/si"
+import { FaDocker, FaJava, FaPython } from "react-icons/fa"
+import { IoMdFlag } from "react-icons/io"
+import { SiC, SiExpress, SiGnubash, SiMongodb, SiPostgresql,SiReact, SiTailwindcss } from "react-icons/si"
 import { TbBrandGolang, TbBrandJavascript,TbBrandTypescript } from "react-icons/tb"
 
 import InterestSection from "../components/Interests/InterestSection"
@@ -53,6 +54,18 @@ const Interests : FC = () => {
         <TbBrandJavascript key="Javascript" />
       ],
       "projects": ["workspaces-by-open-apps", "java-algorithms-and-structures"]
+    },
+    {
+      "title": "Learning...",
+      "description": "I'm always looking forward to learning and practicing new things: currently experimenting with an old PC turned into an Home Server (hosting this!) and Docker. From time to time I love to catch some flags in Security CTFs (process interaction with C and shell injection in x86-64 assembly are my favourites).",
+      "languages": "Docker, Bash, C, x86-64",
+      "icons": [
+        <FaDocker key="docker" />,
+        <SiGnubash key="bash" />,
+        <IoMdFlag key="ctf" />,
+        <SiC key="c" />
+      ],
+      "projects": ["docker-compose"]
     }
   ]
 
