@@ -15,7 +15,7 @@ const LateralLinks : FC = () => {
       <div className="w-px h-40 border border-gray-700" />
 
       <div
-        className="pointer py-4 text-gray-600 hover:text-bluegray-200 transition-all duration-700"
+        className="cursor-pointer py-4 text-gray-600 hover:text-bluegray-200 transition-all duration-700"
         onClick={() => window.scrollTo(0, 0)}
         title="Scroll to top"
       >
