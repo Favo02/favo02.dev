@@ -65,7 +65,7 @@ const FetchRepositoryDetails : FC<props> = ({ children, repository, reverse }) =
     fetchCollaborators()
     fetchLanguages()
 
-  }, [])
+  }, [repository.full_name])
 
   // calculate additional data (commits, last commit), triggered at collaborators load
   useEffect(() => {
@@ -79,7 +79,7 @@ const FetchRepositoryDetails : FC<props> = ({ children, repository, reverse }) =
     setAdditionalData({ totalCommits: commits, lastCommit })
 
     setLoading(false)
-  }, [collaborators])
+  }, [collaborators, repository.pushed_at])
 
   return (
     <>{children(loading, repository, reverse ?? undefined, collaborators, languages, additionalData)}</>

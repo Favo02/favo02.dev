@@ -15,10 +15,12 @@ const Projects : FC = () => {
   const [normalRepos, setNormalRepos] = useState<Repository[]>()
   const [featuredRepos, setFeaturedRepos] = useState<Repository[]>()
 
-  const featRepos : string[] = ["favo02.dev", "workspaces-by-open-apps"]
-  const ignoredRepos : string[] = ["Favo02", "docker-compose", "preatoni-giardini", "FullStackOpen"]
-
   useEffect(() => {
+
+    const featRepos : string[] = ["favo02.dev", "workspaces-by-open-apps"]
+
+    const ignoredRepos : string[] = ["Favo02", "preatoni-giardini", "FullStackOpen"]
+
     const fetch = async () => {
       setLoading(true)
       const allRepos = await repositoriesService.getAll()

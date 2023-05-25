@@ -23,7 +23,7 @@ const InterestProjectExample : FC<{ name : string }> = ({ name }) => {
     }
 
     fetch()
-  }, [])
+  }, [name])
 
   if (loading || !repo) {
     return (

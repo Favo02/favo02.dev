@@ -30,6 +30,7 @@ const Home : FC = () => {
             <span className={`text-bluegray-100 italic ${underlineClass}`}>unimi</span>
           </Link>
         </h1>
+        <h3 className="italic text-xl text-gray-300 text-center mt-2 font-light">My full experience can be found in the <Link to="/about" className="font-normal underline decoration-dotted underline-offset-2">about</Link> page.</h3>
       </div>
 
       <div className="mt-20">
