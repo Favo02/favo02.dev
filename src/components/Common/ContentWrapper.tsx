@@ -10,6 +10,7 @@ import LateralLinks from "./LateralLinks"
 import Loading from "./Loading"
 import PagePath from "./PagePath"
 import ResetScroll from "./ResetScroll"
+import Scrollbar from "./Scrollbar"
 
 const ContentWrapper : FC = () => {
 
@@ -29,12 +30,17 @@ const ContentWrapper : FC = () => {
 
   return (
     <ResetScroll>
+
       <Header />
       <PagePath />
       <Outlet />
       <LateralInfo />
       <LateralLinks />
       <Footer />
+
+      <Scrollbar customClasses="left-0" />
+      <Scrollbar customClasses="right-0" />
+
       <AnimatedCursor
         color="159, 179, 200"
         innerSize={8}
@@ -51,6 +57,7 @@ const ContentWrapper : FC = () => {
         ]}
         showSystemCursor={true}
       />
+
     </ResetScroll>
   )
 }
