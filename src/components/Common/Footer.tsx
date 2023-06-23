@@ -73,7 +73,7 @@ const Footer : FC = () => {
 
       {/* Author, Version */}
       <div className="opacity-80">
-        <h1 className="text-lg">Build with <GiHearts className="inline" /> and <GiBrain className="inline" /> by Luca Favini</h1>
+        <h1 className="text-lg">Built with <GiHearts className="inline" /> and <GiBrain className="inline" /> by Luca Favini</h1>
         <h2 className="text-gray-500 text-sm">v{packageInfo.version} - 2023</h2>
       </div>
 
