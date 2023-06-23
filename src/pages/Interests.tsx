@@ -43,7 +43,7 @@ const Interests : FC = () => {
         <SiMongodb key="Mongo" />,
         <SiPostgresql key="Postgres" />
       ],
-      "projects": ["favo02.dev"]
+      "projects": ["favo02.dev", "social-network-for-music"]
     },
     {
       "title": "Open source software",
