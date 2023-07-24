@@ -38,7 +38,7 @@ const InterestSection : FC<{interest : Interest}> = ({ interest }) => {
 
       <div className={`${isOpen ? "h-[22rem] opacity-100" : "h-0 opacity-0"} transition-all duration-700`}>
         <div className="flex justify-center">
-          {interest.projects.map(p => <InterestProjectExample key={p} name={p} />)}
+          {interest.projects.map(p => <InterestProjectExample key={p.name} name={p.name} user={p.owner} />)}
         </div>
         <p className="italic text-gray-600">
           And more... Visit
