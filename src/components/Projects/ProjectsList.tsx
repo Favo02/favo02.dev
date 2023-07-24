@@ -19,7 +19,7 @@ const Projects : FC = () => {
 
     const featRepos : string[] = ["favo02.dev", "social-network-for-music", "workspaces-by-open-apps"]
 
-    const ignoredRepos : string[] = ["Favo02", "preatoni-giardini", "FullStackOpen"]
+    const ignoredRepos : string[] = ["Favo02", ".github", "preatoni-giardini", "FullStackOpen"]
 
     const fetch = async () => {
       setLoading(true)
