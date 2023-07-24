@@ -4,13 +4,13 @@ import axios from "axios"
 // backend needed to proxy requests
 const baseUrl = "https://api.github.com"
 
-const getAll = async () => {
-  const res = await axios.get(`${baseUrl}/users/Favo02/repos`)
+const getAll = async (user : string) => {
+  const res = await axios.get(`${baseUrl}/users/${user}/repos`)
   return res.data
 }
 
-const get = async (name : string) => {
-  const res = await axios.get(`${baseUrl}/repos/Favo02/${name}`)
+const get = async (name : string, user : string) => {
+  const res = await axios.get(`${baseUrl}/repos/${user}/${name}`)
   return res.data
 }
 

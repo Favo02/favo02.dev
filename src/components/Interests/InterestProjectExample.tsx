@@ -7,7 +7,7 @@ import Loading from "../Common/Loading"
 import FetchRepositoryDetails from "../Projects/FetchRepositoryDetails"
 import ProjectCard from "../Projects/ProjectCard"
 
-const InterestProjectExample : FC<{ name : string }> = ({ name }) => {
+const InterestProjectExample : FC<{ name : string, user : string }> = ({ name, user }) => {
 
   const [loading, setLoading] = useState<boolean>(true)
   const [repo, setRepo] = useState<Repository>()
@@ -15,7 +15,7 @@ const InterestProjectExample : FC<{ name : string }> = ({ name }) => {
   useEffect(() => {
     const fetch = async () => {
       setLoading(true)
-      const repo = await repositoriesService.get(name)
+      const repo = await repositoriesService.get(name, user)
 
       setRepo(repo)
 
@@ -23,7 +23,7 @@ const InterestProjectExample : FC<{ name : string }> = ({ name }) => {
     }
 
     fetch()
-  }, [name])
+  }, [name, user])
 
   if (loading || !repo) {
     return (

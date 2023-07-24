@@ -23,7 +23,7 @@ const Projects : FC = () => {
 
     const fetch = async () => {
       setLoading(true)
-      const allRepos = await repositoriesService.getAll()
+      const allRepos = [...await repositoriesService.getAll("Favo02"), ...await repositoriesService.getAll("Favo02-unimi")]
 
       const nrepos = allRepos
         .filter((r : Repository) => !ignoredRepos.includes(r.name))

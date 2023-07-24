@@ -5,16 +5,9 @@ import { SiC, SiExpress, SiGnubash, SiMongodb, SiPostgresql,SiReact, SiTailwindc
 import { TbBrandGolang, TbBrandJavascript,TbBrandTypescript } from "react-icons/tb"
 
 import InterestSection from "../components/Interests/InterestSection"
+import type Interest from "../interfaces/Interest"
 
 import "../assets/styles/animations.css"
-
-interface Interest {
-  title : string,
-  description : string,
-  languages : string,
-  icons : React.ReactNode[],
-  projects : string[]
-}
 
 const Interests : FC = () => {
 
@@ -28,7 +21,7 @@ const Interests : FC = () => {
         <TbBrandGolang key="Go" />,
         <FaPython key="Python" />
       ],
-      "projects": ["advent-of-code", "cloudflight-coding-contest-2023"]
+      "projects": [{ name: "advent-of-code", owner: "Favo02" }, { name: "cloudflight-coding-contest-2023", owner: "Favo02" }]
     },
     {
       "title": "Full stack web development",
@@ -43,7 +36,7 @@ const Interests : FC = () => {
         <SiMongodb key="Mongo" />,
         <SiPostgresql key="Postgres" />
       ],
-      "projects": ["favo02.dev", "social-network-for-music"]
+      "projects": [{ name: "favo02.dev", owner: "Favo02" }, { name: "social-network-for-music", owner: "Favo02-unimi" }]
     },
     {
       "title": "Open source software",
@@ -53,7 +46,7 @@ const Interests : FC = () => {
         <FaJava key="Java" />,
         <TbBrandJavascript key="Javascript" />
       ],
-      "projects": ["workspaces-by-open-apps", "java-algorithms-and-structures"]
+      "projects": [{ name: "workspaces-by-open-apps", owner: "Favo02" }, { name: "java-algorithms-and-structures", owner: "Favo02" }]
     },
     {
       "title": "Learning...",
@@ -65,7 +58,7 @@ const Interests : FC = () => {
         <IoMdFlag key="ctf" />,
         <SiC key="c" />
       ],
-      "projects": ["docker-compose"]
+      "projects": [{ name: "docker-compose", owner: "Favo02" }]
     }
   ]
 

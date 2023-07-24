@@ -3,18 +3,12 @@ import React, { useEffect, useRef,useState } from "react"
 import { BsArrowsCollapse, BsArrowsExpand } from "react-icons/bs"
 import { Link } from "react-router-dom"
 
+import type Interest from "../../interfaces/Interest"
+
 import InterestProjectExample from "./InterestProjectExample"
 import LateralIcons from "./LateralIcons"
 
-interface props {
-  title : string,
-  description : string,
-  languages : string,
-  icons : React.ReactNode[],
-  projects : string[]
-}
-
-const InterestSection : FC<{interest : props}> = ({ interest }) => {
+const InterestSection : FC<{interest : Interest}> = ({ interest }) => {
 
   const [isOpen, setOpen] = useState(false)
 
@@ -44,7 +38,7 @@ const InterestSection : FC<{interest : props}> = ({ interest }) => {
 
       <div className={`${isOpen ? "h-[22rem] opacity-100" : "h-0 opacity-0"} transition-all duration-700`}>
         <div className="flex justify-center">
-          {interest.projects.map(p => <InterestProjectExample key={p} name={p} />)}
+          {interest.projects.map(p => <InterestProjectExample key={p.name} name={p.name} user={p.owner} />)}
         </div>
         <p className="italic text-gray-600">
           And more... Visit
