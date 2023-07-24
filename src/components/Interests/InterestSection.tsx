@@ -3,18 +3,12 @@ import React, { useEffect, useRef,useState } from "react"
 import { BsArrowsCollapse, BsArrowsExpand } from "react-icons/bs"
 import { Link } from "react-router-dom"
 
+import type Interest from "../../interfaces/Interest"
+
 import InterestProjectExample from "./InterestProjectExample"
 import LateralIcons from "./LateralIcons"
 
-interface props {
-  title : string,
-  description : string,
-  languages : string,
-  icons : React.ReactNode[],
-  projects : string[]
-}
-
-const InterestSection : FC<{interest : props}> = ({ interest }) => {
+const InterestSection : FC<{interest : Interest}> = ({ interest }) => {
 
   const [isOpen, setOpen] = useState(false)
 
