@@ -9,13 +9,13 @@ interface content {
 }
 
 const OverlappingCards : FC<{content : content[]}> = ({ content }) => (
-  <div className="flex justify-center max-w-6xl m-auto">
+  <div className="flex flex-col md:flex-row justify-center max-w-6xl m-auto">
     {content.map(c => <Card key={c.title} c={c} />)}
   </div>
 )
 
 const Card : FC<{ c : content }> = ({ c }) => (
-  <div className="flex flex-col relative h-72 w-full bg-gray-400 bg-opacity-20 backdrop-blur-lg rounded-xl -ml-12 first:ml-0 shadow-xl shadow-black hover:-translate-y-5 group/card left-0 peer peer-hover:left-10 transition-all duration-700">
+  <div className="flex flex-col relative h-80 md:h-72 w-full mb-6 md:mb-0 bg-gray-400 bg-opacity-20 backdrop-blur-lg rounded-xl md:-ml-12 md:first:ml-0 shadow-xl shadow-black md:hover:-translate-y-5 group/card left-0 peer md:peer-hover:left-10 transition-all duration-700">
     <h3 className="basis-1/6 text-2xl font-bold text-gray-100 ml-5 mt-5">{c.title}</h3>
 
     <div className="basis-1/6 relative mx-auto max-h-1 w-5/6">
