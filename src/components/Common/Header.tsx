@@ -33,14 +33,10 @@ const Header : FC = () => {
 
   const navLinks = [ "home", "projects", "interests", "about" ]
 
-  const navLinkActiveClasses = "font-mono pl-1 text-gray-100 bg-gradient-to-r from-gray-400 to-transparent bg-no-repeat bg-[size:100%_20%] bg-[position:0_88%] transition-all duration-700"
-
-  const navLinkInactiveClasses = "font-mono pl-1 text-gray-300 hover:text-gray-100 hover:tracking-widest hover:bg-gradient-to-r hover:from-gray-600 hover:to-transparent bg-no-repeat bg-[size:100%_0.3em] bg-[position:0_88%] transition-all duration-700"
-
   return (
     <div className="w-full flex justify-center items-center fixed z-10" ref={headerRef}>
 
-      <div className={`w-10/12 max-w-5xl ${isOpen ? "h-28" : "h-14"} mt-8 bg-gray-400 bg-opacity-20 rounded-xl backdrop-blur-lg shadow-xl shadow-black/30 transition-all duration-700 overflow-hidden`}>
+      <div className={`w-10/12 max-w-5xl ${isOpen ? "h-60 md:h-28" : "h-14"} mt-8 bg-gray-400 bg-opacity-20 rounded-xl backdrop-blur-lg shadow-xl shadow-black/30 transition-all duration-700 overflow-hidden`}>
 
         {/* Logo + Menu toggle */}
         <div className="flex justify-between items-center h-14">
@@ -61,15 +57,15 @@ const Header : FC = () => {
         </div>
 
         {/* Menu */}
-        <div className="flex justify-evenly items-center h-14 text-gray-300">
+        <div className="flex flex-col md:flex-row justify-start md:justify-evenly items-center h-full md:h-14 text-gray-300">
           {navLinks.map(n =>
             <NavLink
               key={n}
               to={`/${n}`}
               text={n}
               setOpen={setOpen}
-              activeClass={navLinkActiveClasses}
-              inactiveClass={navLinkInactiveClasses}
+              activeClass="text-xl md:text-base mt-3 md:mt-0 font-mono pl-1 text-gray-100 bg-gradient-to-r from-gray-400 to-transparent bg-no-repeat bg-[size:100%_20%] bg-[position:0_88%] transition-all duration-700"
+              inactiveClass="text-xl md:text-base mt-3 md:mt-0 font-mono pl-1 text-gray-300 hover:text-gray-100 hover:tracking-widest hover:bg-gradient-to-r hover:from-gray-600 hover:to-transparent bg-no-repeat bg-[size:100%_0.3em] bg-[position:0_88%] transition-all duration-700"
               addSlash={true}
             />)
           }
