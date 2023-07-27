@@ -58,7 +58,7 @@ const Interests : FC = () => {
         <IoMdFlag key="ctf" />,
         <SiC key="c" />
       ],
-      "projects": [{ name: "docker-compose", owner: "Favo02" }]
+      "projects": [{ name: "docker-compose", owner: "Favo02" }, { name: "sicurezza-e-privatezza", owner: "Favo02-unimi" }]
     }
   ]
 
