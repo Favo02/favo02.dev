@@ -11,26 +11,26 @@ const Home : FC = () => {
     <div className="w-10/12 max-w-6xl m-auto text-center">
       <div className="mt-14 text-center text-gray-100">
 
-        <h4 className="text-3xl uppercase font-light">Hello, I&apos;m</h4>
+        <h4 className="text-2xl md:text-3xl uppercase font-light">Hello, I&apos;m</h4>
 
-        <h4 className="text-5xl mt-6 font-light">
-          <Link to="/about"><span className={`text-6xl font-bold ${underlineClass}`}>Luca</span></Link>
+        <h4 className="text-4xl md:text-5xl mt-6 font-light">
+          <Link to="/about"><span className={`text-5xl md:text-6xl font-bold ${underlineClass}`}>Luca</span></Link>
           <span className="mx-2"> aka </span>
-          <Link to="/interests"><span className={`text-6xl font-mono font-bold ${underlineClass}`}>favo02</span></Link>
+          <Link to="/interests"><span className={`text-5xl md:text-6xl font-mono font-bold ${underlineClass}`}>favo02</span></Link>
         </h4>
 
-        <h4 className="text-2xl mt-6 italic font-light">or should I say <Link to="/about"><span className={`pr-0.5 font-normal ${underlineClass}`}>imprudenza</span></Link>?</h4>
+        <h4 className="text-xl md:text-2xl mt-6 italic font-light">or should I say <Link to="/about"><span className={`pr-0.5 font-normal ${underlineClass}`}>imprudenza</span></Link>?</h4>
 
       </div>
 
-      <div className="text-3xl mt-20">
+      <div className="text-2xl md:text-3xl mt-20">
         <h1 className="text-gray-200">
           <span>Currently studying computer science at </span>
           <Link to="https://en.wikipedia.org/wiki/University_of_Milan" target="_blank">
             <span className={`text-bluegray-100 italic ${underlineClass}`}>unimi</span>
           </Link>
         </h1>
-        <h3 className="italic text-xl text-gray-300 text-center mt-2 font-light">My full experience can be found in the <Link to="/about" className="font-normal underline decoration-dotted underline-offset-2">about</Link> page.</h3>
+        <h3 className="italic text-lg md:text-xl text-gray-300 text-center mt-2 font-light">My full experience can be found in the <Link to="/about" className="font-normal underline decoration-dotted underline-offset-2">about</Link> page.</h3>
       </div>
 
       <div className="mt-20">

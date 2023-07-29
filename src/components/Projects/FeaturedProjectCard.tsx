@@ -22,19 +22,19 @@ const FeaturedProjectCard : FC<props> = ({ loading, repository, reverse, collabo
 
   if (loading) {
     return (
-      <div className="w-11/12 flex items-center justify-center relative h-72 mt-10 m-auto p-0.5 text-center bg-gray-400 bg-opacity-20 rounded-xl backdrop-blur-lg shadow-xl shadow-black">
+      <div className="w-11/12 flex items-center justify-center relative h-[30rem] md:h-72 mt-10 m-auto p-0.5 text-center bg-gray-400 bg-opacity-20 rounded-xl backdrop-blur-lg shadow-xl shadow-black">
         <Loading />
       </div>
     )
   }
 
   return (
-    <div className={"w-11/12 flex items-center justify-center relative h-72 mt-10 m-auto p-0.5 text-center bg-gray-400 bg-opacity-20 rounded-xl backdrop-blur-lg shadow-xl shadow-black overflow-hidden group" + (reverse ? " flex-row-reverse" : " flex-row")}>
+    <div className={"w-11/12 flex flex-col md:flex-row items-center justify-center relative h-[30rem] md:h-72 mt-10 m-auto pt-3 pb-6 md:p-0.5 text-center bg-gray-400 bg-opacity-20 rounded-xl backdrop-blur-lg shadow-xl shadow-black overflow-hidden group" + (reverse ? " flex-row-reverse" : " flex-row")}>
       <div className="absolute top-6 -left-11 bg-gradient-to-r from-bluegray-700 to-gray-500 opacity-100 w-40 -rotate-45 z-10 uppercase text-gray-100 font-bold text-sm">
         <h1>Featured</h1>
       </div>
 
-      <div className="w-1/2 h-full">
+      <div className="w-full md:w-1/2 h-3/5 md:h-full">
         <RepositoryContent
           repository={repository}
           languages={languages}
@@ -44,8 +44,8 @@ const FeaturedProjectCard : FC<props> = ({ loading, repository, reverse, collabo
         />
       </div>
 
-      <Link to={repository.homepage} target="_blank" className="w-1/2 h-full flex justify-center items-center">
-        <div className="relative w-11/12 h-[260px] rounded-xl overflow-hidden shadow-md shadow-black/50">
+      <Link to={repository.homepage} target="_blank" className="w-full md:w-1/2 h-2/5 md:h-full flex justify-center items-center">
+        <div className="relative w-11/12 h-full md:h-[260px] rounded-xl overflow-hidden shadow-md shadow-black/50">
           <DynamicImage fileName={`featured/${repository.name}.webp`} alt="Preview" className="group-hover:translate-y-[calc(-100%+260px)] translate-y-0 transition-transform duration-[3s] opacity-70" />
         </div>
         <div className="absolute flex justify-center items-center w-24 h-24 bg-black/80 rounded-full group-hover:opacity-100 opacity-0 transition-all duration-700">

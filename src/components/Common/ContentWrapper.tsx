@@ -3,6 +3,8 @@ import { useEffect,useState } from "react"
 import AnimatedCursor from "react-animated-cursor"
 import { Outlet } from "react-router-dom"
 
+import useIsSmallDevice from "../../hooks/useIsSmallDevice"
+
 import Footer from "./Footer"
 import Header from "./Header"
 import LateralInfo from "./LateralInfo"
@@ -13,6 +15,8 @@ import ResetScroll from "./ResetScroll"
 import Scrollbar from "./Scrollbar"
 
 const ContentWrapper : FC = () => {
+
+  const [isSmallDevice] = useIsSmallDevice()
 
   const [loading, setLoading] = useState<boolean>(true)
 
@@ -34,29 +38,30 @@ const ContentWrapper : FC = () => {
       <Header />
       <PagePath />
       <Outlet />
-      <LateralInfo />
-      <LateralLinks />
+      {!isSmallDevice && <LateralInfo />}
+      {!isSmallDevice && <LateralLinks />}
       <Footer />
 
       <Scrollbar customClasses="left-0" />
       <Scrollbar customClasses="right-0" />
-
-      <AnimatedCursor
-        color="159, 179, 200"
-        innerSize={8}
-        innerScale={0.5}
-        outerSize={20}
-        outerScale={3}
-        outerAlpha={0.3}
-        outerStyle={{
-          background: "rgb(34, 45, 61, 0.5)"
-        }}
-        clickables={[
-          "a",
-          ".cursor-pointer"
-        ]}
-        showSystemCursor={true}
-      />
+      {!isSmallDevice &&
+        <AnimatedCursor
+          color="159, 179, 200"
+          innerSize={8}
+          innerScale={0.5}
+          outerSize={20}
+          outerScale={3}
+          outerAlpha={0.3}
+          outerStyle={{
+            background: "rgb(34, 45, 61, 0.5)"
+          }}
+          clickables={[
+            "a",
+            ".cursor-pointer"
+          ]}
+          showSystemCursor={true}
+        />
+      }
 
     </ResetScroll>
   )

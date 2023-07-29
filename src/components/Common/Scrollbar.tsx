@@ -21,12 +21,9 @@ const Scrollbar : FC<{customClasses ?: string}> = ({ customClasses }) => {
   }
 
   return (
-    <div className={`fixed top-0 right-0 w-1.5 h-screen z-10 bg-bluegithub-dark ${customClasses}`}>
-      <div
-        className="w-1.5 bg-gradient-to-b from-bluegray-800 to-bluegray-400 z-20"
-        style={{ height: `${scrollTop}%` }}
-      />
-    </div>
+    <div className={`fixed top-0 w-0.5 md:w-1.5 bg-gradient-to-b from-bluegray-800 to-bluegray-400 z-20 ${customClasses}`}
+      style={{ height: `${scrollTop}%` }}
+    />
   )
 }
 

@@ -20,14 +20,14 @@ const ProjectCard : FC<props> = ({ loading, repository, collaborators, languages
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center w-80 h-72 m-6 p-0.5 text-center bg-gray-400 bg-opacity-20 rounded-xl backdrop-blur-lg shadow-xl shadow-black">
+      <div className="flex items-center justify-center w-72 md:w-80 h-80 md:h-72 m-6 p-0.5 text-center bg-gray-400 bg-opacity-20 rounded-xl backdrop-blur-lg shadow-xl shadow-black">
         <Loading />
       </div>
     )
   }
 
   return (
-    <div className={`flex items-center justify-center relative w-80 h-72 m-6 p-0.5 text-center bg-gray-400 bg-opacity-20 rounded-xl backdrop-blur-lg shadow-xl shadow-black ${customClasses}`}>
+    <div className={`flex items-center justify-center relative w-72 md:w-80 h-80 md:h-72 m-6 p-0.5 text-center bg-gray-400 bg-opacity-20 rounded-xl backdrop-blur-lg shadow-xl shadow-black ${customClasses}`}>
       <RepositoryContent
         repository={repository}
         languages={languages}
