@@ -32,7 +32,7 @@ const Biography : FC = () => {
   }
 
   return (
-    <div className="text-lg text-gray-300/90">
+    <div className="text-lg text-gray-300/90 text-justify md:text-left">
       <span className="my-3 block">
         Hello, I am <H>Luca Favini</H>, but my friends call me <H>Favo</H>. I am a {calculateAge(new Date("August 25, 2002"))}-year-old guy living <i>(near)</i> <H>Milan, Italy</H>.
       </span>

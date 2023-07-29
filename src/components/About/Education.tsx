@@ -62,17 +62,17 @@ const Education : FC = () => {
   return (
     <>
       {education.map(e =>
-        <div key={e.name} className="flex w-full mt-6 group">
-          <div className="w-1/3 text-right pr-6 text-bluegray-600 group-hover:text-bluegray-500 opacity-80 italic transition-all duration-700">{e.start}{e.end ? ` - ${e.end}` : ""}</div>
+        <div key={e.name} className="flex flex-col md:flex-row w-5/6 mx-auto md:w-full mt-6 group text-center">
+          <div className="w-full md:w-1/3 md:text-right pr-6 text-bluegray-600 group-hover:text-bluegray-500 opacity-80 italic transition-all duration-700">{e.start}{e.end ? ` - ${e.end}` : ""}</div>
           <Link to={e.link} target="_blank">
-            <h1 className="text-xl font-bold text-gray-300 group-hover:text-gray-200 transition-all duration-700">
+            <h1 className="text-xl md:text-left font-bold text-gray-300 group-hover:text-gray-200 transition-all duration-700">
               {e.name}, {e.location}
               <BiLink className="inline -mt-1 ml-1" />
               {e.isCertificate &&
                 <span className="text-xs border font-black text-green-600/30 border-green-800/30 rounded-md ml-1 py-0.5 px-2">CERTIFICATE</span>
               }
             </h1>
-            <h2 className="text-gray-500 group-hover:text-gray-400 transition-all duration-700">{e.description}</h2>
+            <h2 className="text-gray-500 md:text-left group-hover:text-gray-400 transition-all duration-700">{e.description}</h2>
           </Link>
         </div>
       )}
