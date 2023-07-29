@@ -24,14 +24,14 @@ const RepositoryContent : FC<props> = ({ repository, languages, collaborators, a
     <div className={`m-auto w-full h-full py-4 px-2 flex items-center justify-center flex-col ${customClasses}`}>
 
       <div className="basis-3/12 mb-4">
-        <h1 className="text-2xl font-black text-gray-100 capitalize">{repository.name.replaceAll("-", " ")}</h1>
-        <div className="text-sm font-bold text-gray-600 italic">
+        <h1 className="text-xl md:text-2xl font-black text-gray-100 capitalize">{repository.name.replaceAll("-", " ")}</h1>
+        <div className="text-xs md:text-sm font-bold text-gray-600 italic">
           <Link to={repository.svn_url} target="_blank">{repository.full_name}</Link>
         </div>
       </div>
 
       <div className="basis-5/12">
-        <h4 className="text-bluegray-200">{repository.description}</h4>
+        <h4 className="text-sm md:text-base text-bluegray-200">{repository.description}</h4>
       </div>
 
       <div className="flex justify-center align-middle flex-col w-full basis-2/12">
@@ -39,8 +39,8 @@ const RepositoryContent : FC<props> = ({ repository, languages, collaborators, a
         <div className="opacity-60">
           <div>
             {languages &&
-              languages.map((l : Language) => (
-                <div key={l.language} className="text-bluegray-500 italic inline-block overflow-hidden mx-2">{l.percentage}% {l.language}</div>
+              languages.slice(0,3).map((l : Language) => (
+                <div key={l.language} className="text-sm md:text-base text-bluegray-500 italic inline-block overflow-hidden mx-2">{l.percentage}% {l.language}</div>
               ))
             }
           </div>
@@ -64,7 +64,7 @@ const RepositoryContent : FC<props> = ({ repository, languages, collaborators, a
 
       </div>
 
-      <div className="flex justify-evenly w-full basis-1/12 italic opacity-60 -mt-1 mb-1">
+      <div className="text-sm md:text-base flex justify-evenly w-full basis-1/12 italic opacity-60 -mt-1 mb-1">
         {repository.stargazers_count > 0 &&
           <h4 className="text-bluegray-500" title="Stars">
             {repository.stargazers_count} <FaRegStar className="inline -mt-1" />
@@ -98,11 +98,11 @@ const RepositoryContent : FC<props> = ({ repository, languages, collaborators, a
 
           <div className="flex justify-center align-middle flex-row ml-4">
             <Link to={repository.svn_url} target="_blank">
-              <FaGithub className="text-xl text-gray-100" />
+              <FaGithub className="text-lg md:text-xl text-gray-100" />
             </Link>
             {repository.homepage &&
               <Link to={repository.homepage} target="_blank" className="mx-0.5">
-                <FaGlobe className="text-xl text-gray-100" />
+                <FaGlobe className="text-lg md:text-xl text-gray-100" />
               </Link>
             }
           </div>
