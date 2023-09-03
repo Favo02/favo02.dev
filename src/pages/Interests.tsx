@@ -2,7 +2,7 @@ import type { FC } from "react"
 import { FaDocker, FaJava, FaPython } from "react-icons/fa"
 import { IoMdFlag } from "react-icons/io"
 import { SiC, SiExpress, SiGnubash, SiMongodb, SiPostgresql,SiReact, SiTailwindcss } from "react-icons/si"
-import { TbBrandGolang, TbBrandJavascript,TbBrandTypescript } from "react-icons/tb"
+import { TbBrandCpp, TbBrandGolang, TbBrandJavascript,TbBrandTypescript } from "react-icons/tb"
 
 import InterestSection from "../components/Interests/InterestSection"
 import type Interest from "../interfaces/Interest"
@@ -15,13 +15,14 @@ const Interests : FC = () => {
     {
       "title": "Competitive programming",
       "description": "I love solving complex problems as fast as possible: the only context where I tolerate messy code. But when time is over I refactor it.",
-      "languages": "Java, Go, (Python)",
+      "languages": "C++, Python, Go, Java",
       "icons": [
-        <FaJava key="Java" />,
+        <TbBrandCpp key="C++" />,
+        <FaPython key="Python" />,
         <TbBrandGolang key="Go" />,
-        <FaPython key="Python" />
+        <FaJava key="Java" />
       ],
-      "projects": [{ name: "advent-of-code", owner: "Favo02" }, { name: "cloudflight-coding-contest-2023", owner: "Favo02" }]
+      "projects": [{ name: "leetcode", owner: "Favo02" }, { name: "advent-of-code", owner: "Favo02" }]
     },
     {
       "title": "Full stack web development",
