@@ -1,5 +1,5 @@
 import type { FC } from "react"
-import { FaGithub, FaInstagram, FaLinkedin, FaTelegramPlane, FaTwitter } from "react-icons/fa"
+import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa"
 import { Link } from "react-router-dom"
 
 const LateralLinks : FC = () => {
@@ -24,14 +24,6 @@ const LateralLinks : FC = () => {
 
       <Link to="https://twitter.com/Favos02" target="_blank" className="my-2">
         <FaTwitter title="Twitter" className={`${linkClasses}`} />
-      </Link>
-
-      <Link to="https://instagram.com/lcfvn" target="_blank" className="my-2">
-        <FaInstagram title="Instagram" className={`${linkClasses}`} />
-      </Link>
-
-      <Link to="https://t.me/Favo02" target="_blank" className="my-2">
-        <FaTelegramPlane title="Telegram" className={`${linkClasses}`} />
       </Link>
 
       <div className="w-px h-3/4 border border-gray-700 mt-2" />

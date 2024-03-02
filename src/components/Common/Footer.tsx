@@ -1,5 +1,5 @@
 import type { FC } from "react"
-import { FaGithub, FaInstagram, FaLinkedin, FaTelegramPlane, FaTwitter } from "react-icons/fa"
+import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa"
 import { GiBrain,GiHearts } from "react-icons/gi"
 import { HiMail } from "react-icons/hi"
 import { TbLicense } from "react-icons/tb"
@@ -51,14 +51,6 @@ const Footer : FC = () => {
             <FaTwitter title="Twitter" className={iconsClasses} />
           </Link>
 
-          <Link to="https://instagram.com/lcfvn" target="_blank">
-            <FaInstagram title="Instagram" className={iconsClasses} />
-          </Link>
-
-          <Link to="https://t.me/Favo02" target="_blank">
-            <FaTelegramPlane title="Telegram" className={iconsClasses} />
-          </Link>
-
         </div>
         <div>
           <span className="text-gray-500 hover:text-gray-300 transition-all duration-700 group">
@@ -74,7 +66,7 @@ const Footer : FC = () => {
       {/* Author, Version */}
       <div className="opacity-80">
         <h1 className="text-lg">Built with <GiHearts className="inline" /> and <GiBrain className="inline" /> by Luca Favini</h1>
-        <h2 className="text-gray-500 text-sm">v{packageInfo.version} - 2023</h2>
+        <h2 className="text-gray-500 text-sm">v{packageInfo.version} - 2024</h2>
       </div>
 
       {/* Source code, License */}
