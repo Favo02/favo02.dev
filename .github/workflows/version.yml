@@ -47,7 +47,9 @@ jobs:
       - name: Bump version
         run: |
           git tag v${{ needs.detect-version.outputs.newVersion }}
+          cd frontend
           npm --no-git-tag-version version ${{ needs.detect-version.outputs.newVersion }}
+          cd ..
           git add .
           git commit -m "bump: \`${{ needs.detect-version.outputs.newVersion }}\`"
           git push

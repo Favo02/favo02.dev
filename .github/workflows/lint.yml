@@ -19,5 +19,6 @@ jobs:
           node-version: '19.x'
       - name: Lint
         run: |
+          cd frontend
           npm ci --legacy-peer-deps
           npm run lint

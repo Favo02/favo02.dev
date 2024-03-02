@@ -19,5 +19,4 @@ jobs:
         username: ${{ secrets.USERNAME }}
         port: ${{ secrets.PORT }}
         key: ${{ secrets.KEY }}
-        script: |
-          ${{ secrets.SCRIPT }}
+        script: ${{ secrets.SCRIPT }}
