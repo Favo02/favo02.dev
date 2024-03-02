@@ -61,7 +61,7 @@ const Education : FC = () => {
 
   return (
     <>
-      {education.map(e =>
+      {education.reverse().map(e =>
         <div key={e.name} className="flex flex-col md:flex-row w-5/6 mx-auto md:w-full mt-6 group text-center">
           <div className="w-full md:w-1/3 md:text-right pr-6 text-bluegray-600 group-hover:text-bluegray-500 opacity-80 italic transition-all duration-700">{e.start}{e.end ? ` - ${e.end}` : ""}</div>
           <Link to={e.link} target="_blank">
