@@ -17,7 +17,7 @@ const Projects : FC = () => {
 
   useEffect(() => {
 
-    const featRepos : string[] = ["favo02.dev", "social-network-for-music", "workspaces-by-open-apps"]
+    const featRepos : string[] = ["favo02.dev", "social-network-for-music", "workspaces-by-open-apps", "cess-advisor"]
 
     const ignoredRepos : string[] = ["Favo02", ".github", "preatoni-giardini", "FullStackOpen"]
 
