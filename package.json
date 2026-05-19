@@ -12,6 +12,10 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/mdx": "^5.0.6",
+    "@astrojs/node": "^10.1.1",
+    "@astrojs/sitemap": "^3.7.2",
+    "@lucide/astro": "^1.16.0",
     "astro": "^6.3.5"
   }
 }
