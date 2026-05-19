@@ -253,7 +253,7 @@ export async function fetchAllRepos(token?: string): Promise<GitHubRepo[]> {
 
 // In-memory cache for server endpoint
 let cachedData: { repos: GitHubRepo[]; timestamp: number } | null = null;
-const CACHE_TTL_MS = 60 * 60 * 1000; // 1 hour
+const CACHE_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
 
 export async function getCachedRepos(): Promise<GitHubRepo[]> {
   const now = Date.now();
