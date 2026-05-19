@@ -34,6 +34,11 @@ function getTimeAgo(date: Date): string {
 
   <div class="project-desc">
     {repo.description || ''}
+    {repo.topics && repo.topics.length > 0 && (
+      <div class="project-topics">
+        {repo.topics.map(topic => <span class="topic-tag">#{topic}</span>)}
+      </div>
+    )}
   </div>
 
   <div class="project-meta">
@@ -87,9 +92,23 @@ function getTimeAgo(date: Date): string {
   .project-desc {
     color: var(--text-muted);
     font-size: var(--text-sm);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    min-width: 0;
+  }
+
+  .project-topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-top: var(--space-xs);
+  }
+
+  .topic-tag {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-faint);
+    background: var(--bg-elevated);
+    padding: 2px 6px;
+    border-radius: 4px;
   }
 
   .project-meta {
