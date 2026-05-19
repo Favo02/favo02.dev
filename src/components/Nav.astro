@@ -1,0 +1,111 @@
+---
+import ThemeToggle from "./ThemeToggle.astro"
+
+const navLinks = [
+  { href: "/projects", label: "projects" },
+  { href: "/blog", label: "blog", external: true },
+  { href: "/about", label: "about" },
+  { href: "/now", label: "now" },
+]
+
+const currentPath = Astro.url.pathname
+---
+
+<header class="site-header">
+  <nav class="nav container-wide" aria-label="Main navigation">
+    <a href="/" class="nav-logo" aria-label="Home">
+      <span class="nav-logo-text">lf</span>
+    </a>
+
+    <div class="nav-links">
+      {
+        navLinks.map(({ href, label, external }) => (
+          <a
+            href={href}
+            class:list={[
+              "nav-link",
+              { active: !external && currentPath.startsWith(href) },
+            ]}
+            {...(external
+              ? { target: "_blank", rel: "noopener noreferrer" }
+              : {})}
+          >
+            {label}
+          </a>
+        ))
+      }
+      <ThemeToggle />
+    </div>
+  </nav>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border-subtle);
+    transition: background-color var(--transition-base);
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+
+  .nav-logo {
+    text-decoration: none;
+    color: var(--text);
+    transition: color var(--transition-fast);
+  }
+
+  .nav-logo:hover {
+    color: var(--accent);
+  }
+
+  .nav-logo-text {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    letter-spacing: var(--tracking-wide);
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+  }
+
+  .nav-link {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    text-transform: lowercase;
+    letter-spacing: var(--tracking-wide);
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+    padding: var(--space-xs) 0;
+  }
+
+  .nav-link:hover,
+  .nav-link.active {
+    color: var(--text);
+  }
+
+  .nav-link.active {
+    border-bottom: 1px solid var(--accent);
+  }
+
+  @media (max-width: 480px) {
+    .nav-links {
+      gap: var(--space-md);
+    }
+
+    .nav-link {
+      font-size: 0.625rem;
+    }
+  }
+</style>
