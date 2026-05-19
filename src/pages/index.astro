@@ -1,17 +1,97 @@
 ---
-
+import BaseLayout from "../layouts/BaseLayout.astro"
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+  title="Luca Favini"
+  description="Luca Favini — Computer science student, developer, and open-source contributor. Milan, Italy."
+>
+  <div class="hero">
+    <h1 class="hero-name">Luca<br />Favini</h1>
+    <p class="hero-tagline">cs · unimi · milan</p>
+    <p class="hero-sub">computer science student & developer</p>
+  </div>
+
+  <nav class="hero-nav" aria-label="Page sections">
+    <a href="/projects" class="link-arrow">projects</a>
+    <a href="/blog" class="link-arrow" target="_blank" rel="noopener noreferrer"
+      >blog</a
+    >
+    <a href="/about" class="link-arrow">about</a>
+    <a href="/now" class="link-arrow">now</a>
+    <a href="/devlog" class="link-arrow">devlog</a>
+  </nav>
+
+  <div class="hero-footer">
+    <p class="mono-sm">
+      Currently at <a
+        href="https://www.unimi.it/en/education/computer-science"
+        target="_blank"
+        rel="noopener noreferrer">Università degli Studi di Milano</a>
+    </p>
+  </div>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding-top: var(--space-4xl);
+    padding-bottom: var(--space-2xl);
+  }
+
+  .hero-name {
+    font-family: var(--font-display);
+    font-size: var(--text-hero);
+    font-weight: 300;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    margin-bottom: var(--space-lg);
+    font-optical-sizing: auto;
+    font-variation-settings:
+      "SOFT" 0,
+      "WONK" 0;
+  }
+
+  .hero-tagline {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wider);
+    color: var(--text-muted);
+    margin-bottom: var(--space-md);
+  }
+
+  .hero-sub {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    color: var(--text-muted);
+    font-weight: 300;
+    font-style: italic;
+    margin-bottom: 0;
+  }
+
+  .hero-nav {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    padding: var(--space-2xl) 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-footer {
+    padding-top: var(--space-xl);
+  }
+
+  .hero-footer a {
+    color: var(--text-faint);
+    text-decoration: underline;
+    text-decoration-color: var(--border);
+    text-underline-offset: 3px;
+  }
+
+  .hero-footer a:hover {
+    color: var(--accent);
+    text-decoration-color: var(--accent);
+  }
+</style>

@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// This is a manually-maintained "now" page.
+// Inspired by https://nownownow.com
+// Just edit the content below to update it.
+
+const lastUpdated = new Date('2026-05-19');
+---
+
+<BaseLayout title="Now" description="What Luca Favini is doing right now — a /now page.">
+  <div class="now-page">
+    <header class="page-header">
+      <h1>Now</h1>
+      <p class="mono-sm">
+        Last updated: <time datetime={lastUpdated.toISOString()}>
+          {lastUpdated.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+        </time>
+      </p>
+    </header>
+
+    <div class="now-content prose">
+      <p>
+        This is a <a href="https://nownownow.com/about" target="_blank" rel="noopener noreferrer">/now page</a>.
+        It's a snapshot of what I'm focused on at this point in my life.
+      </p>
+
+      <h2>Working on</h2>
+      <ul>
+        <li>Rebuilding this website from scratch — typography-focused, minimal, no frills</li>
+        <li>Finishing my bachelor thesis at Università degli Studi di Milano</li>
+      </ul>
+
+      <h2>Learning</h2>
+      <ul>
+        <li>Astro and modern static site generation</li>
+        <li>Advanced algorithms and data structures</li>
+      </ul>
+
+      <h2>Reading</h2>
+      <ul>
+        <li>Currently: <em>nothing specific, suggestions welcome</em></li>
+      </ul>
+
+      <h2>Location</h2>
+      <p>Milan, Italy</p>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .now-page {
+    padding-top: var(--space-2xl);
+  }
+
+  .page-header {
+    margin-bottom: var(--space-2xl);
+  }
+
+  .page-header h1 {
+    font-size: var(--text-3xl);
+    font-weight: 300;
+    margin-bottom: var(--space-sm);
+  }
+
+  .now-content {
+    max-width: var(--max-width-prose);
+  }
+</style>

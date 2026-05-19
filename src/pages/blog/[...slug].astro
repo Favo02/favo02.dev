@@ -1,0 +1,71 @@
+---
+import ProseLayout from '../../layouts/ProseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+// Estimate reading time
+const body = post.body || '';
+const words = body.split(/\s+/).length;
+const readingTime = `${Math.ceil(words / 200)} min read`;
+---
+
+<ProseLayout
+  title={post.data.title}
+  description={post.data.description}
+  date={post.data.date}
+  readingTime={readingTime}
+>
+  <Content />
+
+  <footer class="post-footer">
+    {post.data.tags.length > 0 && (
+      <div class="post-tags">
+        {post.data.tags.map((tag) => (
+          <span class="tag">{tag}</span>
+        ))}
+      </div>
+    )}
+    <a href="/blog" class="link-arrow back-link">← back to blog</a>
+  </footer>
+</ProseLayout>
+
+<style>
+  .post-footer {
+    margin-top: var(--space-3xl);
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .post-tags {
+    display: flex;
+    gap: var(--space-xs);
+    flex-wrap: wrap;
+  }
+
+  .back-link {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+
+  .back-link::before {
+    content: '';
+  }
+
+  .back-link:hover {
+    color: var(--accent);
+  }
+</style>

@@ -1,0 +1,262 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { getCachedRepos, categorizeRepos, FEATURED_REPOS } from '../services/github';
+import type { GitHubRepo } from '../services/github';
+import { Star, GitFork, ExternalLink } from '@lucide/astro';
+
+let repos: GitHubRepo[] = [];
+let error = false;
+
+try {
+  repos = await getCachedRepos();
+} catch (e) {
+  console.error('Failed to fetch GitHub repos:', e);
+  error = true;
+}
+
+const { featured, personal, academic } = categorizeRepos(repos);
+---
+
+<BaseLayout
+  title="Projects"
+  description="All projects by Luca Favini — personal and academic work, powered by the GitHub API."
+  wide
+>
+  <div class="projects-page">
+    <header class="page-header">
+      <h1>Projects</h1>
+      <p class="page-description">
+        All my work, pulled from GitHub. Personal projects and academic coursework, separated.
+      </p>
+      <p class="mono-sm">
+        Data cached from <a href="https://github.com/Favo02" target="_blank" rel="noopener noreferrer">Favo02</a> and <a href="https://github.com/Favo02-unimi" target="_blank" rel="noopener noreferrer">Favo02-unimi</a>
+      </p>
+    </header>
+
+    {error && (
+      <div class="error-banner">
+        <p>Failed to load projects from GitHub. <a href="/api/github.json">Try refreshing the cache</a>.</p>
+      </div>
+    )}
+
+    {featured.length > 0 && (
+      <section class="projects-section">
+        <h2 class="section-title mono">Featured</h2>
+        <div class="featured-grid">
+          {featured.map((repo) => (
+            <a href={repo.url} target="_blank" rel="noopener noreferrer" class="featured-card">
+              <div class="featured-card-header">
+                <h3 class="featured-card-name">{repo.name}</h3>
+                <span class:list={['tag', repo.source === 'academic' ? 'tag-academic' : 'tag-personal']}>
+                  {repo.source}
+                </span>
+              </div>
+              {repo.description && <p class="featured-card-desc">{repo.description}</p>}
+              <div class="featured-card-meta">
+                {repo.primaryLanguage && (
+                  <span class="lang-indicator">
+                    <span class="lang-dot" style={`background-color: ${repo.primaryLanguage.color}`}></span>
+                    {repo.primaryLanguage.name}
+                  </span>
+                )}
+                {repo.stargazerCount > 0 && (
+                  <span class="meta-item"><Star size={12} /> {repo.stargazerCount}</span>
+                )}
+                {repo.forkCount > 0 && (
+                  <span class="meta-item"><GitFork size={12} /> {repo.forkCount}</span>
+                )}
+                <span class="meta-item"><ExternalLink size={12} /></span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    {personal.length > 0 && (
+      <section class="projects-section">
+        <h2 class="section-title mono">
+          <span class="section-dot personal"></span>
+          Personal
+        </h2>
+        <div class="projects-list">
+          {personal.map((repo) => <ProjectCard repo={repo} />)}
+        </div>
+      </section>
+    )}
+
+    {academic.length > 0 && (
+      <section class="projects-section">
+        <h2 class="section-title mono">
+          <span class="section-dot academic"></span>
+          Academic
+        </h2>
+        <p class="section-description">Coursework and projects from Università degli Studi di Milano.</p>
+        <div class="projects-list">
+          {academic.map((repo) => <ProjectCard repo={repo} />)}
+        </div>
+      </section>
+    )}
+  </div>
+</BaseLayout>
+
+<style>
+  .projects-page {
+    padding-top: var(--space-2xl);
+  }
+
+  .page-header {
+    margin-bottom: var(--space-3xl);
+  }
+
+  .page-header h1 {
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-md);
+    font-weight: 300;
+  }
+
+  .page-description {
+    color: var(--text-muted);
+    font-size: var(--text-base);
+    max-width: var(--max-width-prose);
+    margin-bottom: var(--space-sm);
+  }
+
+  .error-banner {
+    background: var(--bg-surface);
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    padding: var(--space-md) var(--space-lg);
+    margin-bottom: var(--space-xl);
+    color: var(--accent);
+    font-size: var(--text-sm);
+  }
+
+  .projects-section {
+    margin-bottom: var(--space-3xl);
+  }
+
+  .section-title {
+    font-size: var(--text-xs) !important;
+    font-family: var(--font-mono) !important;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wider);
+    color: var(--text-muted);
+    margin-bottom: var(--space-lg);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-weight: 500;
+  }
+
+  .section-description {
+    color: var(--text-faint);
+    font-size: var(--text-sm);
+    margin-top: calc(-1 * var(--space-md));
+    margin-bottom: var(--space-lg);
+  }
+
+  .section-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .section-dot.personal {
+    background: var(--tag-personal);
+  }
+
+  .section-dot.academic {
+    background: var(--tag-academic);
+  }
+
+  /* Featured Grid */
+  .featured-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: var(--space-md);
+  }
+
+  .featured-card {
+    display: block;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: var(--space-lg);
+    text-decoration: none;
+    color: var(--text);
+    transition: border-color var(--transition-fast), background-color var(--transition-fast);
+  }
+
+  .featured-card:hover {
+    border-color: var(--text-muted);
+    background: var(--bg-elevated);
+    color: var(--text);
+  }
+
+  .featured-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-md);
+    margin-bottom: var(--space-sm);
+  }
+
+  .featured-card-name {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 400;
+    letter-spacing: var(--tracking-tight);
+    line-height: var(--leading-snug);
+  }
+
+  .featured-card-desc {
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+    line-height: var(--leading-normal);
+    margin-bottom: var(--space-md);
+  }
+
+  .featured-card-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-faint);
+  }
+
+  .lang-indicator {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  .lang-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
+
+  /* Projects List (compact) */
+  .projects-list {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 768px) {
+    .featured-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

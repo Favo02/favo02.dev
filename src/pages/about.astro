@@ -1,0 +1,247 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Education & experience data — easy to maintain
+const experience = [
+  {
+    period: 'Feb 2024 — May 2024',
+    title: 'Programming Tutor',
+    org: 'Università degli Studi di Milano',
+    description: 'Tutor for "Programmazione I" course (Golang)',
+    link: 'https://mameli.docenti.di.unimi.it/pls-tutoring/wiki/WikiStart',
+  },
+];
+
+const education = [
+  {
+    period: '2021 — present',
+    title: 'Università degli Studi di Milano',
+    org: 'Milan',
+    description: 'Bachelor in Computer Science (triennale informatica)',
+    link: 'https://www.unimi.it/en/education/computer-science',
+  },
+  {
+    period: '2016 — 2021',
+    title: 'ITIS Cannizzaro',
+    org: 'Rho',
+    description: 'High school in Computer Science (ITIS indirizzo informatica)',
+    link: 'https://www.itiscannizzaro.edu.it/pagine/-informatica',
+  },
+];
+
+const certificates = [
+  {
+    year: '2022',
+    title: 'FullStackOpen course',
+    description: 'University of Helsinki modern Full Stack Web Development course',
+    link: 'https://fullstackopen.com/en',
+  },
+  {
+    year: '2021',
+    title: 'Elements of AI course',
+    description: 'MinnaLearn and University of Helsinki artificial intelligence course',
+    link: 'https://www.elementsofai.com',
+  },
+  {
+    year: '2021',
+    title: 'English B2 First',
+    description: 'Cambridge English B2 qualification',
+    link: 'https://www.cambridgeenglish.org/exams-and-tests/first',
+  },
+];
+---
+
+<BaseLayout title="About" description="About Luca Favini — biography, education, experience, and certificates.">
+  <div class="about-page">
+    <header class="page-header">
+      <h1>About</h1>
+    </header>
+
+    <section class="bio">
+      <p>
+        I'm <strong>Luca Favini</strong>, a computer science student at
+        <a href="https://www.unimi.it/en/education/computer-science" target="_blank" rel="noopener noreferrer">Università degli Studi di Milano</a>.
+        I go by <span class="mono-inline">favo02</span> online, and sometimes <em>imprudenza</em>.
+      </p>
+      <p>
+        I like building things for the web, contributing to open-source projects, and learning new technologies.
+        My main interests are in full-stack development, systems design, and developer tooling.
+      </p>
+      <p>
+        Based in Milan, Italy. You can find my contact information and socials in the footer of every page.
+      </p>
+    </section>
+
+    <section class="timeline-section">
+      <h2 class="section-title mono">Experience</h2>
+      <div class="timeline">
+        {experience.map((item) => (
+          <div class="timeline-item">
+            <span class="timeline-period mono-sm">{item.period}</span>
+            <div class="timeline-content">
+              <h3>
+                <a href={item.link} target="_blank" rel="noopener noreferrer">{item.title}</a>
+              </h3>
+              <span class="timeline-org">{item.org}</span>
+              <p class="timeline-desc">{item.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="timeline-section">
+      <h2 class="section-title mono">Education</h2>
+      <div class="timeline">
+        {education.map((item) => (
+          <div class="timeline-item">
+            <span class="timeline-period mono-sm">{item.period}</span>
+            <div class="timeline-content">
+              <h3>
+                <a href={item.link} target="_blank" rel="noopener noreferrer">{item.title}</a>
+              </h3>
+              <span class="timeline-org">{item.org}</span>
+              <p class="timeline-desc">{item.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="timeline-section">
+      <h2 class="section-title mono">Certificates</h2>
+      <div class="timeline">
+        {certificates.map((item) => (
+          <div class="timeline-item">
+            <span class="timeline-period mono-sm">{item.year}</span>
+            <div class="timeline-content">
+              <h3>
+                <a href={item.link} target="_blank" rel="noopener noreferrer">{item.title}</a>
+              </h3>
+              <p class="timeline-desc">{item.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <footer class="about-footer">
+      <p class="mono-sm">
+        Curriculum Vitae and certificates are available upon request. <a href="mailto:luca.favini02@gmail.com">Contact me</a>.
+      </p>
+    </footer>
+  </div>
+</BaseLayout>
+
+<style>
+  .about-page {
+    padding-top: var(--space-2xl);
+  }
+
+  .page-header {
+    margin-bottom: var(--space-2xl);
+  }
+
+  .page-header h1 {
+    font-size: var(--text-3xl);
+    font-weight: 300;
+  }
+
+  .bio {
+    max-width: var(--max-width-prose);
+    margin-bottom: var(--space-3xl);
+    font-size: var(--text-base);
+    line-height: var(--leading-normal);
+  }
+
+  .bio p {
+    margin-bottom: var(--space-md);
+  }
+
+  .bio strong {
+    font-weight: 600;
+  }
+
+  .mono-inline {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    color: var(--accent);
+  }
+
+  /* Timeline sections */
+  .timeline-section {
+    margin-bottom: var(--space-3xl);
+  }
+
+  .section-title {
+    font-size: var(--text-xs) !important;
+    font-family: var(--font-mono) !important;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wider);
+    color: var(--text-muted);
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-sm);
+    border-bottom: 1px solid var(--border);
+    font-weight: 500;
+  }
+
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: var(--space-lg);
+  }
+
+  .timeline-period {
+    padding-top: 2px;
+    white-space: nowrap;
+  }
+
+  .timeline-content h3 {
+    font-family: var(--font-display);
+    font-size: var(--text-base);
+    font-weight: 400;
+    margin-bottom: var(--space-xs);
+  }
+
+  .timeline-content h3 a {
+    color: var(--text);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .timeline-content h3 a:hover {
+    color: var(--accent);
+  }
+
+  .timeline-org {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-faint);
+    letter-spacing: var(--tracking-wide);
+  }
+
+  .timeline-desc {
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+    margin-top: var(--space-xs);
+    margin-bottom: 0;
+  }
+
+  .about-footer {
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 640px) {
+    .timeline-item {
+      grid-template-columns: 1fr;
+      gap: var(--space-xs);
+    }
+  }
+</style>
