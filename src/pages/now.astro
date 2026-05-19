@@ -1,11 +1,23 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
 
 // This is a manually-maintained "now" page.
 // Inspired by https://nownownow.com
 // Just edit the content below to update it.
 
 const lastUpdated = new Date('2026-05-19');
+
+const devlogEntries = (await getCollection('devlog'))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+// Pre-render all entries
+const renderedEntries = await Promise.all(
+  devlogEntries.map(async (entry) => {
+    const { Content } = await render(entry);
+    return { entry, Content };
+  })
+);
 ---
 
 <BaseLayout title="Now" description="What Luca Favini is doing right now — a /now page.">
@@ -45,6 +57,27 @@ const lastUpdated = new Date('2026-05-19');
       <h2>Location</h2>
       <p>Milan, Italy</p>
     </div>
+
+    {renderedEntries.length > 0 && (
+      <div class="past-section">
+        <h2 class="section-title mono">Past (Devlog)</h2>
+        <div class="devlog-entries">
+          {renderedEntries.map(({ entry, Content }) => (
+            <article class="devlog-entry">
+              <div class="devlog-header">
+                <time datetime={entry.data.date.toISOString()} class="mono-sm">
+                  {entry.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+                </time>
+                <h3 class="devlog-title">{entry.data.title}</h3>
+              </div>
+              <div class="devlog-body prose">
+                <Content />
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    )}
   </div>
 </BaseLayout>
 
@@ -65,5 +98,60 @@ const lastUpdated = new Date('2026-05-19');
 
   .now-content {
     max-width: var(--max-width-prose);
+  }
+
+  .past-section {
+    margin-top: var(--space-4xl);
+    padding-top: var(--space-2xl);
+    border-top: 1px solid var(--border);
+  }
+
+  .section-title {
+    font-size: var(--text-xs) !important;
+    font-family: var(--font-mono) !important;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wider);
+    color: var(--text-muted);
+    margin-bottom: var(--space-lg);
+    font-weight: 500;
+  }
+
+  .devlog-entries {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .devlog-entry {
+    padding: var(--space-xl) 0;
+    border-bottom: 1px solid var(--border);
+    max-width: var(--max-width-prose);
+  }
+
+  .devlog-entry:first-child {
+    border-top: 1px solid var(--border);
+  }
+
+  .devlog-header {
+    margin-bottom: var(--space-md);
+  }
+
+  .devlog-title {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 400;
+    margin-top: var(--space-xs);
+  }
+
+  .devlog-body {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+
+  .devlog-body :global(p) {
+    margin-bottom: var(--space-sm);
+  }
+
+  .devlog-body :global(p:last-child) {
+    margin-bottom: 0;
   }
 </style>
