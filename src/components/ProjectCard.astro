@@ -3,9 +3,10 @@ import type { GitHubRepo } from '../services/github';
 
 interface Props {
   repo: GitHubRepo;
+  highlighted?: boolean;
 }
 
-const { repo } = Astro.props;
+const { repo, highlighted = false } = Astro.props;
 
 const pushedDate = new Date(repo.pushedAt);
 const timeAgo = getTimeAgo(pushedDate);
@@ -23,8 +24,10 @@ function getTimeAgo(date: Date): string {
 }
 ---
 
-<a href={repo.url} target="_blank" rel="noopener noreferrer" class="project-row">
+<a href={repo.url} target="_blank" rel="noopener noreferrer"
+  class:list={['project-row', { 'project-row--highlighted': highlighted }]}>
   <div class="project-main">
+    {highlighted && <span class="highlight-marker" aria-hidden="true">◆</span>}
     <span class:list={['project-name', { archived: repo.isArchived }]}>
       {repo.name}
     </span>
@@ -58,15 +61,39 @@ function getTimeAgo(date: Date): string {
     grid-template-columns: 200px 1fr 160px;
     align-items: center;
     gap: var(--space-md);
-    padding: var(--space-sm) 0;
+    padding: var(--space-sm) var(--space-sm);
     border-bottom: 1px solid var(--border);
+    border-left: 2px solid transparent;
     text-decoration: none;
     color: var(--text);
-    transition: background-color var(--transition-fast);
+    transition:
+      background-color var(--transition-fast),
+      border-left-color var(--transition-fast);
   }
 
   .project-row:hover {
     background: var(--bg-surface);
+  }
+
+  /* ── Highlighted variant ── */
+  .project-row--highlighted {
+    border-left-color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 4%, transparent);
+  }
+
+  .project-row--highlighted:hover {
+    background: color-mix(in srgb, var(--accent) 8%, var(--bg-surface));
+    border-left-color: var(--accent-hover);
+    box-shadow: inset 2px 0 12px color-mix(in srgb, var(--accent) 10%, transparent);
+  }
+
+  .highlight-marker {
+    font-size: 0.5rem;
+    color: var(--accent);
+    flex-shrink: 0;
+    line-height: 1;
+    align-self: center;
+    opacity: 0.85;
   }
 
   .project-main {
@@ -83,6 +110,10 @@ function getTimeAgo(date: Date): string {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  .project-row--highlighted .project-name {
+    color: var(--text);
   }
 
   .project-name.archived {
@@ -144,7 +175,7 @@ function getTimeAgo(date: Date): string {
     .project-row {
       grid-template-columns: 1fr;
       gap: var(--space-xs);
-      padding: var(--space-md) 0;
+      padding: var(--space-md) var(--space-sm);
     }
 
     .project-desc {

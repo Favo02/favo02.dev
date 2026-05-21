@@ -45,12 +45,20 @@ const GITHUB_USERS = [
   { login: 'Favo02-unimi', source: 'academic' as const },
 ];
 
-// Featured repos (displayed prominently)
+// Featured repos (displayed prominently at the top)
 export const FEATURED_REPOS: string[] = [
   'favo02.dev',
   'social-network-for-music',
   'workspaces-by-open-apps',
   'cess-advisor',
+];
+
+// Highlighted repos (visually accented inside the list — edit to taste)
+export const HIGHLIGHTED_REPOS: string[] = [
+  'typst-notes-template',
+  'advent-of-code',
+  'dotfiles',
+  'homelab',
 ];
 
 const GRAPHQL_QUERY = `
@@ -272,9 +280,14 @@ export async function getCachedRepos(): Promise<GitHubRepo[]> {
 
 // Categorize repos
 export function categorizeRepos(repos: GitHubRepo[]) {
-  const featured = repos.filter((r) => FEATURED_REPOS.includes(r.name));
-  const personal = repos.filter((r) => r.source === 'personal' && !FEATURED_REPOS.includes(r.name));
-  const academic = repos.filter((r) => r.source === 'academic' && !FEATURED_REPOS.includes(r.name));
+  const featured  = repos.filter((r) => FEATURED_REPOS.includes(r.name));
+  const personal  = repos.filter((r) => r.source === 'personal'  && !FEATURED_REPOS.includes(r.name));
+  const academic  = repos.filter((r) => r.source === 'academic'  && !FEATURED_REPOS.includes(r.name));
 
   return { featured, personal, academic };
+}
+
+/** Returns true when the repo should be visually highlighted in the list. */
+export function isHighlighted(repoName: string): boolean {
+  return HIGHLIGHTED_REPOS.includes(repoName);
 }

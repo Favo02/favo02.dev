@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
-import { getCachedRepos, categorizeRepos, FEATURED_REPOS } from '../services/github';
+import { getCachedRepos, categorizeRepos, FEATURED_REPOS, isHighlighted } from '../services/github';
 import type { GitHubRepo } from '../services/github';
 import { Star, GitFork, ExternalLink } from '@lucide/astro';
 
@@ -81,7 +81,7 @@ const { featured, personal, academic } = categorizeRepos(repos);
           Personal
         </h2>
         <div class="projects-list">
-          {personal.map((repo) => <ProjectCard repo={repo} />)}
+          {personal.map((repo) => <ProjectCard repo={repo} highlighted={isHighlighted(repo.name)} />)}
         </div>
       </section>
     )}
@@ -94,7 +94,7 @@ const { featured, personal, academic } = categorizeRepos(repos);
         </h2>
         <p class="section-description">Coursework and projects from Università degli Studi di Milano.</p>
         <div class="projects-list">
-          {academic.map((repo) => <ProjectCard repo={repo} />)}
+          {academic.map((repo) => <ProjectCard repo={repo} highlighted={isHighlighted(repo.name)} />)}
         </div>
       </section>
     )}
