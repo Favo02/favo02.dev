@@ -5,34 +5,34 @@
   <!-- Top rule + big name -->
   <div class="footer-top">
     <div class="footer-name-wrap container-wide">
-      <p class="footer-eyebrow mono-sm">based in Milan · open to opportunities</p>
       <p class="footer-name">Luca<br />Favini</p>
     </div>
   </div>
 
-  <!-- Scrolling marquee strip -->
-  <div class="marquee-strip" aria-hidden="true">
-    <div class="marquee-track">
-      {Array.from({ length: 4 }).map(() => (
-        <span class="marquee-set">
-          <a href="https://github.com/Favo02" target="_blank" rel="noopener noreferrer" class="marquee-link">GitHub</a>
-          <span class="marquee-sep">·</span>
-          <a href="https://linkedin.com/in/lucafavini" target="_blank" rel="noopener noreferrer" class="marquee-link">LinkedIn</a>
-          <span class="marquee-sep">·</span>
-          <span class="marquee-link marquee-email">luca.favini.02 AT gmail.com</span>
-          <span class="marquee-sep">·</span>
-          <a href="/projects" class="marquee-link">Projects</a>
-          <span class="marquee-sep">·</span>
-          <a href="/now" class="marquee-link">Now</a>
-          <span class="marquee-sep">·</span>
-          <a href="/blog" class="marquee-link">Blog</a>
-          <span class="marquee-sep">·</span>
-          <a href="/about" class="marquee-link">About</a>
-          <span class="marquee-sep">·</span>
-          <a href="https://v1.favo02.dev" target="_blank" rel="noopener noreferrer" class="marquee-link">v1.favo02.dev</a>
-          <span class="marquee-sep">·</span>
+  <!-- Static link band -->
+  <div class="footer-band">
+    <div class="band-inner container-wide">
+      <div class="band-links">
+        <a href="/projects" class="band-link">Projects</a>
+        <span class="band-sep">·</span>
+        <a href="/about" class="band-link">About</a>
+        <span class="band-sep">·</span>
+        <a href="/now" class="band-link">Now</a>
+        <span class="band-sep">·</span>
+        <a href="/blog" class="band-link">Blog</a>
+        <span class="band-sep">·</span>
+        <a href="https://v1.favo02.dev" target="_blank" rel="noopener noreferrer" class="band-link">v1</a>
+      </div>
+
+      <div class="band-socials">
+        <a href="https://github.com/Favo02" target="_blank" rel="noopener noreferrer" class="band-link">GitHub</a>
+        <span class="band-sep">·</span>
+        <a href="https://linkedin.com/in/lucafavini" target="_blank" rel="noopener noreferrer" class="band-link">LinkedIn</a>
+        <span class="band-sep">·</span>
+        <span class="band-link band-email" title="Dumb bot filter — read it if you can">
+          luca.favini.02 AT gmail.com
         </span>
-      ))}
+      </div>
     </div>
   </div>
 
@@ -58,62 +58,43 @@
   .footer-name-wrap {
     display: flex;
     flex-direction: column;
-    gap: var(--space-md);
-  }
-
-  .footer-eyebrow {
-    color: var(--text-faint);
-    text-transform: uppercase;
-    letter-spacing: var(--tracking-wider);
   }
 
   .footer-name {
     font-family: var(--font-display);
     font-size: clamp(3.5rem, 10vw, 8rem);
-    font-weight: 300;
+    font-weight: 400;
     line-height: 0.92;
     letter-spacing: -0.03em;
+    font-style: italic;
     color: var(--text);
     margin: 0;
-    /* Subtle tonal shift on second line via text fill isn't possible in CSS,
-       so we use opacity on the whole block and rely on the size for impact */
   }
 
-  /* ── Marquee strip ── */
-  .marquee-strip {
+  /* ── Static band ── */
+  .footer-band {
     border-top: 1px solid var(--border-subtle);
     border-bottom: 1px solid var(--border-subtle);
-    padding: var(--space-sm) 0;
-    overflow: hidden;
-    white-space: nowrap;
-    /* Pause on hover */
+    padding: var(--space-md) 0;
   }
 
-  .marquee-strip:hover .marquee-track {
-    animation-play-state: paused;
-  }
-
-  .marquee-track {
-    display: inline-flex;
+  .band-inner {
+    display: flex;
     align-items: center;
-    gap: 0;
-    animation: marquee-scroll 28s linear infinite;
-    will-change: transform;
+    justify-content: space-between;
+    gap: var(--space-xl);
+    flex-wrap: wrap;
   }
 
-  @keyframes marquee-scroll {
-    from { transform: translateX(0); }
-    to   { transform: translateX(-50%); }
-  }
-
-  .marquee-set {
-    display: inline-flex;
+  .band-links,
+  .band-socials {
+    display: flex;
     align-items: center;
-    gap: var(--space-lg);
-    padding: 0 var(--space-lg);
+    gap: var(--space-md);
+    flex-wrap: wrap;
   }
 
-  .marquee-link {
+  .band-link {
     font-family: var(--font-mono);
     font-size: var(--text-xs);
     text-transform: uppercase;
@@ -124,20 +105,24 @@
     white-space: nowrap;
   }
 
-  .marquee-link:hover {
+  .band-link:hover {
     color: var(--accent);
   }
 
-  .marquee-email {
+  .band-email {
     cursor: default;
-    /* obfuscation hint is enough at this size */
   }
 
-  .marquee-sep {
+  .band-email:hover {
+    color: var(--text-muted);
+  }
+
+  .band-sep {
     font-family: var(--font-mono);
     font-size: var(--text-xs);
     color: var(--border);
     flex-shrink: 0;
+    user-select: none;
   }
 
   /* ── Bottom bar ── */
@@ -157,16 +142,16 @@
       font-size: clamp(3rem, 14vw, 5rem);
     }
 
+    .band-inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-md);
+    }
+
     .footer-bottom {
       flex-direction: column;
       gap: var(--space-xs);
       align-items: flex-start;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .marquee-track {
-      animation: none;
     }
   }
 </style>
