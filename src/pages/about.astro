@@ -1,81 +1,91 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from "../layouts/BaseLayout.astro"
 
-const experience = [
+// All timeline entries in a single flat list, sorted newest-first
+// Add type: 'experience' | 'education' | 'certificate' | 'event' | 'publication'
+const timeline = [
   {
-    period: 'Feb 2024 — May 2024',
-    title: 'Programming Tutor',
-    org: 'Università degli Studi di Milano',
+    type: "experience" as const,
+    period: "Feb 2024 — May 2024",
+    title: "Programming Tutor",
+    org: "Università degli Studi di Milano",
     description: 'Tutor for "Programmazione I" course (in Golang)',
-    link: 'https://mameli.docenti.di.unimi.it/pls-tutoring/wiki/WikiStart',
-  },
-];
-
-const education = [
-  {
-    period: '2021 — present',
-    title: 'Università degli Studi di Milano',
-    org: 'Milan',
-    description: 'Bachelor in computer science (triennale informatica)',
-    link: 'https://www.unimi.it/en/education/computer-science',
+    link: "https://mameli.docenti.di.unimi.it/pls-tutoring/wiki/WikiStart",
+    result: null,
   },
   {
-    period: '2016 — 2021',
-    title: 'ITIS Cannizzaro',
-    org: 'Rho',
-    description: 'High school in computer science (ITIS indirizzo informatica)',
-    link: 'https://www.itiscannizzaro.edu.it/pagine/-informatica',
-  },
-];
-
-const certificates = [
-  {
-    year: '2022',
-    title: 'FullStackOpen',
-    description: 'University of Helsinki — modern Full Stack Web Development',
-    link: 'https://fullstackopen.com/en',
+    type: "education" as const,
+    period: "2021 — present",
+    title: "Università degli Studi di Milano",
+    org: "Milan",
+    description: "Bachelor in computer science (triennale informatica)",
+    link: "https://www.unimi.it/en/education/computer-science",
+    result: null,
   },
   {
-    year: '2021',
-    title: 'Elements of AI',
-    description: 'MinnaLearn & University of Helsinki — artificial intelligence',
-    link: 'https://www.elementsofai.com',
+    type: "event" as const,
+    period: "2022",
+    title: "PG Nationals BeSerious Spring",
+    org: "Rainbow Six Siege",
+    description: "Italian second division tournament with P11",
+    link: "https://liquipedia.net/rainbowsix/PG_Nationals/2022/BeSerious/Spring",
+    result: "2nd place",
   },
   {
-    year: '2021',
-    title: 'English B2 First',
-    description: 'Cambridge English B2 qualification',
-    link: 'https://www.cambridgeenglish.org/exams-and-tests/first',
-  },
-];
-
-// Events: hackathons, awards, competitions — add entries here
-const events = [
-  {
-    year: '2022',
-    title: 'PG Nationals BeSerious Spring',
-    result: '2nd place',
-    description: 'Italian Rainbow Six Siege second division tournament',
-    link: 'https://liquipedia.net/rainbowsix/PG_Nationals/2022/BeSerious/Spring',
+    type: "certificate" as const,
+    period: "2022",
+    title: "FullStackOpen",
+    org: "University of Helsinki",
+    description: "Modern Full Stack Web Development course",
+    link: "https://fullstackopen.com/en",
+    result: null,
   },
   {
-    year: '2018',
-    title: 'PigParty BedWars League',
-    result: 'Italian Champion',
-    description: 'Minecraft ClanWar BedWars 4v4 Italian championship with Rebirth',
+    type: "education" as const,
+    period: "2016 — 2021",
+    title: "ITIS Cannizzaro",
+    org: "Rho",
+    description: "High school in computer science (ITIS indirizzo informatica)",
+    link: "https://www.itiscannizzaro.edu.it/pagine/-informatica",
+    result: null,
+  },
+  {
+    type: "event" as const,
+    period: "2018",
+    title: "PigParty BedWars League",
+    org: "Minecraft CWBW",
+    description: "4v4 Italian championship with Rebirth",
     link: null,
+    result: "Italian Champion",
   },
-];
+  {
+    type: "certificate" as const,
+    period: "2021",
+    title: "Elements of AI",
+    org: "MinnaLearn & Univ. of Helsinki",
+    description: "Artificial intelligence introductory course",
+    link: "https://www.elementsofai.com",
+    result: null,
+  },
+  {
+    type: "certificate" as const,
+    period: "2021",
+    title: "English B2 First",
+    org: "Cambridge English",
+    description: "Cambridge English B2 qualification",
+    link: "https://www.cambridgeenglish.org/exams-and-tests/first",
+    result: null,
+  },
+]
 
-// Publications — add your papers, theses, or articles here
+// Publications kept separate — hidden when empty
 const publications: {
-  year: string;
-  title: string;
-  venue: string;
-  description: string;
-  link: string | null;
+  year: string
+  title: string
+  venue: string
+  description: string
+  link: string | null
 }[] = [
-  // Example entry (remove or replace when you have real ones):
   // {
   //   year: '2025',
   //   title: 'My Bachelor Thesis',
@@ -83,21 +93,30 @@ const publications: {
   //   description: 'Short description of what it covers.',
   //   link: null,
   // },
-];
+]
+
+const typeLabel: Record<typeof timeline[number]["type"], string> = {
+  experience: "experience",
+  education: "education",
+  certificate: "certificate",
+  event: "event",
+}
 
 const calculateAge = (birthday: Date) => {
-  const ageDifMs = Date.now() - birthday.getTime();
-  const ageDate = new Date(ageDifMs);
-  return Math.abs(ageDate.getUTCFullYear() - 1970);
-};
+  const ageDifMs = Date.now() - birthday.getTime()
+  const ageDate = new Date(ageDifMs)
+  return Math.abs(ageDate.getUTCFullYear() - 1970)
+}
 
-const myAge = calculateAge(new Date('August 25, 2002'));
+const myAge = calculateAge(new Date("August 25, 2002"))
 ---
 
-<BaseLayout title="About" description="About Luca Favini — biography, education, experience, and more.">
+<BaseLayout
+  title="About"
+  description="About Luca Favini — biography, education, experience, and more."
+>
   <div class="about-page">
-
-    <!-- ── Intro: photo + bio side by side ── -->
+    <!-- ── Intro: photo + bio ── -->
     <section class="intro-section">
       <div class="intro-photo-col">
         <div class="photo-wrap">
@@ -111,143 +130,166 @@ const myAge = calculateAge(new Date('August 25, 2002'));
       </div>
 
       <div class="intro-text-col">
-        <h1 class="intro-name">Luca<br /><em>Favini</em></h1>
+        <h1 class="intro-name">
+          Luca<br /><em>Favini</em>
+        </h1>
+
         <div class="intro-bio">
           <p>
-            {myAge} years old, based <em>(near)</em> <strong>Milan, Italy</strong>.
-            My friends call me <strong>Favo</strong>.
+            Hello, I am <strong>Luca Favini</strong>, but my friends call me <strong
+              >Favo</strong
+            >. I am a {myAge}-year-old guy living <em>(near)</em>
+            <strong>Milan, Italy</strong>.
           </p>
           <p>
-            I study <strong>computer science</strong> at Università degli Studi di Milano
-            and spend a lot of time writing code, mostly in the open.
-            My <a href="https://github.com/Favo02" target="_blank" rel="noopener noreferrer">GitHub README</a>
-            tracks my current interests more accurately than this page.
+            My educational background is entirely centered around <strong
+              >computer science</strong
+            >, which I am currently studying at <strong
+              >Università degli studi di Milano</strong
+            >. For more details about my <strong>interests</strong>, <strong
+              >notable projects</strong
+            > and <strong>current focuses</strong> check out my <a
+              href="https://github.com/Favo02"
+              target="_blank"
+              rel="noopener noreferrer">GitHub README</a
+            >. I update it quite <em>frequently</em>, much more than this website!
           </p>
           <p>
-            Outside computers: football <em>(the real one)</em>, running, cycling, hiking —
-            preferably uphill. I compete under the alias
-            <a href="https://linktr.ee/imprudenza" target="_blank" rel="noopener noreferrer"><em>imprudenza</em></a>.
+            I also engage in activities unrelated to computers. I have a strong passion
+            for playing basically <strong>any sport</strong>, particularly <strong
+              >football</strong
+            >
+            <em
+              ><span class="opacity-70"
+                >(the real one, <del>soccer</del>)</span
+              ></em
+            >, which I played for many years in my hometown team. However, I must admit
+            that my <strong>competitive nature</strong> and desire for <strong
+              >precision</strong
+            > come into play: whether it's a casual or competitive game, I always strive
+            to achieve victory and to excel. Another thing I really enjoy is pushing my
+            physical limits through activities such as running, cycling or hiking <em
+              ><span class="opacity-70">(mountain &gt; seaside)</span></em
+            >.
+          </p>
+          <p>
+            Returning to computers: I consider myself a decent <strong
+              >competitive gamer</strong
+            >, competing under the alias of <em><strong>imprudenza</strong></em>
+            <a href="https://linktr.ee/imprudenza" target="_blank" rel="noopener noreferrer"
+              ><em><span class="opacity-70">(imprudenza's socials linktree)</span></em></a
+            >. In the past, I competed in <em>Minecraft</em>
+            <span title="ClanWar BedWars, 4v4 on PigParty or GommeHD">CWBW</span>,
+            becoming <span title="PigParty BedWars league, 4v4 on PigParty"
+              ><em>2018 Italian Champion</em></span
+            > with <em><span class="opacity-70">Rebirth</span></em>. In recent years, I
+            transitioned to <em>Rainbow Six Siege</em>, where I secured second place in
+            the <a
+              href="https://liquipedia.net/rainbowsix/PG_Nationals/2022/BeSerious/Spring"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="BeSerious Spring 2022"><em>2022 Italian Second Division</em></a
+            > with <em><span class="opacity-70">P11</span></em>. Due to time constraints,
+            my involvement in competitive gaming has reduced. <del
+              ><span class="opacity-70"
+                >However, I still occasionally participate in competitive tournaments for
+                fun.</span
+              ></del
+            >
+          </p>
+          <p>
+            <em>Last but not least:</em> you can recognize me IRL by the <a
+              href="https://upload.wikimedia.org/wikipedia/en/2/26/Papasmurf1.jpg"
+              target="_blank"
+              rel="noopener noreferrer">smurf</a
+            > attached to my backpack.
           </p>
           <p class="bio-footnote mono-sm">
-            Contact &amp; socials in the footer of every page.
-            CV and certificates available on request.
+            Contact &amp; socials in the footer. CV and certificates available on
+            request.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- ── Experience ── -->
-    <section class="cards-section">
-      <h2 class="section-label mono">Experience</h2>
-      <div class="cards-grid">
-        {experience.map((item) => (
-          <a href={item.link} target="_blank" rel="noopener noreferrer" class="card">
-            <div class="card-top">
-              <span class="card-period mono-sm">{item.period}</span>
-              <span class="card-org mono-sm">{item.org}</span>
-            </div>
-            <p class="card-title">{item.title}</p>
-            <p class="card-desc">{item.description}</p>
-          </a>
-        ))}
-      </div>
-    </section>
-
-    <!-- ── Education ── -->
-    <section class="cards-section">
-      <h2 class="section-label mono">Education</h2>
-      <div class="cards-grid">
-        {education.map((item) => (
-          <a href={item.link} target="_blank" rel="noopener noreferrer" class="card">
-            <div class="card-top">
-              <span class="card-period mono-sm">{item.period}</span>
-              <span class="card-org mono-sm">{item.org}</span>
-            </div>
-            <p class="card-title">{item.title}</p>
-            <p class="card-desc">{item.description}</p>
-          </a>
-        ))}
-      </div>
-    </section>
-
-    <!-- ── Events ── -->
-    {events.length > 0 && (
-      <section class="cards-section">
-        <h2 class="section-label mono">Events &amp; Awards</h2>
-        <div class="cards-grid">
-          {events.map((item) => (
-            item.link
-              ? (
-                <a href={item.link} target="_blank" rel="noopener noreferrer" class="card card--event">
-                  <div class="card-top">
-                    <span class="card-period mono-sm">{item.year}</span>
-                    <span class="event-result">{item.result}</span>
+    <!-- ── Unified timeline ── -->
+    <section class="timeline-section">
+      <h2 class="section-label mono">Background</h2>
+      <ul class="timeline-list">
+        {
+          timeline.map((item) => (
+            <li class="tl-item">
+              <span class="tl-period mono-sm">{item.period}</span>
+              <div class="tl-body">
+                <div class="tl-top">
+                  {item.link ? (
+                    <a
+                      href={item.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="tl-title"
+                    >
+                      {item.title}
+                    </a>
+                  ) : (
+                    <span class="tl-title">{item.title}</span>
+                  )}
+                  <div class="tl-badges">
+                    {item.result && (
+                      <span class="tl-result">{item.result}</span>
+                    )}
+                    <span class:list={["tl-tag", `tl-tag--${item.type}`]}>
+                      {typeLabel[item.type]}
+                    </span>
                   </div>
-                  <p class="card-title">{item.title}</p>
-                  <p class="card-desc">{item.description}</p>
-                </a>
-              )
-              : (
-                <div class="card card--event">
-                  <div class="card-top">
-                    <span class="card-period mono-sm">{item.year}</span>
-                    <span class="event-result">{item.result}</span>
-                  </div>
-                  <p class="card-title">{item.title}</p>
-                  <p class="card-desc">{item.description}</p>
                 </div>
-              )
-          ))}
-        </div>
-      </section>
-    )}
-
-    <!-- ── Publications ── -->
-    {publications.length > 0 && (
-      <section class="cards-section">
-        <h2 class="section-label mono">Publications</h2>
-        <div class="cards-grid">
-          {publications.map((item) => (
-            item.link
-              ? (
-                <a href={item.link} target="_blank" rel="noopener noreferrer" class="card card--pub">
-                  <div class="card-top">
-                    <span class="card-period mono-sm">{item.year}</span>
-                    <span class="card-org mono-sm">{item.venue}</span>
-                  </div>
-                  <p class="card-title">{item.title}</p>
-                  <p class="card-desc">{item.description}</p>
-                </a>
-              )
-              : (
-                <div class="card card--pub">
-                  <div class="card-top">
-                    <span class="card-period mono-sm">{item.year}</span>
-                    <span class="card-org mono-sm">{item.venue}</span>
-                  </div>
-                  <p class="card-title">{item.title}</p>
-                  <p class="card-desc">{item.description}</p>
-                </div>
-              )
-          ))}
-        </div>
-      </section>
-    )}
-
-    <!-- ── Certificates ── -->
-    <section class="cards-section">
-      <h2 class="section-label mono">Certificates</h2>
-      <div class="cards-grid cards-grid--3">
-        {certificates.map((item) => (
-          <a href={item.link} target="_blank" rel="noopener noreferrer" class="card">
-            <span class="card-period mono-sm">{item.year}</span>
-            <p class="card-title">{item.title}</p>
-            <p class="card-desc">{item.description}</p>
-          </a>
-        ))}
-      </div>
+                <p class="tl-meta mono-sm">{item.org}</p>
+                {item.description && (
+                  <p class="tl-desc">{item.description}</p>
+                )}
+              </div>
+            </li>
+          ))
+        }
+      </ul>
     </section>
 
+    <!-- ── Publications (shown only when non-empty) ── -->
+    {
+      publications.length > 0 && (
+        <section class="timeline-section">
+          <h2 class="section-label mono">Publications</h2>
+          <ul class="timeline-list">
+            {publications.map((item) => (
+              <li class="tl-item">
+                <span class="tl-period mono-sm">{item.year}</span>
+                <div class="tl-body">
+                  <div class="tl-top">
+                    {item.link ? (
+                      <a
+                        href={item.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="tl-title"
+                      >
+                        {item.title}
+                      </a>
+                    ) : (
+                      <span class="tl-title">{item.title}</span>
+                    )}
+                    <span class="tl-tag tl-tag--publication">publication</span>
+                  </div>
+                  <p class="tl-meta mono-sm">{item.venue}</p>
+                  {item.description && (
+                    <p class="tl-desc">{item.description}</p>
+                  )}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
   </div>
 </BaseLayout>
 
@@ -262,14 +304,14 @@ const myAge = calculateAge(new Date('August 25, 2002'));
   /* ── Intro ── */
   .intro-section {
     display: grid;
-    grid-template-columns: 280px 1fr;
+    grid-template-columns: 260px 1fr;
     gap: var(--space-3xl);
     align-items: start;
   }
 
   .photo-wrap {
     position: sticky;
-    top: var(--space-xl);
+    top: calc(56px + var(--space-xl));
   }
 
   .propic {
@@ -288,12 +330,12 @@ const myAge = calculateAge(new Date('August 25, 2002'));
 
   .intro-name {
     font-family: var(--font-display);
-    font-size: clamp(3rem, 6vw, 5rem);
-    font-weight: 700;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
     line-height: 0.95;
     letter-spacing: -0.02em;
     color: var(--text);
     margin-bottom: var(--space-xl);
+    font-weight: 700;
     font-style: normal;
   }
 
@@ -303,10 +345,7 @@ const myAge = calculateAge(new Date('August 25, 2002'));
     color: var(--text-muted);
   }
 
-  .intro-bio {
-    max-width: 520px;
-  }
-
+  /* ── Bio prose ── */
   .intro-bio p {
     font-size: var(--text-base);
     line-height: var(--leading-normal);
@@ -324,12 +363,18 @@ const myAge = calculateAge(new Date('August 25, 2002'));
     text-decoration: underline;
     text-decoration-color: var(--border);
     text-underline-offset: 3px;
-    transition: color var(--transition-fast), text-decoration-color var(--transition-fast);
+    transition:
+      color var(--transition-fast),
+      text-decoration-color var(--transition-fast);
   }
 
   .intro-bio a:hover {
     color: var(--accent);
     text-decoration-color: var(--accent);
+  }
+
+  .opacity-70 {
+    opacity: 0.7;
   }
 
   .bio-footnote {
@@ -338,6 +383,7 @@ const myAge = calculateAge(new Date('August 25, 2002'));
     border-top: 1px solid var(--border-subtle);
     color: var(--text-faint) !important;
     font-size: var(--text-xs) !important;
+    margin-bottom: 0;
   }
 
   /* ── Section label ── */
@@ -351,88 +397,132 @@ const myAge = calculateAge(new Date('August 25, 2002'));
     font-weight: 500;
   }
 
-  .cards-section {
-    /* gap handled by about-page flex column */
-  }
-
-  /* ── Cards grid ── */
-  .cards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: var(--space-md);
-  }
-
-  .cards-grid--3 {
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  }
-
-  .card {
-    display: block;
-    background: var(--bg-surface);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: var(--space-lg);
-    text-decoration: none;
-    color: var(--text);
-    transition:
-      border-color var(--transition-fast),
-      background var(--transition-fast),
-      transform var(--transition-fast);
-    cursor: pointer;
-  }
-
-  a.card:hover {
-    border-color: var(--text-faint);
-    background: var(--bg-elevated);
-    transform: translateY(-1px);
-  }
-
-  div.card {
-    cursor: default;
-  }
-
-  .card-top {
+  /* ── Unified timeline list ── */
+  .timeline-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
     display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: var(--space-sm);
-    margin-bottom: var(--space-sm);
+    flex-direction: column;
+    border-top: 1px solid var(--border-subtle);
   }
 
-  .card-period {
-    flex-shrink: 0;
+  .tl-item {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: var(--space-lg);
+    padding: var(--space-lg) 0;
+    border-bottom: 1px solid var(--border-subtle);
+    transition: background-color var(--transition-fast);
   }
 
-  .card-org {
-    text-align: right;
+  .tl-item:hover {
+    background: color-mix(in srgb, var(--bg-surface) 60%, transparent);
+    padding-left: var(--space-sm);
+    padding-right: var(--space-sm);
+    margin: 0 calc(-1 * var(--space-sm));
+  }
+
+  .tl-period {
+    padding-top: 3px;
+    white-space: nowrap;
     color: var(--text-faint);
   }
 
-  .card-title {
+  .tl-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .tl-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .tl-title {
     font-family: var(--font-display);
     font-size: var(--text-base);
     font-weight: 400;
     font-style: italic;
     color: var(--text);
-    margin-bottom: var(--space-xs);
+    text-decoration: none;
     line-height: var(--leading-snug);
+    transition: color var(--transition-fast);
   }
 
-  .card-desc {
+  a.tl-title:hover {
+    color: var(--accent);
+  }
+
+  .tl-badges {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    flex-shrink: 0;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .tl-result {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wider);
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  /* Type tags */
+  .tl-tag {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wider);
+    padding: 0.15em 0.55em;
+    border-radius: 3px;
+    border: 1px solid;
+    white-space: nowrap;
+  }
+
+  .tl-tag--experience {
+    color: var(--tag-personal);
+    border-color: var(--tag-personal);
+  }
+
+  .tl-tag--education {
+    color: var(--tag-academic);
+    border-color: var(--tag-academic);
+  }
+
+  .tl-tag--certificate {
+    color: var(--text-faint);
+    border-color: var(--border);
+  }
+
+  .tl-tag--event {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .tl-tag--publication {
+    color: var(--tag-academic);
+    border-color: var(--tag-academic);
+  }
+
+  .tl-meta {
+    color: var(--text-faint);
+    margin: 0;
+  }
+
+  .tl-desc {
     font-size: var(--text-sm);
     color: var(--text-muted);
+    margin: 0;
     line-height: var(--leading-normal);
-    margin-bottom: 0;
-  }
-
-  /* ── Event result badge ── */
-  .event-result {
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    color: var(--accent);
-    letter-spacing: var(--tracking-wide);
-    text-transform: uppercase;
-    white-space: nowrap;
   }
 
   /* ── Responsive ── */
@@ -447,19 +537,31 @@ const myAge = calculateAge(new Date('August 25, 2002'));
     }
 
     .propic {
-      max-height: 360px;
+      max-height: 320px;
       width: 100%;
+      object-position: center 25%;
     }
 
     .intro-name {
       font-size: clamp(2.5rem, 10vw, 4rem);
     }
-  }
 
-  @media (max-width: 480px) {
-    .cards-grid,
-    .cards-grid--3 {
+    .tl-item {
       grid-template-columns: 1fr;
+      gap: var(--space-xs);
+    }
+
+    .tl-period {
+      padding-top: 0;
+    }
+
+    .tl-top {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .tl-badges {
+      justify-content: flex-start;
     }
   }
 </style>
