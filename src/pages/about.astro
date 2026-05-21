@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-// Education & experience data
 const experience = [
   {
     period: 'Feb 2024 — May 2024',
@@ -32,22 +31,58 @@ const education = [
 const certificates = [
   {
     year: '2022',
-    title: 'FullStackOpen course',
-    description: 'University of Helsinki modern Full Stack Web Development course',
+    title: 'FullStackOpen',
+    description: 'University of Helsinki — modern Full Stack Web Development',
     link: 'https://fullstackopen.com/en',
   },
   {
     year: '2021',
-    title: 'Elements of AI course',
-    description: 'MinnaLearn and University of Helsinki artificial intelligence course',
+    title: 'Elements of AI',
+    description: 'MinnaLearn & University of Helsinki — artificial intelligence',
     link: 'https://www.elementsofai.com',
   },
   {
     year: '2021',
-    title: 'English B2 First qualification',
+    title: 'English B2 First',
     description: 'Cambridge English B2 qualification',
     link: 'https://www.cambridgeenglish.org/exams-and-tests/first',
   },
+];
+
+// Events: hackathons, awards, competitions — add entries here
+const events = [
+  {
+    year: '2022',
+    title: 'PG Nationals BeSerious Spring',
+    result: '2nd place',
+    description: 'Italian Rainbow Six Siege second division tournament',
+    link: 'https://liquipedia.net/rainbowsix/PG_Nationals/2022/BeSerious/Spring',
+  },
+  {
+    year: '2018',
+    title: 'PigParty BedWars League',
+    result: 'Italian Champion',
+    description: 'Minecraft ClanWar BedWars 4v4 Italian championship with Rebirth',
+    link: null,
+  },
+];
+
+// Publications — add your papers, theses, or articles here
+const publications: {
+  year: string;
+  title: string;
+  venue: string;
+  description: string;
+  link: string | null;
+}[] = [
+  // Example entry (remove or replace when you have real ones):
+  // {
+  //   year: '2025',
+  //   title: 'My Bachelor Thesis',
+  //   venue: 'Università degli Studi di Milano',
+  //   description: 'Short description of what it covers.',
+  //   link: null,
+  // },
 ];
 
 const calculateAge = (birthday: Date) => {
@@ -56,216 +91,375 @@ const calculateAge = (birthday: Date) => {
   return Math.abs(ageDate.getUTCFullYear() - 1970);
 };
 
-const myAge = calculateAge(new Date("August 25, 2002"));
+const myAge = calculateAge(new Date('August 25, 2002'));
 ---
 
-<BaseLayout title="About" description="About Luca Favini — biography, education, experience, and certificates.">
+<BaseLayout title="About" description="About Luca Favini — biography, education, experience, and more.">
   <div class="about-page">
-    <header class="page-header">
-      <h1>About</h1>
-    </header>
 
-    <section class="bio prose">
-      <p>
-        Hello, I am <strong>Luca Favini</strong>, but my friends call me <strong>Favo</strong>. I am a {myAge}-year-old guy living <em>(near)</em> <strong>Milan, Italy</strong>.
-      </p>
-      <p>
-        My educational background is entirely centered around <strong>computer science</strong>, which I am currently studying at <strong>Università degli studi di Milano</strong>. For more details about my <strong>interests</strong>, <strong>notable projects</strong> and <strong>current focuses</strong> check out my <a href="https://github.com/Favo02" target="_blank" rel="noopener noreferrer">GitHub README</a>. I update it quite <em>frequently</em>, much more than this website!
-      </p>
-      <p>
-        I also engage in activities unrelated to computers. I have a strong passion for playing basically <strong>any sport</strong>, particularly <strong>football</strong> <em><span class="opacity-70">(the real one, <del>soccer</del>)</span></em>, which I played for many years in my hometown team. However, I must admit that my <strong>competitive nature</strong> and desire for <strong>precision</strong> come into play: whether it's a casual or competitive game, I always strive to achieve victory and to excel. Another thing I really enjoy is pushing my physical limits through activities such as running, cycling or hiking <em><span class="opacity-70">(mountain &gt; seaside)</span></em>.
-      </p>
-      <p>
-        Returning to computers: I consider myself a decent <strong>competitive gamer</strong>, competing under the alias of <em><strong>imprudenza</strong></em> <a href="https://linktr.ee/imprudenza" target="_blank" rel="noopener noreferrer"><em><span class="opacity-70">(imprudenza's socials linktree)</span></em></a>. In the past, I competed in <em>Minecraft</em> <span title="ClanWar BedWars, 4v4 on PigParty or GommeHD">CWBW</span>, becoming <span title="PigParty BedWars league, 4v4 on PigParty"><em>2018 Italian Champion</em></span> with <em><span class="opacity-70">Rebirth</span></em>. In recent years, I transitioned to <em>Rainbow Six Siege</em>, where I secured second place in the <a href="https://liquipedia.net/rainbowsix/PG_Nationals/2022/BeSerious/Spring" target="_blank" rel="noopener noreferrer" title="BeSerious Spring 2022"><em>2022 Italian Second Division</em></a> with <em><span class="opacity-70">P11</span></em>. Due to time constraints, my involvement in competitive gaming has reduced. <del><span class="opacity-70">However, I still occasionally participate in competitive tournaments for fun.</span></del>
-      </p>
-      <p>
-        <em>Last but not least:</em> you can recognize me IRL by the <a href="https://upload.wikimedia.org/wikipedia/en/2/26/Papasmurf1.jpg" target="_blank" rel="noopener noreferrer">smurf</a> attached to my backpack.
-      </p>
-      
-      <p class="contact-note italic">
-        You can find my <strong>contact information</strong> and <strong>socials</strong> in the footer of every page.
-      </p>
+    <!-- ── Intro: photo + bio side by side ── -->
+    <section class="intro-section">
+      <div class="intro-photo-col">
+        <div class="photo-wrap">
+          <img
+            src="/propic.webp"
+            alt="Luca Favini hiking on a mountain ridge"
+            class="propic"
+            loading="eager"
+          />
+        </div>
+      </div>
+
+      <div class="intro-text-col">
+        <h1 class="intro-name">Luca<br /><em>Favini</em></h1>
+        <div class="intro-bio">
+          <p>
+            {myAge} years old, based <em>(near)</em> <strong>Milan, Italy</strong>.
+            My friends call me <strong>Favo</strong>.
+          </p>
+          <p>
+            I study <strong>computer science</strong> at Università degli Studi di Milano
+            and spend a lot of time writing code, mostly in the open.
+            My <a href="https://github.com/Favo02" target="_blank" rel="noopener noreferrer">GitHub README</a>
+            tracks my current interests more accurately than this page.
+          </p>
+          <p>
+            Outside computers: football <em>(the real one)</em>, running, cycling, hiking —
+            preferably uphill. I compete under the alias
+            <a href="https://linktr.ee/imprudenza" target="_blank" rel="noopener noreferrer"><em>imprudenza</em></a>.
+          </p>
+          <p class="bio-footnote mono-sm">
+            Contact &amp; socials in the footer of every page.
+            CV and certificates available on request.
+          </p>
+        </div>
+      </div>
     </section>
 
-    <section class="timeline-section">
-      <h2 class="section-title mono">Experience</h2>
-      <div class="timeline">
+    <!-- ── Experience ── -->
+    <section class="cards-section">
+      <h2 class="section-label mono">Experience</h2>
+      <div class="cards-grid">
         {experience.map((item) => (
-          <div class="timeline-item">
-            <span class="timeline-period mono-sm">{item.period}</span>
-            <div class="timeline-content">
-              <h3>
-                <a href={item.link} target="_blank" rel="noopener noreferrer">{item.title}</a>
-              </h3>
-              <span class="timeline-org">{item.org}</span>
-              <p class="timeline-desc">{item.description}</p>
+          <a href={item.link} target="_blank" rel="noopener noreferrer" class="card">
+            <div class="card-top">
+              <span class="card-period mono-sm">{item.period}</span>
+              <span class="card-org mono-sm">{item.org}</span>
             </div>
-          </div>
+            <p class="card-title">{item.title}</p>
+            <p class="card-desc">{item.description}</p>
+          </a>
         ))}
       </div>
     </section>
 
-    <section class="timeline-section">
-      <h2 class="section-title mono">Education</h2>
-      <div class="timeline">
+    <!-- ── Education ── -->
+    <section class="cards-section">
+      <h2 class="section-label mono">Education</h2>
+      <div class="cards-grid">
         {education.map((item) => (
-          <div class="timeline-item">
-            <span class="timeline-period mono-sm">{item.period}</span>
-            <div class="timeline-content">
-              <h3>
-                <a href={item.link} target="_blank" rel="noopener noreferrer">{item.title}</a>
-              </h3>
-              <span class="timeline-org">{item.org}</span>
-              <p class="timeline-desc">{item.description}</p>
+          <a href={item.link} target="_blank" rel="noopener noreferrer" class="card">
+            <div class="card-top">
+              <span class="card-period mono-sm">{item.period}</span>
+              <span class="card-org mono-sm">{item.org}</span>
             </div>
-          </div>
+            <p class="card-title">{item.title}</p>
+            <p class="card-desc">{item.description}</p>
+          </a>
         ))}
       </div>
     </section>
 
-    <section class="timeline-section">
-      <h2 class="section-title mono">Certificates</h2>
-      <div class="timeline">
+    <!-- ── Events ── -->
+    {events.length > 0 && (
+      <section class="cards-section">
+        <h2 class="section-label mono">Events &amp; Awards</h2>
+        <div class="cards-grid">
+          {events.map((item) => (
+            item.link
+              ? (
+                <a href={item.link} target="_blank" rel="noopener noreferrer" class="card card--event">
+                  <div class="card-top">
+                    <span class="card-period mono-sm">{item.year}</span>
+                    <span class="event-result">{item.result}</span>
+                  </div>
+                  <p class="card-title">{item.title}</p>
+                  <p class="card-desc">{item.description}</p>
+                </a>
+              )
+              : (
+                <div class="card card--event">
+                  <div class="card-top">
+                    <span class="card-period mono-sm">{item.year}</span>
+                    <span class="event-result">{item.result}</span>
+                  </div>
+                  <p class="card-title">{item.title}</p>
+                  <p class="card-desc">{item.description}</p>
+                </div>
+              )
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- ── Publications ── -->
+    {publications.length > 0 && (
+      <section class="cards-section">
+        <h2 class="section-label mono">Publications</h2>
+        <div class="cards-grid">
+          {publications.map((item) => (
+            item.link
+              ? (
+                <a href={item.link} target="_blank" rel="noopener noreferrer" class="card card--pub">
+                  <div class="card-top">
+                    <span class="card-period mono-sm">{item.year}</span>
+                    <span class="card-org mono-sm">{item.venue}</span>
+                  </div>
+                  <p class="card-title">{item.title}</p>
+                  <p class="card-desc">{item.description}</p>
+                </a>
+              )
+              : (
+                <div class="card card--pub">
+                  <div class="card-top">
+                    <span class="card-period mono-sm">{item.year}</span>
+                    <span class="card-org mono-sm">{item.venue}</span>
+                  </div>
+                  <p class="card-title">{item.title}</p>
+                  <p class="card-desc">{item.description}</p>
+                </div>
+              )
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- ── Certificates ── -->
+    <section class="cards-section">
+      <h2 class="section-label mono">Certificates</h2>
+      <div class="cards-grid cards-grid--3">
         {certificates.map((item) => (
-          <div class="timeline-item">
-            <span class="timeline-period mono-sm">{item.year}</span>
-            <div class="timeline-content">
-              <h3>
-                <a href={item.link} target="_blank" rel="noopener noreferrer">{item.title}</a>
-              </h3>
-              <p class="timeline-desc">{item.description}</p>
-            </div>
-          </div>
+          <a href={item.link} target="_blank" rel="noopener noreferrer" class="card">
+            <span class="card-period mono-sm">{item.year}</span>
+            <p class="card-title">{item.title}</p>
+            <p class="card-desc">{item.description}</p>
+          </a>
         ))}
       </div>
     </section>
 
-    <footer class="about-footer">
-      <p class="contact-note italic">
-        My <strong>Curriculum Vitae</strong> and <strong>Certificates</strong> are available upon request. Contact me.
-      </p>
-    </footer>
   </div>
 </BaseLayout>
 
 <style>
   .about-page {
     padding-top: var(--space-2xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4xl);
   }
 
-  .page-header {
-    margin-bottom: var(--space-2xl);
+  /* ── Intro ── */
+  .intro-section {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: var(--space-3xl);
+    align-items: start;
   }
 
-  .page-header h1 {
-    font-size: var(--text-3xl);
-    font-weight: 300;
+  .photo-wrap {
+    position: sticky;
+    top: var(--space-xl);
   }
 
-  .bio {
-    max-width: var(--max-width-prose);
-    margin-bottom: var(--space-3xl);
+  .propic {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    object-position: center 20%;
+    border-radius: 4px;
+    filter: grayscale(15%);
+    transition: filter var(--transition-base);
+  }
+
+  .propic:hover {
+    filter: grayscale(0%);
+  }
+
+  .intro-name {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 6vw, 5rem);
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: var(--space-xl);
+    font-style: normal;
+  }
+
+  .intro-name em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--text-muted);
+  }
+
+  .intro-bio {
+    max-width: 520px;
+  }
+
+  .intro-bio p {
     font-size: var(--text-base);
     line-height: var(--leading-normal);
-  }
-
-  .bio p {
+    color: var(--text-muted);
     margin-bottom: var(--space-md);
   }
 
-  .bio strong {
+  .intro-bio strong {
+    color: var(--text);
     font-weight: 600;
   }
 
-  .opacity-70 {
-    opacity: 0.7;
-  }
-
-  .contact-note {
-    text-align: center;
+  .intro-bio a {
     color: var(--text-muted);
+    text-decoration: underline;
+    text-decoration-color: var(--border);
+    text-underline-offset: 3px;
+    transition: color var(--transition-fast), text-decoration-color var(--transition-fast);
+  }
+
+  .intro-bio a:hover {
+    color: var(--accent);
+    text-decoration-color: var(--accent);
+  }
+
+  .bio-footnote {
     margin-top: var(--space-xl);
-    font-weight: 300;
-  }
-  
-  .contact-note strong {
-    font-weight: 600;
-  }
-
-  /* Timeline sections */
-  .timeline-section {
-    margin-bottom: var(--space-3xl);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--border-subtle);
+    color: var(--text-faint) !important;
+    font-size: var(--text-xs) !important;
   }
 
-  .section-title {
+  /* ── Section label ── */
+  .section-label {
     font-size: var(--text-xs) !important;
     font-family: var(--font-mono) !important;
     text-transform: uppercase;
     letter-spacing: var(--tracking-wider);
-    color: var(--text-muted);
+    color: var(--text-faint);
     margin-bottom: var(--space-lg);
-    padding-bottom: var(--space-sm);
-    border-bottom: 1px solid var(--border);
     font-weight: 500;
   }
 
-  .timeline {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-lg);
+  .cards-section {
+    /* gap handled by about-page flex column */
   }
 
-  .timeline-item {
+  /* ── Cards grid ── */
+  .cards-grid {
     display: grid;
-    grid-template-columns: 180px 1fr;
-    gap: var(--space-lg);
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--space-md);
   }
 
-  .timeline-period {
-    padding-top: 2px;
-    white-space: nowrap;
+  .cards-grid--3 {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   }
 
-  .timeline-content h3 {
+  .card {
+    display: block;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: var(--space-lg);
+    text-decoration: none;
+    color: var(--text);
+    transition:
+      border-color var(--transition-fast),
+      background var(--transition-fast),
+      transform var(--transition-fast);
+    cursor: pointer;
+  }
+
+  a.card:hover {
+    border-color: var(--text-faint);
+    background: var(--bg-elevated);
+    transform: translateY(-1px);
+  }
+
+  div.card {
+    cursor: default;
+  }
+
+  .card-top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
+  }
+
+  .card-period {
+    flex-shrink: 0;
+  }
+
+  .card-org {
+    text-align: right;
+    color: var(--text-faint);
+  }
+
+  .card-title {
     font-family: var(--font-display);
     font-size: var(--text-base);
     font-weight: 400;
-    margin-bottom: var(--space-xs);
-  }
-
-  .timeline-content h3 a {
+    font-style: italic;
     color: var(--text);
-    text-decoration: none;
-    transition: color var(--transition-fast);
+    margin-bottom: var(--space-xs);
+    line-height: var(--leading-snug);
   }
 
-  .timeline-content h3 a:hover {
-    color: var(--accent);
-  }
-
-  .timeline-org {
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    color: var(--text-faint);
-    letter-spacing: var(--tracking-wide);
-  }
-
-  .timeline-desc {
-    color: var(--text-muted);
+  .card-desc {
     font-size: var(--text-sm);
-    margin-top: var(--space-xs);
+    color: var(--text-muted);
+    line-height: var(--leading-normal);
     margin-bottom: 0;
   }
 
-  .about-footer {
-    padding-top: var(--space-xl);
-    border-top: 1px solid var(--border);
+  /* ── Event result badge ── */
+  .event-result {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--accent);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    white-space: nowrap;
   }
 
-  @media (max-width: 640px) {
-    .timeline-item {
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .intro-section {
       grid-template-columns: 1fr;
-      gap: var(--space-xs);
+      gap: var(--space-2xl);
+    }
+
+    .photo-wrap {
+      position: static;
+    }
+
+    .propic {
+      max-height: 360px;
+      width: 100%;
+    }
+
+    .intro-name {
+      font-size: clamp(2.5rem, 10vw, 4rem);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .cards-grid,
+    .cards-grid--3 {
+      grid-template-columns: 1fr;
     }
   }
 </style>
