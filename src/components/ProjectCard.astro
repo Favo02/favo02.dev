@@ -1,56 +1,68 @@
 ---
-import type { GitHubRepo } from '../services/github';
+import type { GitHubRepo } from "../services/github"
 
 interface Props {
-  repo: GitHubRepo;
-  highlighted?: boolean;
+  repo: GitHubRepo
+  highlighted?: boolean
 }
 
-const { repo, highlighted = false } = Astro.props;
+const { repo, highlighted = false } = Astro.props
 
-const pushedDate = new Date(repo.pushedAt);
-const timeAgo = getTimeAgo(pushedDate);
+const pushedDate = new Date(repo.pushedAt)
+const timeAgo = getTimeAgo(pushedDate)
 
 function getTimeAgo(date: Date): string {
-  const now = new Date();
-  const diffMs = now.getTime() - date.getTime();
-  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+  const now = new Date()
+  const diffMs = now.getTime() - date.getTime()
+  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24))
 
-  if (diffDays === 0) return 'today';
-  if (diffDays === 1) return 'yesterday';
-  if (diffDays < 30) return `${diffDays}d ago`;
-  if (diffDays < 365) return `${Math.floor(diffDays / 30)}mo ago`;
-  return `${Math.floor(diffDays / 365)}y ago`;
+  if (diffDays === 0) return "today"
+  if (diffDays === 1) return "yesterday"
+  if (diffDays < 30) return `${diffDays}d ago`
+  if (diffDays < 365) return `${Math.floor(diffDays / 30)}mo ago`
+  return `${Math.floor(diffDays / 365)}y ago`
 }
 ---
 
-<a href={repo.url} target="_blank" rel="noopener noreferrer"
-  class:list={['project-row', { 'project-row--highlighted': highlighted }]}>
+<a
+  href={repo.url}
+  target="_blank"
+  rel="noopener noreferrer"
+  class:list={["project-row", { "project-row--highlighted": highlighted }]}
+>
   <div class="project-main">
     {highlighted && <span class="highlight-marker" aria-hidden="true">◆</span>}
-    <span class:list={['project-name', { archived: repo.isArchived }]}>
+    <span class:list={["project-name", { archived: repo.isArchived }]}>
       {repo.name}
     </span>
-    {repo.isArchived && <span class="tag tag-archived">archived</span>}
     {repo.isFork && <span class="tag">fork</span>}
   </div>
 
   <div class="project-desc">
-    {repo.description || ''}
-    {repo.topics && repo.topics.length > 0 && (
-      <div class="project-topics">
-        {repo.topics.map(topic => <span class="topic-tag">#{topic}</span>)}
-      </div>
-    )}
+    {repo.description || ""}
+    {
+      repo.topics && repo.topics.length > 0 && (
+        <div class="project-topics">
+          {repo.topics.map((topic) => (
+            <span class="topic-tag">#{topic}</span>
+          ))}
+        </div>
+      )
+    }
   </div>
 
   <div class="project-meta">
-    {repo.primaryLanguage && (
-      <span class="lang">
-        <span class="lang-dot" style={`background-color: ${repo.primaryLanguage.color}`}></span>
-        {repo.primaryLanguage.name}
-      </span>
-    )}
+    {
+      repo.primaryLanguage && (
+        <span class="lang">
+          <span
+            class="lang-dot"
+            style={`background-color: ${repo.primaryLanguage.color}`}
+          />
+          {repo.primaryLanguage.name}
+        </span>
+      )
+    }
     <span class="time">{timeAgo}</span>
   </div>
 </a>
