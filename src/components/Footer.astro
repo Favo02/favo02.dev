@@ -2,44 +2,79 @@
 ---
 
 <footer class="site-footer">
-  <!-- Top rule + big name -->
-  <div class="footer-top">
-    <div class="footer-name-wrap container-wide">
-      <p class="footer-name">Luca<br />Favini</p>
+  <!--
+    Chessboard layout:
+    ┌─────────────────┬──────────────────────┐
+    │  favo02         │  site links          │
+    ├─────────────────┼──────────────────────┤
+    │  Luca Favini    │  contacts            │
+    └─────────────────┴──────────────────────┘
+  -->
+  <div class="footer-grid container-wide">
+    <!-- Top-left: handle -->
+    <div class="cell cell--tl">
+      <p class="handle">favo02</p>
     </div>
-  </div>
 
-  <!-- Static link band -->
-  <div class="footer-band">
-    <div class="band-inner container-wide">
-      <div class="band-links">
-        <a href="/projects" class="band-link">Projects</a>
-        <span class="band-sep">·</span>
-        <a href="/about" class="band-link">About</a>
-        <span class="band-sep">·</span>
-        <a href="/now" class="band-link">Now</a>
-        <span class="band-sep">·</span>
-        <a href="/blog" class="band-link">Blog</a>
-        <span class="band-sep">·</span>
-        <a href="https://v1.favo02.dev" target="_blank" rel="noopener noreferrer" class="band-link">v1</a>
-      </div>
+    <!-- Top-right: site nav links -->
+    <div class="cell cell--tr">
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="/projects" class="footer-link">Projects</a>
+        <a href="/about" class="footer-link">About</a>
+        <a href="/now" class="footer-link">Now</a>
+        <a href="/blog" class="footer-link">Blog</a>
+        <a
+          href="https://v1.favo02.dev"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="footer-link footer-link--faint"
+        >
+          v1
+        </a>
+      </nav>
+    </div>
 
-      <div class="band-socials">
-        <a href="https://github.com/Favo02" target="_blank" rel="noopener noreferrer" class="band-link">GitHub</a>
-        <span class="band-sep">·</span>
-        <a href="https://linkedin.com/in/lucafavini" target="_blank" rel="noopener noreferrer" class="band-link">LinkedIn</a>
-        <span class="band-sep">·</span>
-        <span class="band-link band-email" title="Dumb bot filter — read it if you can">
-          luca.favini.02 AT gmail.com
-        </span>
+    <!-- Bottom-left: full name -->
+    <div class="cell cell--bl">
+      <p class="full-name">
+        <span class="full-name-first">Luca</span>
+        <span class="full-name-last">Favini</span>
+      </p>
+      <p class="copyright mono-sm">© {new Date().getFullYear()}</p>
+    </div>
+
+    <!-- Bottom-right: contacts -->
+    <div class="cell cell--br">
+      <div class="contacts">
+        <a
+          href="https://github.com/Favo02"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="contact-link"
+        >
+          <span class="contact-label mono-sm">GitHub</span>
+          <span class="contact-value mono-sm">Favo02</span>
+        </a>
+        <a
+          href="https://linkedin.com/in/lucafavini"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="contact-link"
+        >
+          <span class="contact-label mono-sm">LinkedIn</span>
+          <span class="contact-value mono-sm">lucafavini</span>
+        </a>
+        <div class="contact-link contact-link--email">
+          <span class="contact-label mono-sm">Email</span>
+          <span
+            class="contact-value mono-sm"
+            title="Dumb and bot filter: if you can't correctly understand this email you shouldn't contact me."
+          >
+            me AT favo02.dev
+          </span>
+        </div>
       </div>
     </div>
-  </div>
-
-  <!-- Bottom bar -->
-  <div class="footer-bottom container-wide">
-    <span class="mono-sm">© {new Date().getFullYear()} Luca Favini</span>
-    <span class="mono-sm footer-domain">favo02.dev</span>
   </div>
 </footer>
 
@@ -47,111 +82,178 @@
   .site-footer {
     margin-top: var(--space-4xl);
     border-top: 1px solid var(--border);
-    overflow: hidden;
   }
 
-  /* ── Big name block ── */
-  .footer-top {
-    padding: var(--space-2xl) 0 var(--space-xl);
+  /* ── Chessboard grid ── */
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
   }
 
-  .footer-name-wrap {
+  .cell {
+    padding: var(--space-xl) var(--space-lg);
+  }
+
+  /* Top row cells separated by a hairline column divider */
+  .cell--tl {
+    border-right: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .cell--tr {
+    border-bottom: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: flex-end;
+  }
+
+  /* Bottom row */
+  .cell--bl {
+    border-right: 1px solid var(--border-subtle);
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    gap: var(--space-lg);
+    padding-top: var(--space-lg);
+    padding-bottom: var(--space-xl);
   }
 
-  .footer-name {
-    font-family: var(--font-display);
-    font-size: clamp(3.5rem, 10vw, 8rem);
-    font-weight: 400;
-    line-height: 0.92;
-    letter-spacing: -0.03em;
-    font-style: italic;
-    color: var(--text);
+  .cell--br {
+    display: flex;
+    align-items: flex-end;
+    padding-top: var(--space-lg);
+    padding-bottom: var(--space-xl);
+  }
+
+  /* ── Handle (favo02) ── */
+  .handle {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wider);
+    color: var(--text-faint);
     margin: 0;
   }
 
-  /* ── Static band ── */
-  .footer-band {
-    border-top: 1px solid var(--border-subtle);
-    border-bottom: 1px solid var(--border-subtle);
-    padding: var(--space-md) 0;
-  }
-
-  .band-inner {
+  /* ── Site nav ── */
+  .footer-nav {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-xl);
     flex-wrap: wrap;
+    gap: var(--space-sm) var(--space-lg);
   }
 
-  .band-links,
-  .band-socials {
-    display: flex;
-    align-items: center;
-    gap: var(--space-md);
-    flex-wrap: wrap;
-  }
-
-  .band-link {
+  .footer-link {
     font-family: var(--font-mono);
     font-size: var(--text-xs);
     text-transform: uppercase;
     letter-spacing: var(--tracking-wide);
-    color: var(--text-faint);
+    color: var(--text-muted);
     text-decoration: none;
     transition: color var(--transition-fast);
-    white-space: nowrap;
   }
 
-  .band-link:hover {
+  .footer-link:hover {
     color: var(--accent);
   }
 
-  .band-email {
-    cursor: default;
-  }
-
-  .band-email:hover {
-    color: var(--text-muted);
-  }
-
-  .band-sep {
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    color: var(--border);
-    flex-shrink: 0;
-    user-select: none;
-  }
-
-  /* ── Bottom bar ── */
-  .footer-bottom {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: var(--space-md) 0 var(--space-lg);
-  }
-
-  .footer-domain {
+  .footer-link--faint {
     color: var(--text-faint);
   }
 
+  /* ── Full name ── */
+  .full-name {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 5.5rem);
+    line-height: 0.92;
+    letter-spacing: -0.025em;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .full-name-first {
+    font-weight: 400;
+    font-style: italic;
+    color: var(--text-muted);
+  }
+
+  .full-name-last {
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .copyright {
+    color: var(--text-faint);
+    margin: 0;
+  }
+
+  /* ── Contacts ── */
+  .contacts {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    width: 100%;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-md);
+    text-decoration: none;
+    color: var(--text-muted);
+    transition: color var(--transition-fast);
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: var(--space-sm);
+  }
+
+  a.contact-link:hover {
+    color: var(--accent);
+  }
+
+  .contact-link--email {
+    cursor: default;
+  }
+
+  .contact-label {
+    color: var(--text-faint);
+    flex-shrink: 0;
+  }
+
+  .contact-value {
+    text-align: right;
+  }
+
+  /* ── Responsive ── */
   @media (max-width: 640px) {
-    .footer-name {
-      font-size: clamp(3rem, 14vw, 5rem);
+    .footer-grid {
+      grid-template-columns: 1fr;
     }
 
-    .band-inner {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: var(--space-md);
+    .cell--tl,
+    .cell--tr,
+    .cell--bl,
+    .cell--br {
+      border-right: none;
     }
 
-    .footer-bottom {
-      flex-direction: column;
-      gap: var(--space-xs);
-      align-items: flex-start;
+    .cell--tl {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .cell--tr {
+      padding-top: var(--space-sm);
+    }
+
+    .cell--bl {
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .full-name {
+      font-size: clamp(2.5rem, 12vw, 4rem);
     }
   }
 </style>
