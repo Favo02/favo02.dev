@@ -40,7 +40,7 @@ const IGNORED_REPOS: string[] = [
 ]
 
 // Single account to fetch from.
-// Favo02 is a member/owner of Favo02-unimi org, so org repos are returned too.
+// All contributions are included too.
 export const FETCH_LOGIN = "Favo02"
 
 // Maps GitHub owner login (lower-case) → section.
@@ -53,17 +53,19 @@ export const OWNER_SECTIONS: Record<string, "personal" | "academic"> = {
 // Featured repos (displayed prominently at the top)
 export const FEATURED_REPOS: string[] = [
   "workspaces-by-open-apps",
-  "cess-advisor",
   "homelab",
   "recommendation-system",
 ]
 
 // Highlighted repos (visually accented inside the list — edit to taste)
 export const HIGHLIGHTED_REPOS: string[] = [
-  "typst-notes-template",
-  "advent-of-code",
-  "dotfiles",
-  "homelab",
+  "cess-advisor",
+  "competitive-programming",
+  "algorithms-for-massive-datasets",
+  "algoritmi-e-complessita",
+  "statistica-e-analisi-dei-dati",
+  "linguaggi-di-programmazione",
+  "rusty-ex",
 ]
 
 const GRAPHQL_QUERY = `
@@ -300,8 +302,7 @@ export function categorizeRepos(repos: GitHubRepo[]) {
 
   // A repo is "own" if its fullName owner maps to a known section and it's not a fork.
   // Forks + repos from unlisted owners → contributions.
-  const isOwnRepo = (r: GitHubRepo) =>
-    ownerOf(r) in OWNER_SECTIONS && !r.isFork
+  const isOwnRepo = (r: GitHubRepo) => ownerOf(r) in OWNER_SECTIONS && !r.isFork
 
   // Keep the order defined by FEATURED_REPOS const
   const featured = FEATURED_REPOS.map((name) =>
@@ -310,9 +311,7 @@ export function categorizeRepos(repos: GitHubRepo[]) {
 
   const personal = repos.filter(
     (r) =>
-      ownerOf(r) === "favo02" &&
-      !r.isFork &&
-      !FEATURED_REPOS.includes(r.name),
+      ownerOf(r) === "favo02" && !r.isFork && !FEATURED_REPOS.includes(r.name),
   )
 
   const academic = repos.filter(
