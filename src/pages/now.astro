@@ -29,10 +29,15 @@ const renderedEntries = await Promise.all(
   <div class="now-page">
     <PageHeader
       title="Now"
-      subtitle="This is a /now page — a snapshot of what I'm currently working on, reading, and thinking about."
+      subtitle="This is a /now page — a snapshot of what I'm currently doing."
     >
       <Fragment slot="meta">
-        Last updated: <time datetime={lastUpdated.toISOString()}>
+        <a
+          href="https://nownownow.com/about"
+          target="_blank"
+          rel="noopener noreferrer">What is a now page</a
+        >
+        — Last updated: <time datetime={lastUpdated.toISOString()}>
           {
             lastUpdated.toLocaleDateString("en-US", {
               year: "numeric",
