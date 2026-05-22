@@ -41,7 +41,7 @@ const IGNORED_REPOS: string[] = [
 ]
 
 // Users to fetch from
-const GITHUB_USERS = [
+export const GITHUB_USERS = [
   { login: "Favo02", source: "personal" as const },
   { login: "Favo02-unimi", source: "academic" as const },
 ]
@@ -275,13 +275,32 @@ export async function fetchAllRepos(token?: string): Promise<GitHubRepo[]> {
 
   const allRepos = results.flat()
 
+  // Deduplicate by fullName: org-member repos from Favo02-unimi appear in
+  // both Favo02's and Favo02-unimi's results. When two entries share the same
+  // fullName, prefer the one whose fullName owner matches the fetched account
+  // (i.e. the authoritative Favo02-unimi copy), so source/owner stay correct.
+  const seen = new Map<string, GitHubRepo>()
+  for (const repo of allRepos) {
+    const existing = seen.get(repo.fullName)
+    if (!existing) {
+      seen.set(repo.fullName, repo)
+    } else {
+      // Prefer the copy where the fullName owner matches the fetch account
+      const repoOwner = repo.fullName.split("/")[0].toLowerCase()
+      if (repoOwner === repo.owner.toLowerCase()) {
+        seen.set(repo.fullName, repo)
+      }
+    }
+  }
+  const dedupedRepos = Array.from(seen.values())
+
   // Sort by most recent commit
-  allRepos.sort(
+  dedupedRepos.sort(
     (a, b) =>
       new Date(b.lastCommitAt).getTime() - new Date(a.lastCommitAt).getTime(),
   )
 
-  return allRepos
+  return dedupedRepos
 }
 
 // --- Caching ---

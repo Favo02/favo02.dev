@@ -6,6 +6,7 @@ import {
   getCachedRepos,
   categorizeRepos,
   FEATURED_REPOS,
+  GITHUB_USERS,
   isHighlighted,
 } from "../services/github"
 import type { GitHubRepo } from "../services/github"
@@ -22,6 +23,11 @@ try {
 }
 
 const { featured, personal, academic, contributions } = categorizeRepos(repos)
+
+// Derive the academic account login to classify featured cards correctly
+const academicLogin = GITHUB_USERS.find(
+  (u) => u.source === "academic",
+)?.login.toLowerCase()
 ---
 
 <BaseLayout
@@ -75,14 +81,19 @@ const { featured, personal, academic, contributions } = categorizeRepos(repos)
                   <span
                     class:list={[
                       "tag",
-                      repo.source === "academic"
+                      repo.fullName.split("/")[0].toLowerCase() ===
+                      academicLogin
                         ? "tag-academic"
                         : repo.isFork
                           ? "tag-contributions"
                           : "tag-personal",
                     ]}
                   >
-                    {repo.isFork ? "contribution" : repo.source}
+                    {repo.fullName.split("/")[0].toLowerCase() === academicLogin
+                      ? "academic"
+                      : repo.isFork
+                        ? "contribution"
+                        : "personal"}
                   </span>
                 </div>
                 {repo.description && (
