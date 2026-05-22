@@ -31,7 +31,7 @@ export interface GitHubRepo {
   }[]
   topics: string[]
   owner: string
-  source: "personal" | "academic"
+  source: "personal" | "academic" | "contributions"
 }
 
 // Repos to ignore (can be customized)
@@ -312,14 +312,28 @@ export function categorizeRepos(repos: GitHubRepo[]) {
     repos.find((r) => r.name === name),
   ).filter((r): r is GitHubRepo => !!r)
 
+  // Non-featured, non-fork repos owned by personal account
   const personal = repos.filter(
-    (r) => r.source === "personal" && !FEATURED_REPOS.includes(r.name),
-  )
-  const academic = repos.filter(
-    (r) => r.source === "academic" && !FEATURED_REPOS.includes(r.name),
+    (r) =>
+      r.source === "personal" &&
+      !r.isFork &&
+      !FEATURED_REPOS.includes(r.name),
   )
 
-  return { featured, personal, academic }
+  // Non-featured, non-fork repos owned by academic account
+  const academic = repos.filter(
+    (r) =>
+      r.source === "academic" &&
+      !r.isFork &&
+      !FEATURED_REPOS.includes(r.name),
+  )
+
+  // Forks from either account = contributions to external projects
+  const contributions = repos.filter(
+    (r) => r.isFork && !FEATURED_REPOS.includes(r.name),
+  )
+
+  return { featured, personal, academic, contributions }
 }
 
 /** Returns true when the repo should be visually highlighted in the list. */

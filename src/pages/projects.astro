@@ -21,7 +21,7 @@ try {
   error = true
 }
 
-const { featured, personal, academic } = categorizeRepos(repos)
+const { featured, personal, academic, contributions } = categorizeRepos(repos)
 ---
 
 <BaseLayout
@@ -32,7 +32,7 @@ const { featured, personal, academic } = categorizeRepos(repos)
   <div class="projects-page">
     <PageHeader
       title="Projects"
-      subtitle="All my work, pulled from GitHub — personal and academic."
+      subtitle="All my work, pulled from GitHub — personal, academic, and contributions."
     >
       <Fragment slot="meta">
         <a
@@ -77,10 +77,12 @@ const { featured, personal, academic } = categorizeRepos(repos)
                       "tag",
                       repo.source === "academic"
                         ? "tag-academic"
-                        : "tag-personal",
+                        : repo.isFork
+                          ? "tag-contributions"
+                          : "tag-personal",
                     ]}
                   >
-                    {repo.source}
+                    {repo.isFork ? "contribution" : repo.source}
                   </span>
                 </div>
                 {repo.description && (
@@ -155,6 +157,22 @@ const { featured, personal, academic } = categorizeRepos(repos)
         </section>
       )
     }
+
+    {
+      contributions.length > 0 && (
+        <section class="projects-section">
+          <h2 class="section-title mono">
+            <span class="section-dot contributions" />
+            Contributions
+          </h2>
+          <div class="projects-list">
+            {contributions.map((repo) => (
+              <ProjectCard repo={repo} highlighted={isHighlighted(repo.name)} />
+            ))}
+          </div>
+        </section>
+      )
+    }
   </div>
 </BaseLayout>
 
@@ -210,6 +228,10 @@ const { featured, personal, academic } = categorizeRepos(repos)
 
   .section-dot.academic {
     background: var(--tag-academic);
+  }
+
+  .section-dot.contributions {
+    background: var(--tag-contributions);
   }
 
   /* Featured Grid */

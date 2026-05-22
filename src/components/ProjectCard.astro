@@ -30,10 +30,7 @@ function getTimeAgo(date: Date): string {
   rel="noopener noreferrer"
   class:list={[
     "project-row",
-    {
-      "project-row--highlighted": highlighted,
-      "project-row--fork": repo.isFork,
-    },
+    { "project-row--highlighted": highlighted },
   ]}
 >
   <div class="project-main">
@@ -111,15 +108,6 @@ function getTimeAgo(date: Date): string {
     border-left-color: var(--accent-hover);
     box-shadow: inset 2px 0 12px
       color-mix(in srgb, var(--accent) 10%, transparent);
-  }
-
-  /* ── Fork variant (dimmed) ── */
-  .project-row--fork {
-    opacity: 0.5;
-  }
-
-  .project-row--fork:hover {
-    opacity: 1;
   }
 
   .highlight-marker {
