@@ -116,20 +116,18 @@ const myAge = calculateAge(new Date("August 25, 2002"))
   description="About Luca Favini — biography, education, experience, and more."
 >
   <div class="about-page">
-    <!-- ── Intro: photo + bio ── -->
+    <!-- ── Intro: photo floated left, bio wraps around it ── -->
     <section class="intro-section">
-      <div class="intro-photo-col">
-        <div class="photo-wrap">
-          <img
-            src="/propic.webp"
-            alt="Luca Favini hiking on a mountain ridge"
-            class="propic"
-            loading="eager"
-          />
-        </div>
+      <div class="photo-wrap">
+        <img
+          src="/propic.webp"
+          alt="Luca Favini hiking on a mountain ridge"
+          class="propic"
+          loading="eager"
+        />
       </div>
 
-      <div class="intro-text-col">
+      <div class="intro-text">
         <h1 class="intro-name">
           Luca<br /><em>Favini</em>
         </h1>
@@ -210,6 +208,8 @@ const myAge = calculateAge(new Date("August 25, 2002"))
           </p>
         </div>
       </div>
+      <!-- clearfix so section stretches past the float -->
+      <div style="clear:both"></div>
     </section>
 
     <!-- ── Unified timeline ── -->
@@ -303,15 +303,15 @@ const myAge = calculateAge(new Date("August 25, 2002"))
 
   /* ── Intro ── */
   .intro-section {
-    display: grid;
-    grid-template-columns: 260px 1fr;
-    gap: var(--space-3xl);
-    align-items: start;
+    /* float layout: photo floats left, text wraps around it */
   }
 
   .photo-wrap {
-    position: sticky;
-    top: calc(56px + var(--space-xl));
+    float: left;
+    width: 220px;
+    margin-right: var(--space-2xl);
+    margin-bottom: var(--space-lg);
+    shape-outside: margin-box;
   }
 
   .propic {
@@ -326,6 +326,10 @@ const myAge = calculateAge(new Date("August 25, 2002"))
 
   .propic:hover {
     filter: grayscale(0%);
+  }
+
+  .intro-text {
+    /* nothing needed — flows around the float */
   }
 
   .intro-name {
@@ -413,14 +417,16 @@ const myAge = calculateAge(new Date("August 25, 2002"))
     gap: var(--space-lg);
     padding: var(--space-lg) 0;
     border-bottom: 1px solid var(--border-subtle);
-    transition: background-color var(--transition-fast);
+    border-left: 2px solid transparent;
+    padding-left: var(--space-sm);
+    transition:
+      border-left-color var(--transition-fast),
+      background-color var(--transition-fast);
   }
 
   .tl-item:hover {
-    background: color-mix(in srgb, var(--bg-surface) 60%, transparent);
-    padding-left: var(--space-sm);
-    padding-right: var(--space-sm);
-    margin: 0 calc(-1 * var(--space-sm));
+    border-left-color: var(--border);
+    background: color-mix(in srgb, var(--bg-surface) 50%, transparent);
   }
 
   .tl-period {
@@ -527,18 +533,15 @@ const myAge = calculateAge(new Date("August 25, 2002"))
 
   /* ── Responsive ── */
   @media (max-width: 768px) {
-    .intro-section {
-      grid-template-columns: 1fr;
-      gap: var(--space-2xl);
-    }
-
     .photo-wrap {
-      position: static;
+      float: none;
+      width: 100%;
+      margin-right: 0;
+      margin-bottom: var(--space-xl);
     }
 
     .propic {
       max-height: 320px;
-      width: 100%;
       object-position: center 25%;
     }
 
