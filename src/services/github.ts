@@ -64,7 +64,7 @@ export const HIGHLIGHTED_REPOS: string[] = [
 
 const GRAPHQL_QUERY = `
 query($login: String!, $first: Int!) {
-  user(login: $login) {
+  repositoryOwner(login: $login) {
     repositories(first: $first, orderBy: {field: PUSHED_AT, direction: DESC}) {
       nodes {
         name
@@ -110,7 +110,7 @@ query($login: String!, $first: Int!) {
 
 interface GraphQLResponse {
   data: {
-    user: {
+    repositoryOwner: {
       repositories: {
         nodes: Array<{
           name: string
@@ -172,7 +172,7 @@ async function fetchUserReposGraphQL(
     return []
   }
 
-  return json.data.user.repositories.nodes
+  return json.data.repositoryOwner.repositories.nodes
     .filter((repo) => !IGNORED_REPOS.includes(repo.name))
     .map((repo) => ({
       name: repo.name,
@@ -186,7 +186,8 @@ async function fetchUserReposGraphQL(
       isFork: repo.isFork,
       pushedAt: repo.pushedAt,
       createdAt: repo.createdAt,
-      lastCommitAt: repo.defaultBranchRef?.target?.committedDate || repo.pushedAt,
+      lastCommitAt:
+        repo.defaultBranchRef?.target?.committedDate || repo.pushedAt,
       primaryLanguage: repo.primaryLanguage,
       languages: repo.languages.nodes,
       topics: repo.repositoryTopics.nodes.map((t) => t.topic.name),
@@ -276,7 +277,8 @@ export async function fetchAllRepos(token?: string): Promise<GitHubRepo[]> {
 
   // Sort by most recent commit
   allRepos.sort(
-    (a, b) => new Date(b.lastCommitAt).getTime() - new Date(a.lastCommitAt).getTime(),
+    (a, b) =>
+      new Date(b.lastCommitAt).getTime() - new Date(a.lastCommitAt).getTime(),
   )
 
   return allRepos
