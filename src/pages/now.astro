@@ -1,46 +1,67 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { getCollection, render } from 'astro:content';
+import BaseLayout from "../layouts/BaseLayout.astro"
+import PageHeader from "../components/PageHeader.astro"
+import { getCollection, render } from "astro:content"
 
 // This is a manually-maintained "now" page.
 // Inspired by https://nownownow.com
 // Just edit the content below to update it.
 
-const lastUpdated = new Date('2026-05-19');
+const lastUpdated = new Date("2026-05-19")
 
-const devlogEntries = (await getCollection('devlog'))
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const devlogEntries = (await getCollection("devlog")).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+)
 
 // Pre-render all entries
 const renderedEntries = await Promise.all(
   devlogEntries.map(async (entry) => {
-    const { Content } = await render(entry);
-    return { entry, Content };
-  })
-);
+    const { Content } = await render(entry)
+    return { entry, Content }
+  }),
+)
 ---
 
-<BaseLayout title="Now" description="What Luca Favini is doing right now — a /now page.">
+<BaseLayout
+  title="Now"
+  description="What Luca Favini is doing right now — a /now page."
+>
   <div class="now-page">
-    <header class="page-header">
-      <h1>Now</h1>
-      <p class="mono-sm">
+    <PageHeader
+      title="Now"
+      subtitle="A snapshot of what I'm focused on at this point in my life."
+    >
+      <Fragment slot="meta">
         Last updated: <time datetime={lastUpdated.toISOString()}>
-          {lastUpdated.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+          {
+            lastUpdated.toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })
+          }
         </time>
-      </p>
-    </header>
+      </Fragment>
+    </PageHeader>
 
     <div class="now-content prose">
       <p>
-        This is a <a href="https://nownownow.com/about" target="_blank" rel="noopener noreferrer">/now page</a>.
-        It's a snapshot of what I'm focused on at this point in my life.
+        This is a <a
+          href="https://nownownow.com/about"
+          target="_blank"
+          rel="noopener noreferrer">/now page</a
+        >. It's a snapshot of what I'm focused on at this point in my life.
       </p>
 
       <h2>Working on</h2>
       <ul>
-        <li>Rebuilding this website from scratch — typography-focused, minimal, no frills</li>
-        <li>Finishing my bachelor thesis at Università degli Studi di Milano</li>
+        <li>
+          Rebuilding this website from scratch — typography-focused, minimal, no
+          frills
+        </li>
+        <li>
+          Finishing my bachelor thesis at Università degli Studi di Milano
+        </li>
       </ul>
 
       <h2>Learning</h2>
@@ -58,42 +79,41 @@ const renderedEntries = await Promise.all(
       <p>Milan, Italy</p>
     </div>
 
-    {renderedEntries.length > 0 && (
-      <div class="past-section">
-        <h2 class="section-title mono">Past (Devlog)</h2>
-        <div class="devlog-entries">
-          {renderedEntries.map(({ entry, Content }) => (
-            <article class="devlog-entry">
-              <div class="devlog-header">
-                <time datetime={entry.data.date.toISOString()} class="mono-sm">
-                  {entry.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
-                </time>
-                <h3 class="devlog-title">{entry.data.title}</h3>
-              </div>
-              <div class="devlog-body prose">
-                <Content />
-              </div>
-            </article>
-          ))}
+    {
+      renderedEntries.length > 0 && (
+        <div class="past-section">
+          <h2 class="section-title mono">Past (Devlog)</h2>
+          <div class="devlog-entries">
+            {renderedEntries.map(({ entry, Content }) => (
+              <article class="devlog-entry">
+                <div class="devlog-header">
+                  <time
+                    datetime={entry.data.date.toISOString()}
+                    class="mono-sm"
+                  >
+                    {entry.data.date.toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                    })}
+                  </time>
+                  <h3 class="devlog-title">{entry.data.title}</h3>
+                </div>
+                <div class="devlog-body prose">
+                  <Content />
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
-      </div>
-    )}
+      )
+    }
   </div>
 </BaseLayout>
 
 <style>
   .now-page {
     padding-top: var(--space-2xl);
-  }
-
-  .page-header {
-    margin-bottom: var(--space-2xl);
-  }
-
-  .page-header h1 {
-    font-size: var(--text-3xl);
-    font-weight: 300;
-    margin-bottom: var(--space-sm);
   }
 
   .now-content {

@@ -1,8 +1,9 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro"
+import PageHeader from "../components/PageHeader.astro"
 
 // All timeline entries in a single flat list, sorted newest-first
-// Add type: 'experience' | 'education' | 'certificate' | 'event' | 'publication'
+// Set compact: true for secondary items (e.g. certificates, minor events)
 const timeline = [
   {
     type: "experience" as const,
@@ -12,6 +13,7 @@ const timeline = [
     description: 'Tutor for "Programmazione I" course (in Golang)',
     link: "https://mameli.docenti.di.unimi.it/pls-tutoring/wiki/WikiStart",
     result: null,
+    compact: false,
   },
   {
     type: "education" as const,
@@ -21,6 +23,7 @@ const timeline = [
     description: "Bachelor in computer science (triennale informatica)",
     link: "https://www.unimi.it/en/education/computer-science",
     result: null,
+    compact: false,
   },
   {
     type: "event" as const,
@@ -30,15 +33,17 @@ const timeline = [
     description: "Italian second division tournament with P11",
     link: "https://liquipedia.net/rainbowsix/PG_Nationals/2022/BeSerious/Spring",
     result: "2nd place",
+    compact: false,
   },
   {
     type: "certificate" as const,
     period: "2022",
     title: "FullStackOpen",
     org: "University of Helsinki",
-    description: "Modern Full Stack Web Development course",
+    description: "Modern Full Stack Web Development",
     link: "https://fullstackopen.com/en",
     result: null,
+    compact: true,
   },
   {
     type: "education" as const,
@@ -48,6 +53,7 @@ const timeline = [
     description: "High school in computer science (ITIS indirizzo informatica)",
     link: "https://www.itiscannizzaro.edu.it/pagine/-informatica",
     result: null,
+    compact: false,
   },
   {
     type: "event" as const,
@@ -57,6 +63,7 @@ const timeline = [
     description: "4v4 Italian championship with Rebirth",
     link: null,
     result: "Italian Champion",
+    compact: false,
   },
   {
     type: "certificate" as const,
@@ -66,6 +73,7 @@ const timeline = [
     description: "Artificial intelligence introductory course",
     link: "https://www.elementsofai.com",
     result: null,
+    compact: true,
   },
   {
     type: "certificate" as const,
@@ -75,6 +83,7 @@ const timeline = [
     description: "Cambridge English B2 qualification",
     link: "https://www.cambridgeenglish.org/exams-and-tests/first",
     result: null,
+    compact: true,
   },
 ]
 
@@ -95,7 +104,7 @@ const publications: {
   // },
 ]
 
-const typeLabel: Record<typeof timeline[number]["type"], string> = {
+const typeLabel: Record<(typeof timeline)[number]["type"], string> = {
   experience: "experience",
   education: "education",
   certificate: "certificate",
@@ -116,6 +125,11 @@ const myAge = calculateAge(new Date("August 25, 2002"))
   description="About Luca Favini — biography, education, experience, and more."
 >
   <div class="about-page">
+    <PageHeader
+      title="About"
+      subtitle="Computer science student, developer, and open-source contributor based near Milan."
+    />
+
     <!-- ── Intro: photo floated left, bio wraps around it ── -->
     <section class="intro-section">
       <div class="photo-wrap">
@@ -128,10 +142,6 @@ const myAge = calculateAge(new Date("August 25, 2002"))
       </div>
 
       <div class="intro-text">
-        <h1 class="intro-name">
-          Luca<br /><em>Favini</em>
-        </h1>
-
         <div class="intro-bio">
           <p>
             Hello, I am <strong>Luca Favini</strong>, but my friends call me <strong
@@ -150,23 +160,22 @@ const myAge = calculateAge(new Date("August 25, 2002"))
               href="https://github.com/Favo02"
               target="_blank"
               rel="noopener noreferrer">GitHub README</a
-            >. I update it quite <em>frequently</em>, much more than this website!
+            >. I update it quite <em>frequently</em>, much more than this
+            website!
           </p>
           <p>
-            I also engage in activities unrelated to computers. I have a strong passion
-            for playing basically <strong>any sport</strong>, particularly <strong
-              >football</strong
-            >
+            I also engage in activities unrelated to computers. I have a strong
+            passion for playing basically <strong>any sport</strong>,
+            particularly <strong>football</strong>
             <em
-              ><span class="opacity-70"
-                >(the real one, <del>soccer</del>)</span
+              ><span class="opacity-70">(the real one, <del>soccer</del>)</span
               ></em
-            >, which I played for many years in my hometown team. However, I must admit
-            that my <strong>competitive nature</strong> and desire for <strong
-              >precision</strong
-            > come into play: whether it's a casual or competitive game, I always strive
-            to achieve victory and to excel. Another thing I really enjoy is pushing my
-            physical limits through activities such as running, cycling or hiking <em
+            >, which I played for many years in my hometown team. However, I
+            must admit that my <strong>competitive nature</strong> and desire for
+            <strong>precision</strong> come into play: whether it's a casual or competitive
+            game, I always strive to achieve victory and to excel. Another thing I
+            really enjoy is pushing my physical limits through activities such as
+            running, cycling or hiking <em
               ><span class="opacity-70">(mountain &gt; seaside)</span></em
             >.
           </p>
@@ -174,24 +183,31 @@ const myAge = calculateAge(new Date("August 25, 2002"))
             Returning to computers: I consider myself a decent <strong
               >competitive gamer</strong
             >, competing under the alias of <em><strong>imprudenza</strong></em>
-            <a href="https://linktr.ee/imprudenza" target="_blank" rel="noopener noreferrer"
-              ><em><span class="opacity-70">(imprudenza's socials linktree)</span></em></a
+            <a
+              href="https://linktr.ee/imprudenza"
+              target="_blank"
+              rel="noopener noreferrer"
+              ><em
+                ><span class="opacity-70">(imprudenza's socials linktree)</span
+                ></em
+              ></a
             >. In the past, I competed in <em>Minecraft</em>
-            <span title="ClanWar BedWars, 4v4 on PigParty or GommeHD">CWBW</span>,
-            becoming <span title="PigParty BedWars league, 4v4 on PigParty"
+            <span title="ClanWar BedWars, 4v4 on PigParty or GommeHD">CWBW</span
+            >, becoming <span title="PigParty BedWars league, 4v4 on PigParty"
               ><em>2018 Italian Champion</em></span
-            > with <em><span class="opacity-70">Rebirth</span></em>. In recent years, I
-            transitioned to <em>Rainbow Six Siege</em>, where I secured second place in
-            the <a
+            > with <em><span class="opacity-70">Rebirth</span></em>. In recent
+            years, I transitioned to <em>Rainbow Six Siege</em>, where I secured
+            second place in the <a
               href="https://liquipedia.net/rainbowsix/PG_Nationals/2022/BeSerious/Spring"
               target="_blank"
               rel="noopener noreferrer"
-              title="BeSerious Spring 2022"><em>2022 Italian Second Division</em></a
-            > with <em><span class="opacity-70">P11</span></em>. Due to time constraints,
-            my involvement in competitive gaming has reduced. <del
+              title="BeSerious Spring 2022"
+              ><em>2022 Italian Second Division</em></a
+            > with <em><span class="opacity-70">P11</span></em>. Due to time
+            constraints, my involvement in competitive gaming has reduced. <del
               ><span class="opacity-70"
-                >However, I still occasionally participate in competitive tournaments for
-                fun.</span
+                >However, I still occasionally participate in competitive
+                tournaments for fun.</span
               ></del
             >
           </p>
@@ -203,8 +219,8 @@ const myAge = calculateAge(new Date("August 25, 2002"))
             > attached to my backpack.
           </p>
           <p class="bio-footnote mono-sm">
-            Contact &amp; socials in the footer. CV and certificates available on
-            request.
+            Contact &amp; socials in the footer. CV and certificates available
+            on request.
           </p>
         </div>
       </div>
@@ -218,7 +234,7 @@ const myAge = calculateAge(new Date("August 25, 2002"))
       <ul class="timeline-list">
         {
           timeline.map((item) => (
-            <li class="tl-item">
+            <li class:list={["tl-item", { "tl-item--compact": item.compact }]}>
               <span class="tl-period mono-sm">{item.period}</span>
               <div class="tl-body">
                 <div class="tl-top">
@@ -244,7 +260,7 @@ const myAge = calculateAge(new Date("August 25, 2002"))
                   </div>
                 </div>
                 <p class="tl-meta mono-sm">{item.org}</p>
-                {item.description && (
+                {!item.compact && item.description && (
                   <p class="tl-desc">{item.description}</p>
                 )}
               </div>
@@ -298,11 +314,12 @@ const myAge = calculateAge(new Date("August 25, 2002"))
     padding-top: var(--space-2xl);
     display: flex;
     flex-direction: column;
-    gap: var(--space-4xl);
+    gap: var(--space-xl);
   }
 
   /* ── Intro ── */
   .intro-section {
+    margin-bottom: var(--space-3xl);
     /* float layout: photo floats left, text wraps around it */
   }
 
@@ -422,6 +439,26 @@ const myAge = calculateAge(new Date("August 25, 2002"))
     transition:
       border-left-color var(--transition-fast),
       background-color var(--transition-fast);
+  }
+
+  /* Compact variant — secondary entries (certificates, minor events) */
+  .tl-item--compact {
+    padding: var(--space-sm) 0;
+    padding-left: var(--space-sm);
+    grid-template-columns: 100px 1fr;
+    gap: var(--space-md);
+  }
+
+  .tl-item--compact .tl-period {
+    font-size: 0.7rem;
+  }
+
+  .tl-item--compact .tl-title {
+    font-size: var(--text-sm);
+  }
+
+  .tl-item--compact .tl-meta {
+    font-size: 0.7rem;
   }
 
   .tl-item:hover {

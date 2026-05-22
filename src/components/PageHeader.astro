@@ -1,0 +1,89 @@
+---
+/**
+ * Uniform page header used by all top-level pages.
+ *
+ * Props:
+ *   title       — large display heading (h1)
+ *   subtitle    — italic display-font sentence below the title
+ *   meta        — optional slot for mono metadata line (e.g. dates, source links)
+ */
+
+interface Props {
+  title: string
+  subtitle: string
+}
+
+const { title, subtitle } = Astro.props
+---
+
+<header class="page-header">
+  <h1 class="page-title">{title}</h1>
+  <p class="page-subtitle">{subtitle}</p>
+  {
+    Astro.slots.has("meta") && (
+      <p class="page-meta mono-sm">
+        <slot name="meta" />
+      </p>
+    )
+  }
+</header>
+
+<style>
+  .page-header {
+    padding-bottom: var(--space-2xl);
+    border-bottom: 1px solid var(--border-subtle);
+    margin-bottom: var(--space-3xl);
+  }
+
+  .page-title {
+    font-family: var(--font-display);
+    font-size: var(--text-3xl);
+    font-weight: 300;
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-tight);
+    color: var(--text);
+    margin-bottom: var(--space-md);
+  }
+
+  .page-subtitle {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--text-muted);
+    max-width: 52ch;
+    line-height: var(--leading-snug);
+    margin-bottom: 0;
+  }
+
+  .page-meta {
+    margin-top: var(--space-md);
+    color: var(--text-faint);
+    margin-bottom: 0;
+  }
+
+  .page-meta :global(a) {
+    color: var(--text-faint);
+    text-decoration: underline;
+    text-decoration-color: var(--border);
+    text-underline-offset: 3px;
+    transition:
+      color var(--transition-fast),
+      text-decoration-color var(--transition-fast);
+  }
+
+  .page-meta :global(a:hover) {
+    color: var(--accent);
+    text-decoration-color: var(--accent);
+  }
+
+  @media (max-width: 768px) {
+    .page-title {
+      font-size: var(--text-2xl);
+    }
+
+    .page-subtitle {
+      font-size: var(--text-base);
+    }
+  }
+</style>

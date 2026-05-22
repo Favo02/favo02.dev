@@ -1,21 +1,27 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import ProjectCard from '../components/ProjectCard.astro';
-import { getCachedRepos, categorizeRepos, FEATURED_REPOS, isHighlighted } from '../services/github';
-import type { GitHubRepo } from '../services/github';
-import { Star, GitFork, ExternalLink } from '@lucide/astro';
+import BaseLayout from "../layouts/BaseLayout.astro"
+import PageHeader from "../components/PageHeader.astro"
+import ProjectCard from "../components/ProjectCard.astro"
+import {
+  getCachedRepos,
+  categorizeRepos,
+  FEATURED_REPOS,
+  isHighlighted,
+} from "../services/github"
+import type { GitHubRepo } from "../services/github"
+import { Star, GitFork, ExternalLink } from "@lucide/astro"
 
-let repos: GitHubRepo[] = [];
-let error = false;
+let repos: GitHubRepo[] = []
+let error = false
 
 try {
-  repos = await getCachedRepos();
+  repos = await getCachedRepos()
 } catch (e) {
-  console.error('Failed to fetch GitHub repos:', e);
-  error = true;
+  console.error("Failed to fetch GitHub repos:", e)
+  error = true
 }
 
-const { featured, personal, academic } = categorizeRepos(repos);
+const { featured, personal, academic } = categorizeRepos(repos)
 ---
 
 <BaseLayout
@@ -24,103 +30,130 @@ const { featured, personal, academic } = categorizeRepos(repos);
   wide
 >
   <div class="projects-page">
-    <header class="page-header">
-      <h1>Projects</h1>
-      <p class="page-description">
-        All my work, pulled from GitHub. Personal projects and academic coursework, separated.
-      </p>
-      <p class="mono-sm">
-        Data cached from <a href="https://github.com/Favo02" target="_blank" rel="noopener noreferrer">Favo02</a> and <a href="https://github.com/Favo02-unimi" target="_blank" rel="noopener noreferrer">Favo02-unimi</a>
-      </p>
-    </header>
+    <PageHeader
+      title="Projects"
+      subtitle="All my work, pulled from GitHub. Personal projects and academic coursework."
+    >
+      <Fragment slot="meta">
+        Data cached from <a
+          href="https://github.com/Favo02"
+          target="_blank"
+          rel="noopener noreferrer">gh/Favo02</a
+        > and <a
+          href="https://github.com/Favo02-unimi"
+          target="_blank"
+          rel="noopener noreferrer">gh/Favo02-unimi</a
+        >
+      </Fragment>
+    </PageHeader>
 
-    {error && (
-      <div class="error-banner">
-        <p>Failed to load projects from GitHub. <a href="/api/github.json">Try refreshing the cache</a>.</p>
-      </div>
-    )}
+    {
+      error && (
+        <div class="error-banner">
+          <p>
+            Failed to load projects from GitHub.{" "}
+            <a href="/api/github.json">Try refreshing the cache</a>.
+          </p>
+        </div>
+      )
+    }
 
-    {featured.length > 0 && (
-      <section class="projects-section">
-        <h2 class="section-title mono">Featured</h2>
-        <div class="featured-grid">
-          {featured.map((repo) => (
-            <a href={repo.url} target="_blank" rel="noopener noreferrer" class="featured-card">
-              <div class="featured-card-header">
-                <h3 class="featured-card-name">{repo.name}</h3>
-                <span class:list={['tag', repo.source === 'academic' ? 'tag-academic' : 'tag-personal']}>
-                  {repo.source}
-                </span>
-              </div>
-              {repo.description && <p class="featured-card-desc">{repo.description}</p>}
-              <div class="featured-card-meta">
-                {repo.primaryLanguage && (
-                  <span class="lang-indicator">
-                    <span class="lang-dot" style={`background-color: ${repo.primaryLanguage.color}`}></span>
-                    {repo.primaryLanguage.name}
+    {
+      featured.length > 0 && (
+        <section class="projects-section">
+          <h2 class="section-title mono">Featured</h2>
+          <div class="featured-grid">
+            {featured.map((repo) => (
+              <a
+                href={repo.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="featured-card"
+              >
+                <div class="featured-card-header">
+                  <h3 class="featured-card-name">{repo.name}</h3>
+                  <span
+                    class:list={[
+                      "tag",
+                      repo.source === "academic"
+                        ? "tag-academic"
+                        : "tag-personal",
+                    ]}
+                  >
+                    {repo.source}
                   </span>
+                </div>
+                {repo.description && (
+                  <p class="featured-card-desc">{repo.description}</p>
                 )}
-                {repo.stargazerCount > 0 && (
-                  <span class="meta-item"><Star size={12} /> {repo.stargazerCount}</span>
-                )}
-                {repo.forkCount > 0 && (
-                  <span class="meta-item"><GitFork size={12} /> {repo.forkCount}</span>
-                )}
-                <span class="meta-item"><ExternalLink size={12} /></span>
-              </div>
-            </a>
-          ))}
-        </div>
-      </section>
-    )}
+                <div class="featured-card-meta">
+                  {repo.primaryLanguage && (
+                    <span class="lang-indicator">
+                      <span
+                        class="lang-dot"
+                        style={`background-color: ${repo.primaryLanguage.color}`}
+                      />
+                      {repo.primaryLanguage.name}
+                    </span>
+                  )}
+                  {repo.stargazerCount > 0 && (
+                    <span class="meta-item">
+                      <Star size={12} /> {repo.stargazerCount}
+                    </span>
+                  )}
+                  {repo.forkCount > 0 && (
+                    <span class="meta-item">
+                      <GitFork size={12} /> {repo.forkCount}
+                    </span>
+                  )}
+                  <span class="meta-item">
+                    <ExternalLink size={12} />
+                  </span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+      )
+    }
 
-    {personal.length > 0 && (
-      <section class="projects-section">
-        <h2 class="section-title mono">
-          <span class="section-dot personal"></span>
-          Personal
-        </h2>
-        <div class="projects-list">
-          {personal.map((repo) => <ProjectCard repo={repo} highlighted={isHighlighted(repo.name)} />)}
-        </div>
-      </section>
-    )}
+    {
+      personal.length > 0 && (
+        <section class="projects-section">
+          <h2 class="section-title mono">
+            <span class="section-dot personal" />
+            Personal
+          </h2>
+          <div class="projects-list">
+            {personal.map((repo) => (
+              <ProjectCard repo={repo} highlighted={isHighlighted(repo.name)} />
+            ))}
+          </div>
+        </section>
+      )
+    }
 
-    {academic.length > 0 && (
-      <section class="projects-section">
-        <h2 class="section-title mono">
-          <span class="section-dot academic"></span>
-          Academic
-        </h2>
-        <p class="section-description">Coursework and projects from Università degli Studi di Milano.</p>
-        <div class="projects-list">
-          {academic.map((repo) => <ProjectCard repo={repo} highlighted={isHighlighted(repo.name)} />)}
-        </div>
-      </section>
-    )}
+    {
+      academic.length > 0 && (
+        <section class="projects-section">
+          <h2 class="section-title mono">
+            <span class="section-dot academic" />
+            Academic
+          </h2>
+          <div class="projects-list">
+            {academic.map((repo) => (
+              <ProjectCard repo={repo} highlighted={isHighlighted(repo.name)} />
+            ))}
+          </div>
+        </section>
+      )
+    }
   </div>
 </BaseLayout>
 
 <style>
   .projects-page {
     padding-top: var(--space-2xl);
-  }
-
-  .page-header {
-    margin-bottom: var(--space-3xl);
-  }
-
-  .page-header h1 {
-    font-size: var(--text-3xl);
-    margin-bottom: var(--space-md);
-    font-weight: 300;
-  }
-
-  .page-description {
-    color: var(--text-muted);
-    font-size: var(--text-base);
-    max-width: var(--max-width-prose);
-    margin-bottom: var(--space-sm);
   }
 
   .error-banner {
@@ -187,7 +220,9 @@ const { featured, personal, academic } = categorizeRepos(repos);
     padding: var(--space-lg);
     text-decoration: none;
     color: var(--text);
-    transition: border-color var(--transition-fast), background-color var(--transition-fast);
+    transition:
+      border-color var(--transition-fast),
+      background-color var(--transition-fast);
   }
 
   .featured-card:hover {
