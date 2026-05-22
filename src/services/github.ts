@@ -310,35 +310,46 @@ export function categorizeRepos(repos: GitHubRepo[]) {
   // Set of known account logins (lower-cased for case-insensitive comparison)
   const knownLogins = new Set(GITHUB_USERS.map((u) => u.login.toLowerCase()))
 
+  // Per-section logins derived from GITHUB_USERS config
+  const personalLogin = GITHUB_USERS.find(
+    (u) => u.source === "personal",
+  )?.login.toLowerCase()
+  const academicLogin = GITHUB_USERS.find(
+    (u) => u.source === "academic",
+  )?.login.toLowerCase()
+
+  // Helper: extract the actual GitHub owner from fullName ("owner/repo")
+  const ownerOf = (r: GitHubRepo) => r.fullName.split("/")[0].toLowerCase()
+
   /**
    * A repo is "owned" by one of our accounts when:
-   * - the owner segment of fullName matches the fetched account login, AND
+   * - the owner segment of fullName matches a known account login, AND
    * - it is not a fork of an external repo
+   * Using fullName (not source) because org-member repos from Favo02-unimi
+   * can appear when querying Favo02 and get tagged source:'personal' wrongly.
    * Everything else (forks OR repos from other owners) is a contribution.
    */
-  const isOwnRepo = (r: GitHubRepo) => {
-    const repoOwner = r.fullName.split("/")[0].toLowerCase()
-    return knownLogins.has(repoOwner) && !r.isFork
-  }
+  const isOwnRepo = (r: GitHubRepo) =>
+    knownLogins.has(ownerOf(r)) && !r.isFork
 
   // Keep the order defined by FEATURED_REPOS const
   const featured = FEATURED_REPOS.map((name) =>
     repos.find((r) => r.name === name),
   ).filter((r): r is GitHubRepo => !!r)
 
-  // Non-featured own repos from the personal account
+  // Non-featured own repos whose actual GitHub owner is the personal account
   const personal = repos.filter(
     (r) =>
-      r.source === "personal" &&
-      isOwnRepo(r) &&
+      ownerOf(r) === personalLogin &&
+      !r.isFork &&
       !FEATURED_REPOS.includes(r.name),
   )
 
-  // Non-featured own repos from the academic account
+  // Non-featured own repos whose actual GitHub owner is the academic account
   const academic = repos.filter(
     (r) =>
-      r.source === "academic" &&
-      isOwnRepo(r) &&
+      ownerOf(r) === academicLogin &&
+      !r.isFork &&
       !FEATURED_REPOS.includes(r.name),
   )
 
