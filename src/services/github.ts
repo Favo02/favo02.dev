@@ -307,30 +307,44 @@ export async function getCachedRepos(): Promise<GitHubRepo[]> {
 
 // Categorize repos
 export function categorizeRepos(repos: GitHubRepo[]) {
+  // Set of known account logins (lower-cased for case-insensitive comparison)
+  const knownLogins = new Set(GITHUB_USERS.map((u) => u.login.toLowerCase()))
+
+  /**
+   * A repo is "owned" by one of our accounts when:
+   * - the owner segment of fullName matches the fetched account login, AND
+   * - it is not a fork of an external repo
+   * Everything else (forks OR repos from other owners) is a contribution.
+   */
+  const isOwnRepo = (r: GitHubRepo) => {
+    const repoOwner = r.fullName.split("/")[0].toLowerCase()
+    return knownLogins.has(repoOwner) && !r.isFork
+  }
+
   // Keep the order defined by FEATURED_REPOS const
   const featured = FEATURED_REPOS.map((name) =>
     repos.find((r) => r.name === name),
   ).filter((r): r is GitHubRepo => !!r)
 
-  // Non-featured, non-fork repos owned by personal account
+  // Non-featured own repos from the personal account
   const personal = repos.filter(
     (r) =>
       r.source === "personal" &&
-      !r.isFork &&
+      isOwnRepo(r) &&
       !FEATURED_REPOS.includes(r.name),
   )
 
-  // Non-featured, non-fork repos owned by academic account
+  // Non-featured own repos from the academic account
   const academic = repos.filter(
     (r) =>
       r.source === "academic" &&
-      !r.isFork &&
+      isOwnRepo(r) &&
       !FEATURED_REPOS.includes(r.name),
   )
 
-  // Forks from either account = contributions to external projects
+  // All forks + repos owned by other accounts = contributions
   const contributions = repos.filter(
-    (r) => r.isFork && !FEATURED_REPOS.includes(r.name),
+    (r) => !isOwnRepo(r) && !FEATURED_REPOS.includes(r.name),
   )
 
   return { featured, personal, academic, contributions }
