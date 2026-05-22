@@ -8,8 +8,8 @@ interface Props {
 
 const { repo, highlighted = false } = Astro.props
 
-const pushedDate = new Date(repo.pushedAt)
-const timeAgo = getTimeAgo(pushedDate)
+const lastCommitDate = new Date(repo.lastCommitAt)
+const timeAgo = getTimeAgo(lastCommitDate)
 
 function getTimeAgo(date: Date): string {
   const now = new Date()
@@ -28,7 +28,13 @@ function getTimeAgo(date: Date): string {
   href={repo.url}
   target="_blank"
   rel="noopener noreferrer"
-  class:list={["project-row", { "project-row--highlighted": highlighted }]}
+  class:list={[
+    "project-row",
+    {
+      "project-row--highlighted": highlighted,
+      "project-row--fork": repo.isFork,
+    },
+  ]}
 >
   <div class="project-main">
     {
@@ -38,7 +44,7 @@ function getTimeAgo(date: Date): string {
         </span>
       )
     }
-    <span class:list={["project-name", { archived: repo.isArchived }]}>
+    <span class="project-name">
       {repo.name}
     </span>
     {repo.isFork && <span class="tag">fork</span>}
@@ -86,7 +92,8 @@ function getTimeAgo(date: Date): string {
     color: var(--text);
     transition:
       background-color var(--transition-fast),
-      border-left-color var(--transition-fast);
+      border-left-color var(--transition-fast),
+      opacity var(--transition-fast);
   }
 
   .project-row:hover {
@@ -104,6 +111,15 @@ function getTimeAgo(date: Date): string {
     border-left-color: var(--accent-hover);
     box-shadow: inset 2px 0 12px
       color-mix(in srgb, var(--accent) 10%, transparent);
+  }
+
+  /* ── Fork variant (dimmed) ── */
+  .project-row--fork {
+    opacity: 0.5;
+  }
+
+  .project-row--fork:hover {
+    opacity: 1;
   }
 
   .highlight-marker {
@@ -133,10 +149,6 @@ function getTimeAgo(date: Date): string {
 
   .project-row--highlighted .project-name {
     color: var(--text);
-  }
-
-  .project-name.archived {
-    opacity: 0.5;
   }
 
   .project-desc {

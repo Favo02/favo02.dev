@@ -20,6 +20,7 @@ export interface GitHubRepo {
   isFork: boolean
   pushedAt: string
   createdAt: string
+  lastCommitAt: string
   primaryLanguage: {
     name: string
     color: string
@@ -47,10 +48,10 @@ const GITHUB_USERS = [
 
 // Featured repos (displayed prominently at the top)
 export const FEATURED_REPOS: string[] = [
-  "favo02.dev",
-  "social-network-for-music",
   "workspaces-by-open-apps",
   "cess-advisor",
+  "homelab",
+  "recommendation-system",
 ]
 
 // Highlighted repos (visually accented inside the list — edit to taste)
@@ -94,6 +95,13 @@ query($login: String!, $first: Int!) {
             }
           }
         }
+        defaultBranchRef {
+          target {
+            ... on Commit {
+              committedDate
+            }
+          }
+        }
       }
     }
   }
@@ -119,6 +127,11 @@ interface GraphQLResponse {
           primaryLanguage: { name: string; color: string } | null
           languages: { nodes: Array<{ name: string; color: string }> }
           repositoryTopics: { nodes: Array<{ topic: { name: string } }> }
+          defaultBranchRef: {
+            target: {
+              committedDate: string
+            } | null
+          } | null
         }>
       }
     }
@@ -173,6 +186,7 @@ async function fetchUserReposGraphQL(
       isFork: repo.isFork,
       pushedAt: repo.pushedAt,
       createdAt: repo.createdAt,
+      lastCommitAt: repo.defaultBranchRef?.target?.committedDate || repo.pushedAt,
       primaryLanguage: repo.primaryLanguage,
       languages: repo.languages.nodes,
       topics: repo.repositoryTopics.nodes.map((t) => t.topic.name),
@@ -230,6 +244,7 @@ async function fetchUserReposREST(
       isFork: repo.fork,
       pushedAt: repo.pushed_at,
       createdAt: repo.created_at,
+      lastCommitAt: repo.pushed_at,
       primaryLanguage: repo.language
         ? { name: repo.language, color: "#888" }
         : null,
@@ -259,9 +274,9 @@ export async function fetchAllRepos(token?: string): Promise<GitHubRepo[]> {
 
   const allRepos = results.flat()
 
-  // Sort by most recently pushed
+  // Sort by most recent commit
   allRepos.sort(
-    (a, b) => new Date(b.pushedAt).getTime() - new Date(a.pushedAt).getTime(),
+    (a, b) => new Date(b.lastCommitAt).getTime() - new Date(a.lastCommitAt).getTime(),
   )
 
   return allRepos
@@ -290,7 +305,11 @@ export async function getCachedRepos(): Promise<GitHubRepo[]> {
 
 // Categorize repos
 export function categorizeRepos(repos: GitHubRepo[]) {
-  const featured = repos.filter((r) => FEATURED_REPOS.includes(r.name))
+  // Keep the order defined by FEATURED_REPOS const
+  const featured = FEATURED_REPOS.map((name) =>
+    repos.find((r) => r.name === name),
+  ).filter((r): r is GitHubRepo => !!r)
+
   const personal = repos.filter(
     (r) => r.source === "personal" && !FEATURED_REPOS.includes(r.name),
   )
