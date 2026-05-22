@@ -33,7 +33,8 @@
 
   /* Typography */
   --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
-  /* Option A (active) */ --font-body: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  /* Option A (active) */
+  --font-body: 'Source Serif 4', Georgia, 'Times New Roman', serif;
   /* Option B — Newsreader: --font-body: 'Newsreader', Georgia, 'Times New Roman', serif; */
   --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
 

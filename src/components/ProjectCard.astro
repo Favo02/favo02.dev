@@ -31,7 +31,13 @@ function getTimeAgo(date: Date): string {
   class:list={["project-row", { "project-row--highlighted": highlighted }]}
 >
   <div class="project-main">
-    {highlighted && <span class="highlight-marker" aria-hidden="true">◆</span>}
+    {
+      highlighted && (
+        <span class="highlight-marker" aria-hidden="true">
+          ◆
+        </span>
+      )
+    }
     <span class:list={["project-name", { archived: repo.isArchived }]}>
       {repo.name}
     </span>
@@ -96,7 +102,8 @@ function getTimeAgo(date: Date): string {
   .project-row--highlighted:hover {
     background: color-mix(in srgb, var(--accent) 8%, var(--bg-surface));
     border-left-color: var(--accent-hover);
-    box-shadow: inset 2px 0 12px color-mix(in srgb, var(--accent) 10%, transparent);
+    box-shadow: inset 2px 0 12px
+      color-mix(in srgb, var(--accent) 10%, transparent);
   }
 
   .highlight-marker {

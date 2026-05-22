@@ -12,7 +12,9 @@ const currentPath = Astro.url.pathname
 <header class="site-header">
   <nav class="nav container-wide" aria-label="Main navigation">
     <a href="/" class="nav-logo" aria-label="Home">
-      <span class="nav-logo-handle">favo02</span><span class="nav-logo-tld">.dev</span>
+      <span class="nav-logo-handle">favo02</span><span class="nav-logo-tld"
+        >.dev</span
+      >
     </a>
 
     <div class="nav-right">
@@ -24,7 +26,9 @@ const currentPath = Astro.url.pathname
               "nav-link",
               { active: !external && currentPath.startsWith(href) },
             ]}
-            {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+            {...(external
+              ? { target: "_blank", rel: "noopener noreferrer" }
+              : {})}
           >
             {label}
           </a>
@@ -80,8 +84,7 @@ const currentPath = Astro.url.pathname
             d="M12 3 A9 9 0 0 0 12 21 A5 5 0 0 1 12 3 Z"
             stroke="none"
             fill="currentColor"
-            opacity="0"
-          ></path>
+            opacity="0"></path>
         </svg>
       </button>
     </div>

@@ -13,11 +13,12 @@ npm run dev
 
 ## Environment Variables
 
-| Variable | Description | Required |
-|:---|:---|:---|
+| Variable       | Description                                  | Required                |
+| :------------- | :------------------------------------------- | :---------------------- |
 | `GITHUB_TOKEN` | GitHub Personal Access Token for GraphQL API | Yes (for projects page) |
 
 Create a `.env` file:
+
 ```
 GITHUB_TOKEN=ghp_your_token_here
 ```

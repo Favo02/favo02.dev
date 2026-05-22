@@ -1,22 +1,22 @@
 ---
-import ProseLayout from '../../layouts/ProseLayout.astro';
-import { getCollection, render } from 'astro:content';
+import ProseLayout from "../../layouts/ProseLayout.astro"
+import { getCollection, render } from "astro:content"
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog');
+  const posts = await getCollection("blog")
   return posts.map((post) => ({
     params: { slug: post.id },
     props: { post },
-  }));
+  }))
 }
 
-const { post } = Astro.props;
-const { Content } = await render(post);
+const { post } = Astro.props
+const { Content } = await render(post)
 
 // Estimate reading time
-const body = post.body || '';
-const words = body.split(/\s+/).length;
-const readingTime = `${Math.ceil(words / 200)} min read`;
+const body = post.body || ""
+const words = body.split(/\s+/).length
+const readingTime = `${Math.ceil(words / 200)} min read`
 ---
 
 <ProseLayout
@@ -28,13 +28,15 @@ const readingTime = `${Math.ceil(words / 200)} min read`;
   <Content />
 
   <footer class="post-footer">
-    {post.data.tags.length > 0 && (
-      <div class="post-tags">
-        {post.data.tags.map((tag) => (
-          <span class="tag">{tag}</span>
-        ))}
-      </div>
-    )}
+    {
+      post.data.tags.length > 0 && (
+        <div class="post-tags">
+          {post.data.tags.map((tag) => (
+            <span class="tag">{tag}</span>
+          ))}
+        </div>
+      )
+    }
     <a href="/blog" class="link-arrow back-link">← back to blog</a>
   </footer>
 </ProseLayout>
@@ -62,7 +64,7 @@ const readingTime = `${Math.ceil(words / 200)} min read`;
   }
 
   .back-link::before {
-    content: '';
+    content: "";
   }
 
   .back-link:hover {

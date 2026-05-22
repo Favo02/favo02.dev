@@ -1,24 +1,24 @@
 ---
-import Nav from '../components/Nav.astro';
-import Footer from '../components/Footer.astro';
-import '../styles/global.css';
+import Nav from "../components/Nav.astro"
+import Footer from "../components/Footer.astro"
+import "../styles/global.css"
 
 interface Props {
-  title?: string;
-  description?: string;
-  ogImage?: string;
-  wide?: boolean;
+  title?: string
+  description?: string
+  ogImage?: string
+  wide?: boolean
 }
 
 const {
-  title = 'Luca Favini',
-  description = 'Computer science student at Università degli Studi di Milano. Developer, maker, and open-source contributor.',
-  ogImage = '/og.png',
+  title = "Luca Favini",
+  description = "Computer science student at Università degli Studi di Milano. Developer, maker, and open-source contributor.",
+  ogImage = "/og.png",
   wide = false,
-} = Astro.props;
+} = Astro.props
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const pageTitle = title === 'Luca Favini' ? title : `${title} — Luca Favini`;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site)
+const pageTitle = title === "Luca Favini" ? title : `${title} — Luca Favini`
 ---
 
 <!doctype html>
@@ -52,16 +52,20 @@ const pageTitle = title === 'Luca Favini' ? title : `${title} — Luca Favini`;
 
     <!-- Theme initialization (prevent flash) -->
     <script is:inline>
-      (function() {
-        const stored = localStorage.getItem('theme');
-        const preferred = stored || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
-        document.documentElement.setAttribute('data-theme', preferred);
-      })();
+      ;(function () {
+        const stored = localStorage.getItem("theme")
+        const preferred =
+          stored ||
+          (window.matchMedia("(prefers-color-scheme: light)").matches
+            ? "light"
+            : "dark")
+        document.documentElement.setAttribute("data-theme", preferred)
+      })()
     </script>
   </head>
   <body>
     <Nav />
-    <main class={wide ? 'container-wide' : 'container'}>
+    <main class={wide ? "container-wide" : "container"}>
       <slot />
     </main>
     <Footer />
