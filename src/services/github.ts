@@ -1,11 +1,11 @@
 /**
  * GitHub GraphQL service for fetching repository data.
- * Uses a single GraphQL query to get all repos from multiple accounts
- * with languages, avoiding the REST API rate limit issues.
+ * Uses a single GraphQL query to get all repos from the Favo02 account.
+ * Favo02 is a member of Favo02-unimi org, so org repos are included automatically.
+ * Categorization is based on the actual fullName owner, not the fetch account.
  *
  * Caching strategy:
- * - Build-time: fetches once and caches to a JSON file
- * - Runtime: server endpoint with in-memory TTL cache (1 hour)
+ * - Runtime: server endpoint with in-memory TTL cache (24 hours)
  */
 
 export interface GitHubRepo {
@@ -31,7 +31,6 @@ export interface GitHubRepo {
   }[]
   topics: string[]
   owner: string
-  source: "personal" | "academic" | "contributions"
 }
 
 // Repos to ignore (can be customized)
@@ -40,11 +39,16 @@ const IGNORED_REPOS: string[] = [
   // e.g., "Favo02", ".github"
 ]
 
-// Users to fetch from
-export const GITHUB_USERS = [
-  { login: "Favo02", source: "personal" as const },
-  { login: "Favo02-unimi", source: "academic" as const },
-]
+// Single account to fetch from.
+// Favo02 is a member/owner of Favo02-unimi org, so org repos are returned too.
+export const FETCH_LOGIN = "Favo02"
+
+// Maps GitHub owner login (lower-case) → section.
+// fullName owner not in this map → contributions.
+export const OWNER_SECTIONS: Record<string, "personal" | "academic"> = {
+  favo02: "personal",
+  "favo02-unimi": "academic",
+}
 
 // Featured repos (displayed prominently at the top)
 export const FEATURED_REPOS: string[] = [
@@ -139,28 +143,22 @@ interface GraphQLResponse {
   errors?: Array<{ message: string }>
 }
 
-async function fetchUserReposGraphQL(
-  login: string,
-  source: "personal" | "academic",
-  token: string,
-): Promise<GitHubRepo[]> {
-  const headers: Record<string, string> = {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`,
-  }
-
+async function fetchReposGraphQL(token: string): Promise<GitHubRepo[]> {
   const response = await fetch("https://api.github.com/graphql", {
     method: "POST",
-    headers,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
     body: JSON.stringify({
       query: GRAPHQL_QUERY,
-      variables: { login, first: 100 },
+      variables: { login: FETCH_LOGIN, first: 100 },
     }),
   })
 
   if (!response.ok) {
     console.error(
-      `GitHub GraphQL API error for ${login}: ${response.status} ${response.statusText}`,
+      `GitHub GraphQL API error: ${response.status} ${response.statusText}`,
     )
     return []
   }
@@ -168,7 +166,7 @@ async function fetchUserReposGraphQL(
   const json = (await response.json()) as GraphQLResponse
 
   if (json.errors) {
-    console.error(`GitHub GraphQL errors for ${login}:`, json.errors)
+    console.error("GitHub GraphQL errors:", json.errors)
     return []
   }
 
@@ -191,12 +189,13 @@ async function fetchUserReposGraphQL(
       primaryLanguage: repo.primaryLanguage,
       languages: repo.languages.nodes,
       topics: repo.repositoryTopics.nodes.map((t) => t.topic.name),
-      owner: login,
-      source,
+      owner: repo.nameWithOwner.split("/")[0],
     }))
 }
 
 // REST API fallback (no auth required, but rate-limited to 60 req/hour)
+// NOTE: REST /users/{login}/repos only returns repos owned by the user,
+// so Favo02-unimi org repos will not appear in the fallback path.
 interface RestRepo {
   name: string
   full_name: string
@@ -213,18 +212,15 @@ interface RestRepo {
   topics: string[]
 }
 
-async function fetchUserReposREST(
-  login: string,
-  source: "personal" | "academic",
-): Promise<GitHubRepo[]> {
+async function fetchReposREST(): Promise<GitHubRepo[]> {
   const response = await fetch(
-    `https://api.github.com/users/${login}/repos?per_page=100&sort=pushed`,
+    `https://api.github.com/users/${FETCH_LOGIN}/repos?per_page=100&sort=pushed&type=all`,
     { headers: { Accept: "application/vnd.github.v3+json" } },
   )
 
   if (!response.ok) {
     console.error(
-      `GitHub REST API error for ${login}: ${response.status} ${response.statusText}`,
+      `GitHub REST API error: ${response.status} ${response.statusText}`,
     )
     return []
   }
@@ -251,56 +247,29 @@ async function fetchUserReposREST(
         : null,
       languages: repo.language ? [{ name: repo.language, color: "#888" }] : [],
       topics: repo.topics || [],
-      owner: login,
-      source,
+      owner: repo.full_name.split("/")[0],
     }))
 }
 
 export async function fetchAllRepos(token?: string): Promise<GitHubRepo[]> {
-  const useGraphQL = !!token
+  let repos: GitHubRepo[]
 
-  const results = await Promise.all(
-    GITHUB_USERS.map(({ login, source }) =>
-      useGraphQL
-        ? fetchUserReposGraphQL(login, source, token)
-        : fetchUserReposREST(login, source),
-    ),
-  )
-
-  if (!useGraphQL) {
+  if (token) {
+    repos = await fetchReposGraphQL(token)
+  } else {
     console.warn(
-      "No GITHUB_TOKEN set — using REST API fallback (rate-limited to 60 req/hour)",
+      "No GITHUB_TOKEN set — using REST API fallback (rate-limited, org repos may be missing)",
     )
+    repos = await fetchReposREST()
   }
-
-  const allRepos = results.flat()
-
-  // Deduplicate by fullName: org-member repos from Favo02-unimi appear in
-  // both Favo02's and Favo02-unimi's results. When two entries share the same
-  // fullName, prefer the one whose fullName owner matches the fetched account
-  // (i.e. the authoritative Favo02-unimi copy), so source/owner stay correct.
-  const seen = new Map<string, GitHubRepo>()
-  for (const repo of allRepos) {
-    const existing = seen.get(repo.fullName)
-    if (!existing) {
-      seen.set(repo.fullName, repo)
-    } else {
-      // Prefer the copy where the fullName owner matches the fetch account
-      const repoOwner = repo.fullName.split("/")[0].toLowerCase()
-      if (repoOwner === repo.owner.toLowerCase()) {
-        seen.set(repo.fullName, repo)
-      }
-    }
-  }
-  const dedupedRepos = Array.from(seen.values())
 
   // Sort by most recent commit
-  dedupedRepos.sort(
+  repos.sort(
     (a, b) =>
       new Date(b.lastCommitAt).getTime() - new Date(a.lastCommitAt).getTime(),
   )
 
-  return dedupedRepos
+  return repos
 }
 
 // --- Caching ---
@@ -326,53 +295,34 @@ export async function getCachedRepos(): Promise<GitHubRepo[]> {
 
 // Categorize repos
 export function categorizeRepos(repos: GitHubRepo[]) {
-  // Set of known account logins (lower-cased for case-insensitive comparison)
-  const knownLogins = new Set(GITHUB_USERS.map((u) => u.login.toLowerCase()))
-
-  // Per-section logins derived from GITHUB_USERS config
-  const personalLogin = GITHUB_USERS.find(
-    (u) => u.source === "personal",
-  )?.login.toLowerCase()
-  const academicLogin = GITHUB_USERS.find(
-    (u) => u.source === "academic",
-  )?.login.toLowerCase()
-
-  // Helper: extract the actual GitHub owner from fullName ("owner/repo")
+  // Extract actual GitHub owner from fullName ("owner/repo")
   const ownerOf = (r: GitHubRepo) => r.fullName.split("/")[0].toLowerCase()
 
-  /**
-   * A repo is "owned" by one of our accounts when:
-   * - the owner segment of fullName matches a known account login, AND
-   * - it is not a fork of an external repo
-   * Using fullName (not source) because org-member repos from Favo02-unimi
-   * can appear when querying Favo02 and get tagged source:'personal' wrongly.
-   * Everything else (forks OR repos from other owners) is a contribution.
-   */
+  // A repo is "own" if its fullName owner maps to a known section and it's not a fork.
+  // Forks + repos from unlisted owners → contributions.
   const isOwnRepo = (r: GitHubRepo) =>
-    knownLogins.has(ownerOf(r)) && !r.isFork
+    ownerOf(r) in OWNER_SECTIONS && !r.isFork
 
   // Keep the order defined by FEATURED_REPOS const
   const featured = FEATURED_REPOS.map((name) =>
     repos.find((r) => r.name === name),
   ).filter((r): r is GitHubRepo => !!r)
 
-  // Non-featured own repos whose actual GitHub owner is the personal account
   const personal = repos.filter(
     (r) =>
-      ownerOf(r) === personalLogin &&
+      ownerOf(r) === "favo02" &&
       !r.isFork &&
       !FEATURED_REPOS.includes(r.name),
   )
 
-  // Non-featured own repos whose actual GitHub owner is the academic account
   const academic = repos.filter(
     (r) =>
-      ownerOf(r) === academicLogin &&
+      ownerOf(r) === "favo02-unimi" &&
       !r.isFork &&
       !FEATURED_REPOS.includes(r.name),
   )
 
-  // All forks + repos owned by other accounts = contributions
+  // Forks + repos from other owners = contributions
   const contributions = repos.filter(
     (r) => !isOwnRepo(r) && !FEATURED_REPOS.includes(r.name),
   )
