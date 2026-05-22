@@ -2,22 +2,19 @@
 ---
 
 <footer class="site-footer">
-  <!--
-    Chessboard layout:
-    ┌─────────────────┬──────────────────────┐
-    │  favo02         │  site links          │
-    ├─────────────────┼──────────────────────┤
-    │  Luca Favini    │  contacts            │
-    └─────────────────┴──────────────────────┘
-  -->
-  <div class="footer-grid container-wide">
-    <!-- Top-left: handle -->
-    <div class="cell cell--tl">
-      <p class="handle">favo02</p>
+  <div class="footer-inner container-wide">
+    <!-- Left: giant display name -->
+    <div class="footer-left">
+      <p class="footer-name">
+        <span class="footer-name-first">Luca</span>
+        <span class="footer-name-last">Favini</span>
+      </p>
+      <p class="footer-copy mono-sm">© {new Date().getFullYear()} · favo02.dev</p>
     </div>
 
-    <!-- Top-right: site nav links -->
-    <div class="cell cell--tr">
+    <!-- Right: nav + contacts stacked -->
+    <div class="footer-right">
+      <!-- Site nav -->
       <nav class="footer-nav" aria-label="Footer navigation">
         <a href="/projects" class="footer-link">Projects</a>
         <a href="/about" class="footer-link">About</a>
@@ -32,46 +29,36 @@
           v1
         </a>
       </nav>
-    </div>
 
-    <!-- Bottom-left: full name -->
-    <div class="cell cell--bl">
-      <p class="full-name">
-        <span class="full-name-first">Luca</span>
-        <span class="full-name-last">Favini</span>
-      </p>
-      <p class="copyright mono-sm">© {new Date().getFullYear()}</p>
-    </div>
+      <!-- Divider -->
+      <div class="footer-divider" aria-hidden="true"></div>
 
-    <!-- Bottom-right: contacts -->
-    <div class="cell cell--br">
-      <div class="contacts">
+      <!-- Contacts -->
+      <div class="footer-contacts">
         <a
           href="https://github.com/Favo02"
           target="_blank"
           rel="noopener noreferrer"
-          class="contact-link"
+          class="contact-row"
         >
-          <span class="contact-label mono-sm">GitHub</span>
-          <span class="contact-value mono-sm">Favo02</span>
+          <span class="contact-key mono-sm">GitHub</span>
+          <span class="contact-val mono-sm">Favo02</span>
         </a>
         <a
           href="https://linkedin.com/in/lucafavini"
           target="_blank"
           rel="noopener noreferrer"
-          class="contact-link"
+          class="contact-row"
         >
-          <span class="contact-label mono-sm">LinkedIn</span>
-          <span class="contact-value mono-sm">lucafavini</span>
+          <span class="contact-key mono-sm">LinkedIn</span>
+          <span class="contact-val mono-sm">lucafavini</span>
         </a>
-        <div class="contact-link contact-link--email">
-          <span class="contact-label mono-sm">Email</span>
-          <span
-            class="contact-value mono-sm"
-            title="Dumb and bot filter: if you can't correctly understand this email you shouldn't contact me."
-          >
-            me AT favo02.dev
-          </span>
+        <div
+          class="contact-row contact-row--static"
+          title="Dumb and bot filter: if you can't correctly understand this email you shouldn't contact me."
+        >
+          <span class="contact-key mono-sm">Email</span>
+          <span class="contact-val mono-sm">me AT favo02.dev</span>
         </div>
       </div>
     </div>
@@ -81,67 +68,66 @@
 <style>
   .site-footer {
     margin-top: var(--space-4xl);
+    background: var(--bg-header);
     border-top: 1px solid var(--border);
   }
 
-  /* ── Chessboard grid ── */
-  .footer-grid {
+  .footer-inner {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto;
+    grid-template-columns: 1fr 320px;
+    gap: var(--space-3xl);
+    padding-top: var(--space-2xl);
+    padding-bottom: var(--space-2xl);
+    align-items: end;
   }
 
-  .cell {
-    padding: var(--space-xl) var(--space-lg);
-  }
-
-  /* Top row cells separated by a hairline column divider */
-  .cell--tl {
-    border-right: 1px solid var(--border-subtle);
-    border-bottom: 1px solid var(--border-subtle);
-    display: flex;
-    align-items: flex-end;
-  }
-
-  .cell--tr {
-    border-bottom: 1px solid var(--border-subtle);
-    display: flex;
-    align-items: flex-end;
-  }
-
-  /* Bottom row */
-  .cell--bl {
-    border-right: 1px solid var(--border-subtle);
+  /* ── Left: name block ── */
+  .footer-left {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-self: stretch;
     gap: var(--space-lg);
-    padding-top: var(--space-lg);
-    padding-bottom: var(--space-xl);
   }
 
-  .cell--br {
+  .footer-name {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 8vw, 7rem);
+    line-height: 0.88;
+    letter-spacing: -0.03em;
+    margin: 0;
     display: flex;
-    align-items: flex-end;
-    padding-top: var(--space-lg);
-    padding-bottom: var(--space-xl);
+    flex-direction: column;
   }
 
-  /* ── Handle (favo02) ── */
-  .handle {
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    text-transform: uppercase;
-    letter-spacing: var(--tracking-wider);
+  .footer-name-first {
+    font-weight: 400;
+    font-style: italic;
+    color: var(--text-muted);
+  }
+
+  .footer-name-last {
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .footer-copy {
     color: var(--text-faint);
     margin: 0;
   }
 
-  /* ── Site nav ── */
+  /* ── Right: nav + contacts ── */
+  .footer-right {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  /* Site nav */
   .footer-nav {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--space-sm) var(--space-lg);
+    gap: var(--space-xs) var(--space-lg);
   }
 
   .footer-link {
@@ -152,6 +138,7 @@
     color: var(--text-muted);
     text-decoration: none;
     transition: color var(--transition-fast);
+    white-space: nowrap;
   }
 
   .footer-link:hover {
@@ -162,98 +149,61 @@
     color: var(--text-faint);
   }
 
-  /* ── Full name ── */
-  .full-name {
-    font-family: var(--font-display);
-    font-size: clamp(2.5rem, 6vw, 5.5rem);
-    line-height: 0.92;
-    letter-spacing: -0.025em;
-    margin: 0;
+  /* Divider */
+  .footer-divider {
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* Contacts */
+  .footer-contacts {
     display: flex;
     flex-direction: column;
+    gap: 0;
   }
 
-  .full-name-first {
-    font-weight: 400;
-    font-style: italic;
-    color: var(--text-muted);
-  }
-
-  .full-name-last {
-    font-weight: 700;
-    color: var(--text);
-  }
-
-  .copyright {
-    color: var(--text-faint);
-    margin: 0;
-  }
-
-  /* ── Contacts ── */
-  .contacts {
+  .contact-row {
     display: flex;
-    flex-direction: column;
-    gap: var(--space-md);
-    width: 100%;
-  }
-
-  .contact-link {
-    display: flex;
-    align-items: baseline;
     justify-content: space-between;
+    align-items: baseline;
     gap: var(--space-md);
+    padding: var(--space-sm) 0;
+    border-bottom: 1px solid var(--border-subtle);
     text-decoration: none;
     color: var(--text-muted);
     transition: color var(--transition-fast);
-    border-bottom: 1px solid var(--border-subtle);
-    padding-bottom: var(--space-sm);
   }
 
-  a.contact-link:hover {
+  a.contact-row:hover {
     color: var(--accent);
   }
 
-  .contact-link--email {
+  .contact-row--static {
     cursor: default;
+    color: var(--text-faint);
   }
 
-  .contact-label {
+  .contact-key {
     color: var(--text-faint);
     flex-shrink: 0;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
   }
 
-  .contact-value {
+  .contact-val {
     text-align: right;
   }
 
   /* ── Responsive ── */
-  @media (max-width: 640px) {
-    .footer-grid {
+  @media (max-width: 768px) {
+    .footer-inner {
       grid-template-columns: 1fr;
+      gap: var(--space-2xl);
+      align-items: start;
     }
 
-    .cell--tl,
-    .cell--tr,
-    .cell--bl,
-    .cell--br {
-      border-right: none;
-    }
-
-    .cell--tl {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-
-    .cell--tr {
-      padding-top: var(--space-sm);
-    }
-
-    .cell--bl {
-      border-top: 1px solid var(--border-subtle);
-    }
-
-    .full-name {
-      font-size: clamp(2.5rem, 12vw, 4rem);
+    .footer-name {
+      font-size: clamp(3rem, 14vw, 5rem);
     }
   }
 </style>
