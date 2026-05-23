@@ -213,101 +213,121 @@ const calculateAge = (birthday: Date) => {
 const myAge = calculateAge(new Date("August 25, 2002"))
 ---
 
-<BaseLayout
-  title="About"
-  description="About Luca Favini — biography, education, experience, and more."
->
+<BaseLayout title="About" description="Who is Luca?">
   <div class="about-page">
     <PageHeader title="About" subtitle="Who is Luca?" />
 
-    <!-- ── Intro: photo floated left, bio wraps around it ── -->
+    <!-- ── Intro: photo wraps alternating left and right ── -->
     <section class="intro-section">
-      <div class="photo-wrap">
-        <img
-          src="/propic.webp"
-          alt="Luca Favini hiking on a mountain ridge"
-          class="propic"
-          loading="eager"
-        />
-      </div>
-
       <div class="intro-text">
         <div class="intro-bio">
           <p>
-            Hello, I am <strong>Luca Favini</strong>, but my friends call me <strong
+            Hello! I am <strong>Luca</strong>, but my friends call me <strong
               >Favo</strong
-            >. I am a {myAge}-year-old guy living <em>(near)</em>
+            >. I am a {myAge}-year-old computer science student living near
             <strong>Milan, Italy</strong>.
           </p>
+
+          <div class="photo-wrap photo-wrap--left">
+            <img
+              src="/studying.webp"
+              alt="Studying"
+              class="propic"
+              loading="eager"
+            />
+          </div>
+
           <p>
-            My educational background is entirely centered around <strong
+            I am currently pursuing a Master's degree in <strong
               >computer science</strong
-            >, which I am currently studying at <strong
-              >Università degli studi di Milano</strong
-            >. For more details about my <strong>interests</strong>, <strong
-              >notable projects</strong
-            > and <strong>current focuses</strong> check out my <a
-              href="https://github.com/Favo02"
+            > at the <strong>Università degli Studi di Milano</strong>. I am
+            exploring various specialization areas, ranging from <em
+              >algorithmic game theory</em
+            > and <em>programming languages</em> (I occasionally collaborate with
+            the <a
+              href="https://cazzola.di.unimi.it/adapt-lab.html"
               target="_blank"
-              rel="noopener noreferrer">GitHub README</a
-            >. I update it quite <em>frequently</em>, much more than this
-            website!
+              rel="noopener noreferrer">AdaptLab</a
+            > research group, where I completed my Bachelor's thesis) to <em
+              >DevOps</em
+            > — but above all, I love <strong>competitive programming</strong>.
           </p>
+
           <p>
-            I also engage in activities unrelated to computers. I have a strong
-            passion for playing basically <strong>any sport</strong>,
-            particularly <strong>football</strong>
-            <em
-              ><span class="opacity-70">(the real one, <del>soccer</del>)</span
-              ></em
-            >, which I played for many years in my hometown team. However, I
-            must admit that my <strong>competitive nature</strong> and desire for
-            <strong>precision</strong> come into play: whether it's a casual or competitive
-            game, I always strive to achieve victory and to excel. Another thing I
-            really enjoy is pushing my physical limits through activities such as
-            running, cycling or hiking <em
-              ><span class="opacity-70">(mountain &gt; seaside)</span></em
-            >.
+            I strongly adhere to the <strong>open source</strong> movement (or at
+            least <strong>open data</strong>, meaning I want my data in a
+            decent, portable format) trying to avoid closed software where
+            viable alternatives exist, especially <em>self-hosted</em> solutions in
+            my
+            <strong>homelab</strong>.
           </p>
+
           <p>
-            Returning to computers: I consider myself a decent <strong
-              >competitive gamer</strong
-            >, competing under the alias of <em><strong>imprudenza</strong></em>
+            For more details about my <strong>projects</strong>, check out the
+            dedicated
+            <a href="/projects">projects page</a>. You can also see what I am
+            currently working on (or what I've been up to recently) on my <a
+              href="/now">now page</a
+            >, which I try to keep regularly updated.
+          </p>
+
+          <div class="photo-wrap photo-wrap--right">
+            <img
+              src="/hiking.webp"
+              alt="Hiking"
+              class="propic"
+              loading="eager"
+            />
+          </div>
+
+          <p>
+            I have a strong passion for playing almost <strong>any sport</strong
+            >: I regularly play <strong>football</strong>, <strong>run</strong>
+            and <strong>hike</strong>. <em
+              ><a
+                href="https://www.strava.com/athletes/favo02"
+                target="_blank"
+                rel="noopener noreferrer">Strava profile</a
+              > (suggest an open alternative?)</em
+            >
+          </p>
+
+          <p>
+            On the gaming side, I once considered myself a decent <strong
+              >competitive player</strong
+            >, playing under the alias of <em><strong>imprudenza</strong></em>
             <a
               href="https://linktr.ee/imprudenza"
               target="_blank"
-              rel="noopener noreferrer"
-              ><em
-                ><span class="opacity-70">(imprudenza's socials linktree)</span
-                ></em
-              ></a
-            >. In the past, I competed in <em>Minecraft</em>
-            <span title="ClanWar BedWars, 4v4 on PigParty or GommeHD">CWBW</span
-            >, becoming <span title="PigParty BedWars league, 4v4 on PigParty"
+              rel="noopener noreferrer"><em>(socials linktree)</em></a
+            >. In the past, I competed in <em>Minecraft CWBW</em>, becoming the <span
+              title="PigParty BedWars league, 4v4 on PigParty"
               ><em>2018 Italian Champion</em></span
-            > with <em><span class="opacity-70">Rebirth</span></em>. In recent
-            years, I transitioned to <em>Rainbow Six Siege</em>, where I secured
-            second place in the <a
+            > with <em>Rebirth</em>. Later, I transitioned to <strong
+              >Rainbow Six Siege</strong
+            >, where I secured second place in the <a
               href="https://liquipedia.net/rainbowsix/PG_Nationals/2022/BeSerious/Spring"
               target="_blank"
               rel="noopener noreferrer"
               title="BeSerious Spring 2022"
               ><em>2022 Italian Second Division</em></a
-            > with <em><span class="opacity-70">P11</span></em>. Due to time
-            constraints, my involvement in competitive gaming has reduced. <del
-              ><span class="opacity-70"
-                >However, I still occasionally participate in competitive
-                tournaments for fun.</span
-              ></del
-            >
+            > with <em>P11</em>. In recent years, I completely <strong
+              >stopped</strong
+            > playing.
+          </p>
+
+          <p>
+            I am a <strong>competitive</strong> animal. I don't care if it's a friendly
+            football game, a random Codeforces contest, a weekly run or a casual Rainbow
+            Six game; I always want to win and excel.
           </p>
           <p>
-            <em>Last but not least:</em> you can recognize me IRL by the <a
-              href="https://upload.wikimedia.org/wikipedia/en/2/26/Papasmurf1.jpg"
-              target="_blank"
-              rel="noopener noreferrer">smurf</a
-            > attached to my backpack.
+            <em>Last but not least:</em> you can recognize me in real life by the
+            <a href="/smurf.webp" target="_blank" rel="noopener noreferrer"
+              ><strong>Smurf</strong>
+            </a> attached to my backpack.
           </p>
+
           <p class="bio-footnote mono-sm">
             Contact &amp; socials in the footer. CV and certificates available
             on request.
@@ -391,335 +411,350 @@ const myAge = calculateAge(new Date("August 25, 2002"))
       </ul>
     </section>
   </div>
-</BaseLayout>
 
-<style>
-  .about-page {
-    padding-top: var(--space-2xl);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-xl);
-  }
+  <style>
+    .about-page {
+      padding-top: var(--space-2xl);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xl);
+    }
 
-  /* ── Intro ── */
-  .intro-section {
-    margin-bottom: var(--space-3xl);
-    /* float layout: photo floats left, text wraps around it */
-  }
+    /* ── Intro ── */
+    .intro-section {
+      margin-bottom: var(--space-3xl);
+      /* float layout: photo floats left, text wraps around it */
+    }
 
-  .photo-wrap {
-    float: left;
-    width: 220px;
-    margin-right: var(--space-2xl);
-    margin-bottom: var(--space-lg);
-    shape-outside: margin-box;
-  }
-
-  .propic {
-    width: 100%;
-    aspect-ratio: 3 / 4;
-    object-fit: cover;
-    object-position: center 20%;
-    border-radius: 4px;
-    filter: grayscale(15%);
-    transition: filter var(--transition-base);
-  }
-
-  .propic:hover {
-    filter: grayscale(0%);
-  }
-
-  .intro-text {
-    /* nothing needed — flows around the float */
-  }
-
-  .intro-name {
-    font-family: var(--font-display);
-    font-size: clamp(2.5rem, 5vw, 4.5rem);
-    line-height: 0.95;
-    letter-spacing: -0.02em;
-    color: var(--text);
-    margin-bottom: var(--space-xl);
-    font-weight: 700;
-    font-style: normal;
-  }
-
-  .intro-name em {
-    font-style: italic;
-    font-weight: 400;
-    color: var(--text-muted);
-  }
-
-  /* ── Bio prose ── */
-  .intro-bio p {
-    font-size: var(--text-base);
-    line-height: var(--leading-normal);
-    color: var(--text-muted);
-    margin-bottom: var(--space-md);
-  }
-
-  .intro-bio strong {
-    color: var(--text);
-    font-weight: 600;
-  }
-
-  .intro-bio a {
-    color: var(--text-muted);
-    text-decoration: underline;
-    text-decoration-color: var(--border);
-    text-underline-offset: 3px;
-    transition:
-      color var(--transition-fast),
-      text-decoration-color var(--transition-fast);
-  }
-
-  .intro-bio a:hover {
-    color: var(--accent);
-    text-decoration-color: var(--accent);
-  }
-
-  .opacity-70 {
-    opacity: 0.7;
-  }
-
-  .bio-footnote {
-    margin-top: var(--space-xl);
-    padding-top: var(--space-md);
-    border-top: 1px solid var(--border-subtle);
-    color: var(--text-faint) !important;
-    font-size: var(--text-xs) !important;
-    margin-bottom: 0;
-  }
-
-  /* ── Section label ── */
-  .section-label {
-    font-size: var(--text-xs) !important;
-    font-family: var(--font-mono) !important;
-    text-transform: uppercase;
-    letter-spacing: var(--tracking-wider);
-    color: var(--text-faint);
-    margin-bottom: var(--space-lg);
-    font-weight: 500;
-  }
-
-  /* ── Unified timeline list ── */
-  .timeline-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    border-top: 1px solid var(--border-subtle);
-  }
-
-  /* ── Full item ── */
-  .tl-item {
-    display: grid;
-    grid-template-columns: 160px 1fr;
-    gap: var(--space-lg);
-    padding: var(--space-lg) 0;
-    padding-left: var(--space-sm);
-    border-bottom: 1px solid var(--border-subtle);
-    border-left: 2px solid transparent;
-    transition:
-      border-left-color var(--transition-fast),
-      background-color var(--transition-fast);
-  }
-
-  /* ── Compact item: three-column strip ── */
-  .tl-item--compact {
-    grid-template-columns: 72px 1fr auto;
-    align-items: center;
-    gap: var(--space-md);
-    padding: 0.35rem 0;
-    padding-left: var(--space-sm);
-  }
-
-  .tl-item:hover {
-    border-left-color: var(--border);
-    background: color-mix(in srgb, var(--bg-surface) 50%, transparent);
-  }
-
-  .tl-period {
-    padding-top: 3px;
-    white-space: nowrap;
-    color: var(--text-faint);
-  }
-
-  .tl-item--compact .tl-period {
-    font-size: 0.67rem;
-    padding-top: 0;
-  }
-
-  /* Compact body: title + org stacked, fills middle column */
-  .tl-compact-body {
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
-  }
-
-  .tl-title--compact {
-    font-size: var(--text-sm) !important;
-    font-style: normal !important;
-    font-weight: 500 !important;
-    font-family: var(--font-body) !important;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .tl-compact-org {
-    font-size: 0.67rem;
-    color: var(--text-faint);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  /* Tag in compact items stays in the third column */
-  .tl-item--compact .tl-tag {
-    flex-shrink: 0;
-    font-size: 0.55rem;
-  }
-
-  .tl-body {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-xs);
-  }
-
-  .tl-top {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: var(--space-md);
-  }
-
-  .tl-title-wrap {
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-
-  .tl-title {
-    font-family: var(--font-display);
-    font-size: var(--text-base);
-    font-weight: 400;
-    font-style: italic;
-    color: var(--text);
-    text-decoration: none;
-    line-height: var(--leading-snug);
-    transition: color var(--transition-fast);
-  }
-
-  a.tl-title:hover {
-    color: var(--accent);
-  }
-
-  .tl-badges {
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-    flex-shrink: 0;
-    justify-content: flex-end;
-    padding-top: 3px;
-  }
-
-  .tl-result {
-    font-family: var(--font-mono);
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    letter-spacing: var(--tracking-wider);
-    color: var(--accent);
-    white-space: nowrap;
-  }
-
-  /* Type tags */
-  .tl-tag {
-    font-family: var(--font-mono);
-    font-size: 0.6rem;
-    text-transform: uppercase;
-    letter-spacing: var(--tracking-wider);
-    padding: 0.15em 0.55em;
-    border-radius: 3px;
-    border: 1px solid;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  .tl-tag--experience {
-    color: var(--tag-personal);
-    border-color: var(--tag-personal);
-  }
-
-  .tl-tag--education {
-    color: var(--tag-academic);
-    border-color: var(--tag-academic);
-  }
-
-  .tl-tag--certificate {
-    color: var(--text-faint);
-    border-color: var(--border);
-  }
-
-  .tl-tag--event {
-    color: var(--accent);
-    border-color: var(--accent);
-  }
-
-  .tl-tag--publication {
-    color: var(--tag-contributions);
-    border-color: var(--tag-contributions);
-  }
-
-  .tl-meta {
-    color: var(--text-faint);
-    margin: 0;
-  }
-
-  .tl-desc {
-    font-size: var(--text-sm);
-    color: var(--text-muted);
-    margin: 0;
-    line-height: var(--leading-normal);
-  }
-
-  /* ── Responsive ── */
-  @media (max-width: 768px) {
     .photo-wrap {
-      float: none;
-      width: 100%;
-      margin-right: 0;
-      margin-bottom: var(--space-xl);
+      width: 220px;
+      aspect-ratio: 3 / 4;
+      margin-bottom: var(--space-lg);
+      overflow: hidden;
+      border-radius: 4px;
+    }
+
+    .photo-wrap--left {
+      float: left;
+      margin-right: var(--space-xl);
+      shape-outside: margin-box;
+    }
+
+    .photo-wrap--right {
+      float: right;
+      margin-left: var(--space-xl);
+      shape-outside: margin-box;
     }
 
     .propic {
-      max-height: 320px;
-      object-position: center 25%;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+      filter: grayscale(15%);
+      transition: filter var(--transition-base);
+    }
+
+    .propic:hover {
+      filter: grayscale(0%);
+    }
+
+    .intro-text {
+      /* nothing needed — flows around the float */
     }
 
     .intro-name {
-      font-size: clamp(2.5rem, 10vw, 4rem);
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: var(--space-xl);
+      font-weight: 700;
+      font-style: normal;
     }
 
+    .intro-name em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--text-muted);
+    }
+
+    /* ── Bio prose ── */
+    .intro-bio p {
+      font-size: var(--text-base);
+      line-height: var(--leading-normal);
+      color: var(--text-muted);
+      margin-bottom: var(--space-md);
+    }
+
+    .intro-bio strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .intro-bio a {
+      color: var(--text-muted);
+      text-decoration: underline;
+      text-decoration-color: var(--border);
+      text-underline-offset: 3px;
+      transition:
+        color var(--transition-fast),
+        text-decoration-color var(--transition-fast);
+    }
+
+    .intro-bio a:hover {
+      color: var(--accent);
+      text-decoration-color: var(--accent);
+    }
+
+    .opacity-70 {
+      opacity: 0.7;
+    }
+
+    .bio-footnote {
+      margin-top: var(--space-xl);
+      padding-top: var(--space-md);
+      border-top: 1px solid var(--border-subtle);
+      color: var(--text-faint) !important;
+      font-size: var(--text-xs) !important;
+      margin-bottom: 0;
+    }
+
+    /* ── Section label ── */
+    .section-label {
+      font-size: var(--text-xs) !important;
+      font-family: var(--font-mono) !important;
+      text-transform: uppercase;
+      letter-spacing: var(--tracking-wider);
+      color: var(--text-faint);
+      margin-bottom: var(--space-lg);
+      font-weight: 500;
+    }
+
+    /* ── Unified timeline list ── */
+    .timeline-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    /* ── Full item ── */
     .tl-item {
-      grid-template-columns: 1fr;
-      gap: var(--space-xs);
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: var(--space-lg);
+      padding: var(--space-lg) 0;
+      padding-left: var(--space-sm);
+      border-bottom: 1px solid var(--border-subtle);
+      border-left: 2px solid transparent;
+      transition:
+        border-left-color var(--transition-fast),
+        background-color var(--transition-fast);
+    }
+
+    /* ── Compact item: three-column strip ── */
+    .tl-item--compact {
+      grid-template-columns: 72px 1fr auto;
+      align-items: center;
+      gap: var(--space-md);
+      padding: 0.35rem 0;
+      padding-left: var(--space-sm);
+    }
+
+    .tl-item:hover {
+      border-left-color: var(--border);
+      background: color-mix(in srgb, var(--bg-surface) 50%, transparent);
     }
 
     .tl-period {
+      padding-top: 3px;
+      white-space: nowrap;
+      color: var(--text-faint);
+    }
+
+    .tl-item--compact .tl-period {
+      font-size: 0.67rem;
       padding-top: 0;
     }
 
-    .tl-top {
+    /* Compact body: title + org stacked, fills middle column */
+    .tl-compact-body {
+      min-width: 0;
+      display: flex;
       flex-direction: column;
+      gap: 1px;
+    }
+
+    .tl-title--compact {
+      font-size: var(--text-sm) !important;
+      font-style: normal !important;
+      font-weight: 500 !important;
+      font-family: var(--font-body) !important;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .tl-compact-org {
+      font-size: 0.67rem;
+      color: var(--text-faint);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Tag in compact items stays in the third column */
+    .tl-item--compact .tl-tag {
+      flex-shrink: 0;
+      font-size: 0.55rem;
+    }
+
+    .tl-body {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    .tl-top {
+      display: flex;
       align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-md);
+    }
+
+    .tl-title-wrap {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .tl-title {
+      font-family: var(--font-display);
+      font-size: var(--text-base);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--text);
+      text-decoration: none;
+      line-height: var(--leading-snug);
+      transition: color var(--transition-fast);
+    }
+
+    a.tl-title:hover {
+      color: var(--accent);
     }
 
     .tl-badges {
-      justify-content: flex-start;
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      flex-shrink: 0;
+      justify-content: flex-end;
+      padding-top: 3px;
     }
-  }
-</style>
+
+    .tl-result {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: var(--tracking-wider);
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    /* Type tags */
+    .tl-tag {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: var(--tracking-wider);
+      padding: 0.15em 0.55em;
+      border-radius: 3px;
+      border: 1px solid;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .tl-tag--experience {
+      color: var(--tag-personal);
+      border-color: var(--tag-personal);
+    }
+
+    .tl-tag--education {
+      color: var(--tag-academic);
+      border-color: var(--tag-academic);
+    }
+
+    .tl-tag--certificate {
+      color: var(--text-faint);
+      border-color: var(--border);
+    }
+
+    .tl-tag--event {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .tl-tag--publication {
+      color: var(--tag-contributions);
+      border-color: var(--tag-contributions);
+    }
+
+    .tl-meta {
+      color: var(--text-faint);
+      margin: 0;
+    }
+
+    .tl-desc {
+      font-size: var(--text-sm);
+      color: var(--text-muted);
+      margin: 0;
+      line-height: var(--leading-normal);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .photo-wrap {
+        float: none !important;
+        width: 100%;
+        aspect-ratio: auto !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        margin-bottom: var(--space-xl);
+      }
+
+      .propic {
+        height: auto;
+        aspect-ratio: 3 / 4;
+        max-height: 320px;
+        object-position: center 25%;
+      }
+
+      .intro-name {
+        font-size: clamp(2.5rem, 10vw, 4rem);
+      }
+
+      .tl-item {
+        grid-template-columns: 1fr;
+        gap: var(--space-xs);
+      }
+
+      .tl-period {
+        padding-top: 0;
+      }
+
+      .tl-top {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .tl-badges {
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</BaseLayout>
