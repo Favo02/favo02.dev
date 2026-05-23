@@ -6,70 +6,152 @@ import PageHeader from "../components/PageHeader.astro"
 // Set compact: true for secondary items (e.g. certificates, minor events)
 const timeline = [
   {
+    type: "education" as const,
+    period: "Oct 2025 — Present",
+    title: "Università degli Studi di Milano",
+    org: "Milan",
+    description: "Master in computer science (magistrale informatica)",
+    link: "https://www.unimi.it/en/education/master-programme/computer-science-master",
+    result: null,
+    compact: false,
+  },
+  {
+    type: "publication" as const,
+    period: "Jan 2026",
+    title:
+      "Prioritizing Configuration Relevance via Compiler-Based Refined Feature Ranking",
+    org: "arXiv",
+    description: "",
+    link: "https://arxiv.org/abs/2601.16008",
+    result: null,
+    compact: true,
+  },
+  {
     type: "experience" as const,
-    period: "Feb 2024 — May 2024",
+    period: "Feb 2024 — Present",
     title: "Programming Tutor",
     org: "Università degli Studi di Milano",
     description: 'Tutor for "Programmazione I" course (in Golang)',
-    link: "https://mameli.docenti.di.unimi.it/pls-tutoring/wiki/WikiStart",
+    link: null,
     result: null,
     compact: false,
   },
   {
     type: "education" as const,
-    period: "2021 — present",
+    period: "Oct 2021 — Feb 2025",
     title: "Università degli Studi di Milano",
     org: "Milan",
     description: "Bachelor in computer science (triennale informatica)",
-    link: "https://www.unimi.it/en/education/computer-science",
+    link: "https://www.unimi.it/en/education/bachelor/computer-science",
+    result: "102/110",
+    compact: false,
+  },
+  {
+    type: "experience" as const,
+    period: "Oct 2024 — Feb 2025",
+    title: "Software Developer",
+    org: "Tecnostamp Triulzi",
+    description:
+      "Improved PHP CodeIgniter/MySQL app and automated barcode scanner integration",
+    link: null,
     result: null,
     compact: false,
   },
   {
-    type: "event" as const,
-    period: "2022",
-    title: "PG Nationals BeSerious Spring",
-    org: "Rainbow Six Siege",
-    description: "Italian second division tournament with P11",
-    link: "https://liquipedia.net/rainbowsix/PG_Nationals/2022/BeSerious/Spring",
-    result: "2nd place",
+    type: "education" as const,
+    period: "Sep 2016 — Jun 2021",
+    title: "ITIS Cannizzaro",
+    org: "Rho",
+    description: "High school in computer science (ITIS indirizzo informatica)",
+    link: "https://www.itiscannizzaro.edu.it/pagine/-informatica",
+    result: "100/100",
     compact: false,
+  },
+  {
+    type: "event" as const,
+    period: "Nov 2025",
+    title: "ICPC SWERC 2025",
+    org: "Pisa — Competitive Programming Contest",
+    description: "",
+    link: "https://swerc.eu/2025/",
+    result: null,
+    compact: true,
+  },
+  {
+    type: "event" as const,
+    period: "Dec 2024",
+    title: "ICPC SWERC 2024",
+    org: "Pisa — Competitive Programming Contest",
+    description: "",
+    link: "https://swerc.eu/2024/",
+    result: null,
+    compact: true,
+  },
+  {
+    type: "event" as const,
+    period: "Aug 2024",
+    title: "NOI Hackathon Summer 2024",
+    org: "NOI Techpark Südtirol",
+    description: "",
+    link: "https://hackathon.bz.it/",
+    result: null,
+    compact: true,
+  },
+  {
+    type: "event" as const,
+    period: "May 2024",
+    title: "Cyberchallenge 2024",
+    org: "Cybersecurity National Lab",
+    description: "",
+    link: "https://cyberchallenge.it/",
+    result: null,
+    compact: true,
+  },
+  {
+    type: "event" as const,
+    period: "Nov 2023",
+    title: "NOI Hackathon SFSCON 2023",
+    org: "NOI Techpark Südtirol",
+    description: "",
+    link: "https://hackathon.bz.it/",
+    result: null,
+    compact: true,
+  },
+  {
+    type: "event" as const,
+    period: "Aug 2023",
+    title: "NOI Hackathon Summer 2023",
+    org: "NOI Techpark Südtirol",
+    description: "",
+    link: "https://hackathon.bz.it/",
+    result: null,
+    compact: true,
+  },
+  {
+    type: "event" as const,
+    period: "Mar 2019",
+    title: "NAO Challenge 2019",
+    org: "Robotics High School Competition",
+    description: "",
+    link: "https://naochallenge.it/",
+    result: null,
+    compact: true,
   },
   {
     type: "certificate" as const,
     period: "2022",
     title: "FullStackOpen",
-    org: "University of Helsinki",
+    org: "University of Helsinki (Remote)",
     description: "Modern Full Stack Web Development",
     link: "https://fullstackopen.com/en",
     result: null,
     compact: true,
   },
   {
-    type: "education" as const,
-    period: "2016 — 2021",
-    title: "ITIS Cannizzaro",
-    org: "Rho",
-    description: "High school in computer science (ITIS indirizzo informatica)",
-    link: "https://www.itiscannizzaro.edu.it/pagine/-informatica",
-    result: null,
-    compact: false,
-  },
-  {
-    type: "event" as const,
-    period: "2018",
-    title: "PigParty BedWars League",
-    org: "Minecraft CWBW",
-    description: "4v4 Italian championship with Rebirth",
-    link: null,
-    result: "Italian Champion",
-    compact: false,
-  },
-  {
     type: "certificate" as const,
     period: "2021",
     title: "Elements of AI",
-    org: "MinnaLearn & Univ. of Helsinki",
+    org: "MinnaLearn & Univ. of Helsinki (Remote)",
     description: "Artificial intelligence introductory course",
     link: "https://www.elementsofai.com",
     result: null,
@@ -87,28 +169,12 @@ const timeline = [
   },
 ]
 
-// Publications kept separate — hidden when empty
-const publications: {
-  year: string
-  title: string
-  venue: string
-  description: string
-  link: string | null
-}[] = [
-  // {
-  //   year: '2025',
-  //   title: 'My Bachelor Thesis',
-  //   venue: 'Università degli Studi di Milano',
-  //   description: 'Short description of what it covers.',
-  //   link: null,
-  // },
-]
-
 const typeLabel: Record<(typeof timeline)[number]["type"], string> = {
   experience: "experience",
   education: "education",
   certificate: "certificate",
   event: "event",
+  publication: "publication",
 }
 
 const calculateAge = (birthday: Date) => {
@@ -225,84 +291,76 @@ const myAge = calculateAge(new Date("August 25, 2002"))
       <div style="clear:both"></div>
     </section>
 
-    <!-- ── Unified timeline ── -->
     <section class="timeline-section">
       <h2 class="section-label mono">Background</h2>
       <ul class="timeline-list">
         {
           timeline.map((item) => (
             <li class:list={["tl-item", { "tl-item--compact": item.compact }]}>
-              <span class="tl-period mono-sm">{item.period}</span>
-              <div class="tl-body">
-                <div class="tl-top">
-                  {item.link ? (
-                    <a
-                      href={item.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="tl-title"
-                    >
-                      {item.title}
-                    </a>
-                  ) : (
-                    <span class="tl-title">{item.title}</span>
-                  )}
-                  <div class="tl-badges">
-                    {item.result && (
-                      <span class="tl-result">{item.result}</span>
-                    )}
-                    <span class:list={["tl-tag", `tl-tag--${item.type}`]}>
-                      {typeLabel[item.type]}
-                    </span>
-                  </div>
-                </div>
-                <p class="tl-meta mono-sm">{item.org}</p>
-                {!item.compact && item.description && (
-                  <p class="tl-desc">{item.description}</p>
-                )}
-              </div>
-            </li>
-          ))
-        }
-      </ul>
-    </section>
-
-    <!-- ── Publications (shown only when non-empty) ── -->
-    {
-      publications.length > 0 && (
-        <section class="timeline-section">
-          <h2 class="section-label mono">Publications</h2>
-          <ul class="timeline-list">
-            {publications.map((item) => (
-              <li class="tl-item">
-                <span class="tl-period mono-sm">{item.year}</span>
-                <div class="tl-body">
-                  <div class="tl-top">
+              {item.compact ? (
+                /* ── Compact: single tight row ── */
+                <>
+                  <span class="tl-period mono-sm">{item.period}</span>
+                  <div class="tl-compact-body">
                     {item.link ? (
                       <a
                         href={item.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="tl-title"
+                        class="tl-title tl-title--compact"
                       >
                         {item.title}
                       </a>
                     ) : (
-                      <span class="tl-title">{item.title}</span>
+                      <span class="tl-title tl-title--compact">{item.title}</span>
                     )}
-                    <span class="tl-tag tl-tag--publication">publication</span>
+                    <span class="tl-compact-org mono-sm">{item.org}</span>
                   </div>
-                  <p class="tl-meta mono-sm">{item.venue}</p>
-                  {item.description && (
-                    <p class="tl-desc">{item.description}</p>
-                  )}
-                </div>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )
-    }
+                  <span class:list={["tl-tag", `tl-tag--${item.type}`]}>
+                    {typeLabel[item.type]}
+                  </span>
+                </>
+              ) : (
+                /* ── Full: richer card ── */
+                <>
+                  <span class="tl-period mono-sm">{item.period}</span>
+                  <div class="tl-body">
+                    <div class="tl-top">
+                      <div class="tl-title-wrap">
+                        {item.link ? (
+                          <a
+                            href={item.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="tl-title"
+                          >
+                            {item.title}
+                          </a>
+                        ) : (
+                          <span class="tl-title">{item.title}</span>
+                        )}
+                        <p class="tl-meta mono-sm">{item.org}</p>
+                      </div>
+                      <div class="tl-badges">
+                        {item.result && (
+                          <span class="tl-result">{item.result}</span>
+                        )}
+                        <span class:list={["tl-tag", `tl-tag--${item.type}`]}>
+                          {typeLabel[item.type]}
+                        </span>
+                      </div>
+                    </div>
+                    {item.description && (
+                      <p class="tl-desc">{item.description}</p>
+                    )}
+                  </div>
+                </>
+              )}
+            </li>
+          ))
+        }
+      </ul>
+    </section>
   </div>
 </BaseLayout>
 
@@ -425,37 +483,27 @@ const myAge = calculateAge(new Date("August 25, 2002"))
     border-top: 1px solid var(--border-subtle);
   }
 
+  /* ── Full item ── */
   .tl-item {
     display: grid;
     grid-template-columns: 160px 1fr;
     gap: var(--space-lg);
     padding: var(--space-lg) 0;
+    padding-left: var(--space-sm);
     border-bottom: 1px solid var(--border-subtle);
     border-left: 2px solid transparent;
-    padding-left: var(--space-sm);
     transition:
       border-left-color var(--transition-fast),
       background-color var(--transition-fast);
   }
 
-  /* Compact variant — secondary entries (certificates, minor events) */
+  /* ── Compact item: three-column strip ── */
   .tl-item--compact {
-    padding: var(--space-sm) 0;
-    padding-left: var(--space-sm);
-    grid-template-columns: 100px 1fr;
+    grid-template-columns: 72px 1fr auto;
+    align-items: center;
     gap: var(--space-md);
-  }
-
-  .tl-item--compact .tl-period {
-    font-size: 0.7rem;
-  }
-
-  .tl-item--compact .tl-title {
-    font-size: var(--text-sm);
-  }
-
-  .tl-item--compact .tl-meta {
-    font-size: 0.7rem;
+    padding: 0.35rem 0;
+    padding-left: var(--space-sm);
   }
 
   .tl-item:hover {
@@ -469,6 +517,43 @@ const myAge = calculateAge(new Date("August 25, 2002"))
     color: var(--text-faint);
   }
 
+  .tl-item--compact .tl-period {
+    font-size: 0.67rem;
+    padding-top: 0;
+  }
+
+  /* Compact body: title + org stacked, fills middle column */
+  .tl-compact-body {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .tl-title--compact {
+    font-size: var(--text-sm) !important;
+    font-style: normal !important;
+    font-weight: 500 !important;
+    font-family: var(--font-body) !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .tl-compact-org {
+    font-size: 0.67rem;
+    color: var(--text-faint);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Tag in compact items stays in the third column */
+  .tl-item--compact .tl-tag {
+    flex-shrink: 0;
+    font-size: 0.55rem;
+  }
+
   .tl-body {
     display: flex;
     flex-direction: column;
@@ -480,7 +565,13 @@ const myAge = calculateAge(new Date("August 25, 2002"))
     align-items: flex-start;
     justify-content: space-between;
     gap: var(--space-md);
-    flex-wrap: wrap;
+  }
+
+  .tl-title-wrap {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
   }
 
   .tl-title {
@@ -503,8 +594,8 @@ const myAge = calculateAge(new Date("August 25, 2002"))
     align-items: center;
     gap: var(--space-sm);
     flex-shrink: 0;
-    flex-wrap: wrap;
     justify-content: flex-end;
+    padding-top: 3px;
   }
 
   .tl-result {
@@ -526,6 +617,7 @@ const myAge = calculateAge(new Date("August 25, 2002"))
     border-radius: 3px;
     border: 1px solid;
     white-space: nowrap;
+    flex-shrink: 0;
   }
 
   .tl-tag--experience {
@@ -549,8 +641,8 @@ const myAge = calculateAge(new Date("August 25, 2002"))
   }
 
   .tl-tag--publication {
-    color: var(--tag-academic);
-    border-color: var(--tag-academic);
+    color: var(--tag-contributions);
+    border-color: var(--tag-contributions);
   }
 
   .tl-meta {
