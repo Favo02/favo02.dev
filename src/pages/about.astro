@@ -2,9 +2,10 @@
 import BaseLayout from "../layouts/BaseLayout.astro"
 import PageHeader from "../components/PageHeader.astro"
 
-// All timeline entries in a single flat list, sorted newest-first
+// All timeline entries in a single flat list. They'll be sorted newest-first
 // Set compact: true for secondary items (e.g. certificates, minor events)
 const timeline = [
+  // EDUCATION
   {
     type: "education" as const,
     period: "Oct 2025 — Present",
@@ -12,27 +13,6 @@ const timeline = [
     org: "Milan",
     description: "Master in computer science (magistrale informatica)",
     link: "https://www.unimi.it/en/education/master-programme/computer-science-master",
-    result: null,
-    compact: false,
-  },
-  {
-    type: "publication" as const,
-    period: "Jan 2026",
-    title:
-      "Prioritizing Configuration Relevance via Compiler-Based Refined Feature Ranking",
-    org: "arXiv",
-    description: "",
-    link: "https://arxiv.org/abs/2601.16008",
-    result: null,
-    compact: true,
-  },
-  {
-    type: "experience" as const,
-    period: "Feb 2024 — Present",
-    title: "Programming Tutor",
-    org: "Università degli Studi di Milano",
-    description: 'Tutor for "Programmazione I" course (in Golang)',
-    link: null,
     result: null,
     compact: false,
   },
@@ -47,6 +27,41 @@ const timeline = [
     compact: false,
   },
   {
+    type: "education" as const,
+    period: "Sep 2016 — Jun 2021",
+    title: "ITIS Cannizzaro",
+    org: "Rho",
+    description: "High school in computer science (ITIS indirizzo informatica)",
+    link: "https://www.itiscannizzaro.edu.it/pagine/-informatica",
+    result: "100/100",
+    compact: false,
+  },
+
+  // PUBLICATION
+  {
+    type: "publication" as const,
+    period: "Jan 2026",
+    title:
+      "Prioritizing Configuration Relevance via Compiler-Based Refined Feature Ranking",
+    org: "arXiv",
+    description: "",
+    link: "https://arxiv.org/abs/2601.16008",
+    result: null,
+    compact: true,
+  },
+
+  // EXPERIENCE
+  {
+    type: "experience" as const,
+    period: "Feb 2024 — Present",
+    title: "Programming Tutor",
+    org: "Università degli Studi di Milano",
+    description: 'Tutor for "Programmazione I" course (in Golang)',
+    link: null,
+    result: null,
+    compact: false,
+  },
+  {
     type: "experience" as const,
     period: "Oct 2024 — Feb 2025",
     title: "Software Developer",
@@ -57,16 +72,8 @@ const timeline = [
     result: null,
     compact: false,
   },
-  {
-    type: "education" as const,
-    period: "Sep 2016 — Jun 2021",
-    title: "ITIS Cannizzaro",
-    org: "Rho",
-    description: "High school in computer science (ITIS indirizzo informatica)",
-    link: "https://www.itiscannizzaro.edu.it/pagine/-informatica",
-    result: "100/100",
-    compact: false,
-  },
+
+  // EVENT
   {
     type: "event" as const,
     period: "Nov 2025",
@@ -137,6 +144,8 @@ const timeline = [
     result: null,
     compact: true,
   },
+
+  // CERTIFICATE
   {
     type: "certificate" as const,
     period: "2022",
@@ -167,7 +176,25 @@ const timeline = [
     result: null,
     compact: true,
   },
-]
+].sort((a, b) => {
+  const parsePeriodToDate = (period: string) => {
+    // Use end date when a range is provided (e.g. "Oct 2021 — Feb 2025").
+    // Treat "Present" as current date.
+    const parts = period.split(/—|–|-/).map((s) => s.trim())
+    const target = parts.length > 1 ? parts[1] : parts[0]
+    if (/present/i.test(target)) return new Date()
+    // Year-only like "2022"
+    if (/^\d{4}$/.test(target)) return new Date(Number(target), 0, 1)
+    const d = new Date(target)
+    if (!Number.isNaN(d.getTime())) return d
+    // Fallback to current date if parsing fails
+    return new Date()
+  }
+
+  const da = parsePeriodToDate(a.period)
+  const db = parsePeriodToDate(b.period)
+  return db.getTime() - da.getTime()
+})
 
 const typeLabel: Record<(typeof timeline)[number]["type"], string> = {
   experience: "experience",
@@ -312,7 +339,9 @@ const myAge = calculateAge(new Date("August 25, 2002"))
                         {item.title}
                       </a>
                     ) : (
-                      <span class="tl-title tl-title--compact">{item.title}</span>
+                      <span class="tl-title tl-title--compact">
+                        {item.title}
+                      </span>
                     )}
                     <span class="tl-compact-org mono-sm">{item.org}</span>
                   </div>
