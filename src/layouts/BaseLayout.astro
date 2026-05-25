@@ -11,14 +11,14 @@ interface Props {
 }
 
 const {
-  title = "Luca Favini",
-  description = "Computer science student at Università degli Studi di Milano. Developer, maker, and open-source contributor.",
+  title = "Luca Favini — favo02",
+  description = "Computer science student at Università degli Studi di Milano.",
   ogImage = "/og.png",
   wide = false,
 } = Astro.props
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
-const pageTitle = title === "Luca Favini" ? title : `${title} — Luca Favini`
+const pageTitle = title === "Luca Favini" ? title : `${title} — favo02`
 ---
 
 <!doctype html>

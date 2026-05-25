@@ -24,13 +24,10 @@ const renderedEntries = await Promise.all(
 
 <BaseLayout
   title="Now"
-  description="What Luca Favini is doing right now — a /now page."
+  description="What Luca is doing right now — a /now page."
 >
   <div class="now-page">
-    <PageHeader
-      title="Now"
-      subtitle="This is a /now page — a snapshot of what I'm currently doing."
-    >
+    <PageHeader title="Now" subtitle="A snapshot of what I'm currently doing.">
       <Fragment slot="meta">
         <a
           href="https://nownownow.com/about"
@@ -50,14 +47,6 @@ const renderedEntries = await Promise.all(
     </PageHeader>
 
     <div class="now-content prose">
-      <p>
-        This is a <a
-          href="https://nownownow.com/about"
-          target="_blank"
-          rel="noopener noreferrer">/now page</a
-        >. It's a snapshot of what I'm focused on at this point in my life.
-      </p>
-
       <h2>Working on</h2>
       <ul>
         <li>
