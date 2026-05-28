@@ -13,8 +13,4 @@ export default defineConfig({
   adapter: node({
     mode: "standalone",
   }),
-  // Blog is served under blog.favo02.dev subdomain.
-  // The same Astro app handles both domains — the reverse proxy
-  // (nginx) routes blog.favo02.dev to /blog/* paths.
-  // No redirect needed here; nginx handles the routing.
 })

@@ -2,6 +2,8 @@
 import ProseLayout from "../../layouts/ProseLayout.astro"
 import { getCollection, render } from "astro:content"
 
+export const prerender = true
+
 export async function getStaticPaths() {
   const posts = await getCollection("blog")
   return posts.map((post) => ({
@@ -10,7 +12,20 @@ export async function getStaticPaths() {
   }))
 }
 
-const { post } = Astro.props
+let { post } = Astro.props
+
+// SSR Fallback in case prerender is disabled in the future
+if (!post) {
+  const { slug } = Astro.params
+  const posts = await getCollection("blog")
+  post = posts.find((p) => p.id === slug)
+}
+
+// Redirect or return 404 if post is not found
+if (!post) {
+  return Astro.redirect("/404")
+}
+
 const { Content } = await render(post)
 
 // Estimate reading time
