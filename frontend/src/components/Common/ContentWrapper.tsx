@@ -1,5 +1,5 @@
 import type { FC } from "react"
-import { useEffect,useState } from "react"
+import { useEffect, useState } from "react"
 import AnimatedCursor from "react-animated-cursor"
 import { Outlet } from "react-router-dom"
 
@@ -34,6 +34,12 @@ const ContentWrapper : FC = () => {
 
   return (
     <ResetScroll>
+
+      <div className="w-full bg-amber-500/90 text-amber-950 py-2 px-4 text-center text-xs md:text-sm font-semibold tracking-wide z-50 fixed top-0 left-0 backdrop-blur-md shadow-md flex justify-center items-center gap-1.5 flex-wrap">
+        <span>⚠️ This is a legacy version of <a href="https://favo02.dev" className="underline hover:text-amber-800 transition-colors font-bold">
+          favo02.dev
+        </a>, something might be <b>broken</b> or <b>outdated</b> ⚠️</span>
+      </div>
 
       <Header />
       <PagePath />
