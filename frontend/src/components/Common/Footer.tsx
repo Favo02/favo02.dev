@@ -55,9 +55,9 @@ const Footer : FC = () => {
         <div>
           <span className="text-gray-500 hover:text-gray-300 transition-all duration-700 group">
             <HiMail className="inline text-xl" />
-            <span className="underline underline-offset-4 decoration-dotted ml-1">luca.favini.02</span>
+            <span className="underline underline-offset-4 decoration-dotted ml-1">me</span>
             <span className="italic"> AT </span>
-            <span className="underline underline-offset-4 decoration-dotted">gmail.com</span>
+            <span className="underline underline-offset-4 decoration-dotted">favo02.dev</span>
             <div className="absolute text-center w-full  opacity-0 group-hover:opacity-100 m-auto transition-all duration-700">Dumb and bot filter: if you can&apos;t correctly understand this email you shouldn&apos;t contact me.</div>
           </span>
         </div>
