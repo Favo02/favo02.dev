@@ -82,9 +82,11 @@ function getTimeAgo(date: Date): string {
     grid-template-columns: 200px 1fr 160px;
     align-items: center;
     gap: var(--space-md);
-    padding: var(--space-sm) var(--space-sm);
-    border-bottom: 1px solid var(--border);
+    padding: var(--space-md) 12px;
+    margin: 0 -12px;
+    border-bottom: 1px solid var(--border-subtle);
     border-left: 2px solid transparent;
+    border-radius: 6px;
     text-decoration: none;
     color: var(--text);
     transition:
@@ -94,20 +96,26 @@ function getTimeAgo(date: Date): string {
   }
 
   .project-row:hover {
-    background: var(--bg-surface);
+    background: color-mix(in srgb, var(--bg-surface) 45%, transparent);
+  }
+
+  .project-row:hover .project-name {
+    color: var(--accent);
   }
 
   /* ── Highlighted variant ── */
   .project-row--highlighted {
-    border-left-color: var(--accent);
     background: color-mix(in srgb, var(--accent) 4%, transparent);
+    border-left-color: var(--accent);
+    border-radius: 0 6px 6px 0;
   }
 
   .project-row--highlighted:hover {
-    background: color-mix(in srgb, var(--accent) 8%, var(--bg-surface));
-    border-left-color: var(--accent-hover);
-    box-shadow: inset 2px 0 12px
-      color-mix(in srgb, var(--accent) 10%, transparent);
+    background: color-mix(in srgb, var(--accent) 8%, transparent);
+  }
+
+  .project-row--highlighted:hover .project-name {
+    color: var(--accent-hover);
   }
 
   .highlight-marker {
@@ -133,6 +141,7 @@ function getTimeAgo(date: Date): string {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    transition: color var(--transition-fast);
   }
 
   .project-row--highlighted .project-name {
@@ -156,9 +165,9 @@ function getTimeAgo(date: Date): string {
     font-family: var(--font-mono);
     font-size: 10px;
     color: var(--text-faint);
-    background: var(--bg-elevated);
-    padding: 2px 6px;
-    border-radius: 4px;
+    background: transparent;
+    padding: 0;
+    margin-right: var(--space-sm);
   }
 
   .project-meta {
@@ -194,7 +203,7 @@ function getTimeAgo(date: Date): string {
     .project-row {
       grid-template-columns: 1fr;
       gap: var(--space-xs);
-      padding: var(--space-md) var(--space-sm);
+      padding: var(--space-md) 0;
     }
 
     .project-desc {

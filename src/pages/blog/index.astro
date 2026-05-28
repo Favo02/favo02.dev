@@ -75,7 +75,7 @@ function estimateReadingTime(body: string): string {
   .post-list {
     display: flex;
     flex-direction: column;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid var(--border-subtle);
   }
 
   .post-item {
@@ -83,15 +83,24 @@ function estimateReadingTime(body: string): string {
     grid-template-columns: 120px 1fr auto;
     align-items: baseline;
     gap: var(--space-lg);
-    padding: var(--space-lg) 0;
-    border-bottom: 1px solid var(--border);
+    padding: var(--space-lg) 12px;
+    margin: 0 -12px;
+    border-bottom: 1px solid var(--border-subtle);
+    border-left: 2px solid transparent;
+    border-radius: 6px;
     text-decoration: none;
     color: var(--text);
-    transition: background-color var(--transition-fast);
+    transition:
+      background-color var(--transition-fast),
+      opacity var(--transition-fast);
   }
 
   .post-item:hover {
-    background: var(--bg-surface);
+    background: color-mix(in srgb, var(--bg-surface) 45%, transparent);
+  }
+
+  .post-item:hover .post-title {
+    color: var(--accent);
   }
 
   .post-date {
@@ -105,6 +114,7 @@ function estimateReadingTime(body: string): string {
     font-weight: 400;
     margin-bottom: var(--space-xs);
     line-height: var(--leading-snug);
+    transition: color var(--transition-fast);
   }
 
   .post-excerpt {

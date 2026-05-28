@@ -251,26 +251,27 @@ const academicLogin = Object.entries(OWNER_SECTIONS).find(
   .featured-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    gap: var(--space-md);
+    gap: var(--space-xl);
   }
 
   .featured-card {
     display: block;
-    background: var(--bg-surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: var(--space-lg);
     text-decoration: none;
     color: var(--text);
+    padding: var(--space-md) 16px;
+    margin: 0 -16px;
+    border-radius: 6px;
     transition:
-      border-color var(--transition-fast),
-      background-color var(--transition-fast);
+      background-color var(--transition-fast),
+      opacity var(--transition-fast);
   }
 
   .featured-card:hover {
-    border-color: var(--text-muted);
-    background: var(--bg-elevated);
-    color: var(--text);
+    background: color-mix(in srgb, var(--bg-surface) 45%, transparent);
+  }
+
+  .featured-card:hover .featured-card-name {
+    color: var(--accent);
   }
 
   .featured-card-header {
@@ -287,6 +288,7 @@ const academicLogin = Object.entries(OWNER_SECTIONS).find(
     font-weight: 400;
     letter-spacing: var(--tracking-tight);
     line-height: var(--leading-snug);
+    transition: color var(--transition-fast);
   }
 
   .featured-card-desc {
@@ -307,9 +309,9 @@ const academicLogin = Object.entries(OWNER_SECTIONS).find(
     font-family: var(--font-mono);
     font-size: 10px;
     color: var(--text-faint);
-    background: var(--bg-elevated);
-    padding: 2px 6px;
-    border-radius: 4px;
+    background: transparent;
+    padding: 0;
+    margin-right: var(--space-sm);
   }
 
   .featured-card-meta {
@@ -344,7 +346,7 @@ const academicLogin = Object.entries(OWNER_SECTIONS).find(
   .projects-list {
     display: flex;
     flex-direction: column;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid var(--border-subtle);
   }
 
   @media (max-width: 768px) {

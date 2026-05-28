@@ -58,10 +58,7 @@ const lastUpdated = latestEntry ? latestEntry.data.date : new Date()
       {
         renderedEntries.map(({ entry, Content }) => (
           <section
-            class:list={[
-              "now-row",
-              { "is-current": entry.data.isCurrent },
-            ]}
+            class:list={["now-row", { "is-current": entry.data.isCurrent }]}
             aria-label={`Update from ${entry.data.month}`}
           >
             <div class="now-meta-col">
