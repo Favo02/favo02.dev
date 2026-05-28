@@ -12,13 +12,13 @@ const blog = defineCollection({
   }),
 })
 
-const devlog = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/content/devlog" }),
+const now = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/now" }),
   schema: z.object({
-    title: z.string(),
-    description: z.string().optional(),
+    month: z.string(),
     date: z.coerce.date(),
+    isCurrent: z.boolean().default(false),
   }),
 })
 
-export const collections = { blog, devlog }
+export const collections = { blog, now }
