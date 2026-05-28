@@ -1,0 +1,101 @@
+---
+title: "Working with Jupyter Notebooks (and Python) sucks"
+description: "Jupyter notebooks make version control, diffs, and partial commits painful. This is because code, outputs, and metadata are all bundled into one JSON file."
+date: 2026-03-22
+tags: ["python", "jupyter"]
+draft: false
+---
+
+I had to use **Jupyter notebooks** for an [exam](https://github.com/Favo02-unimi/recommendation-system) (no plain Python or other languages allowed), and it's been an **awful** experience.
+On this blog I mostly complain, and that's another episode of that.
+
+## Python Problems
+
+First, let's talk about Python itself.
+The language has some fundamental issues that make development harder than it should be:
+
+- **Terrible APIs**:
+  Most Python libraries have awful APIs. Take `matplotlib`, for example.
+  It uses these cryptic **string** parameters (what does `'o'` mean?).
+  There are literally a billion **optional parameters**, and most of them aren't even documented.
+  The same thing could be achieved in 12 different ways.
+
+- **No Static Types**:
+  Yes, there are tools like [Astral's](https://astral.sh/) `ruff` and `ty` that claim to help, but they're not the same as actual static typing.
+  Especially with library APIs, you know if the string you passed as an argument is valid only at **runtime**.
+  And only if that line of code actually gets executed.
+
+Yes, these are both **skill issues** on my side, I agree.
+But a statically typed language with **enums** would solve 100% of these problems.
+
+## Jupyter Notebooks
+
+The idea behind Jupyter notebooks is **fine**.
+Running only parts of your code, caching outputs, visualizing partial results.
+All **useful** things, especially for pipelines that take hours to run.
+
+But the implementation? I absolutely hate it.
+Who thought using a **massive JSON** blob (source code, outputs, metadata all mashed together) as the file format was a good idea?
+
+### Git and Jupyter Notebooks
+
+Developer experience is all about tools, and the most important one is version control. **Git**.
+And that's where Jupyter notebooks completely fall apart.
+
+- **The Diff Problem**: Performing a vanilla `git diff` is, of course, a bad idea.
+  Reading a huge JSON file manually is not cool.
+
+  But even with tools (like **VSCode Jupyter extension**), the diff is somehow still really messy.
+  That's because it shows changes in metadata, inputs (your actual code), and outputs.
+
+  > Committing outputs is already a stretch, they should be reproducible from source code and so redundant.
+  > But I get it, sometimes it is cool to have outputs embedded (for time concerns or to show something directly from GitHub without running the actual code).
+
+  But here's the thing: even if you want to keep the outputs, why would you keep the metadata?
+  I run the **exact same code** again, get the **exact same output**, but somehow the diff shows **"differences"**.
+  Thanks, metadata.
+
+- **Partial Commits Are Impossible**:
+  Pretty often I only want to commit a few line changes in a file, not all the changes of that file (different features, different concerns, different commits).
+
+  In VSCode (or with Lazygit), with any text file, I can easily select and **stage** just the **lines** I want.
+  Try that with a Jupyter notebook. (Spoiler: You can't).
+  Thanks, huge JSON blob.
+
+### Workarounds
+
+From VSCode settings, you can **disable** outputs and metadata from diffs.
+At least in the GUI, you'll only see the actual code differences.
+
+But git will still mark the file as modified.
+And you still can't do partial commits.
+
+### Alternative Design
+
+Here's what I would do:
+
+- **Source code in a single Python file** with special formatted comments to separate "cells".
+  Nothing fancy, just standard Python with structured comments.
+
+- **Outputs and metadata in a separate companion file**.
+  Keep them completely separate, even the current JSON structure is fine.
+  Nobody will manually read the outputs and metadata, the important part is the source code.
+
+**The Jupyter server** just reads both files and generates the same cell visualization you see now.
+Version control works cleanly (on source files).
+Git diffs are actually useful.
+Partial commits work.
+~~Everyone's~~ I'm happy.
+
+There is only one **drawback** that comes to my mind: you have to manage **two files** instead of one.
+While sharing, committing or deleting them, you must remember the companion.
+The notebook is no longer self-contained, but it still works for any language (yes, Jupyter supports languages other than Python).
+
+## Conclusion
+
+With the whole AI bubble going crazy, the amount of people using Python and doing ML is exploding.
+A lot do not have a computer science background.
+
+Teaching them **bad habits** (awful APIs, no types, empty metadata-only commits) is a recipe for a fun code maintenance in a few years.
+But who cares? LLMs will handle it.
+Even better, it will be cheaper to ~~rewrite~~ re-vibe from scratch.

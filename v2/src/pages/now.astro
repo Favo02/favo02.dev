@@ -1,0 +1,227 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro"
+import PageHeader from "../components/PageHeader.astro"
+import { getCollection, render } from "astro:content"
+
+// Fetch all monthly logs from Content Collections
+const entries = await getCollection("now")
+
+// Sort logs by date descending
+const sortedEntries = entries.sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+)
+
+// Render each markdown file to its HTML component
+const renderedEntries = await Promise.all(
+  sortedEntries.map(async (entry) => {
+    const { Content } = await render(entry)
+    return {
+      entry,
+      Content,
+    }
+  }),
+)
+
+// Derive the last updated date from the newest entry
+const latestEntry = sortedEntries[0]
+const lastUpdated = latestEntry ? latestEntry.data.date : new Date()
+---
+
+<BaseLayout
+  title="Now"
+  description="What Luca is doing right now — a /now page."
+>
+  <div class="now-page">
+    <PageHeader title="Now" subtitle="A snapshot of what I'm currently doing.">
+      <Fragment slot="meta">
+        <a
+          href="https://nownownow.com/about"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="meta-link"
+        >
+          What is a now page</a
+        >
+        — Last updated: <time datetime={lastUpdated.toISOString()}>
+          {
+            lastUpdated.toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })
+          }
+        </time>
+      </Fragment>
+    </PageHeader>
+
+    <div class="now-list">
+      {
+        renderedEntries.map(({ entry, Content }) => (
+          <section
+            class:list={["now-row", { "is-current": entry.data.isCurrent }]}
+            aria-label={`Update from ${entry.data.month}`}
+          >
+            <div class="now-meta-col">
+              <h2 class="now-month">{entry.data.month}</h2>
+              {entry.data.isCurrent && (
+                <span class="now-current-badge mono">Current</span>
+              )}
+            </div>
+
+            <div class="now-content-col">
+              <div class="now-log-content">
+                <Content />
+              </div>
+            </div>
+          </section>
+        ))
+      }
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .now-page {
+    padding-top: var(--space-2xl);
+  }
+
+  .meta-link {
+    color: var(--text-muted);
+    text-decoration: underline;
+    text-decoration-color: var(--border-subtle);
+    text-underline-offset: 3px;
+    transition: all var(--transition-fast);
+  }
+
+  .meta-link:hover {
+    color: var(--accent);
+    text-decoration-color: var(--accent);
+  }
+
+  /* ── Timeline Grid List ── */
+  .now-list {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--border-subtle);
+    margin-top: var(--space-xl);
+    max-width: var(--max-width-prose);
+  }
+
+  .now-row {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: var(--space-lg);
+    padding: var(--space-xl) 12px;
+    margin: 0 -12px;
+    border-bottom: 1px solid var(--border-subtle);
+    border-left: 2px solid transparent;
+    border-radius: 6px;
+    transition:
+      background-color var(--transition-fast),
+      border-left-color var(--transition-fast),
+      opacity var(--transition-fast);
+  }
+
+  .now-row:hover {
+    background: color-mix(in srgb, var(--bg-surface) 45%, transparent);
+  }
+
+  .now-row:hover .now-month {
+    color: var(--accent);
+  }
+
+  /* ── Highlighted current log ── */
+  .now-row.is-current {
+    background: color-mix(in srgb, var(--accent) 3%, transparent);
+    border-left-color: var(--accent);
+    border-radius: 0 6px 6px 0;
+  }
+
+  .now-row.is-current:hover {
+    background: color-mix(in srgb, var(--accent) 6%, transparent);
+  }
+
+  .now-meta-col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .now-month {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-style: italic;
+    font-weight: 500;
+    color: var(--text);
+    margin: 0;
+    line-height: var(--leading-tight);
+    transition: color var(--transition-fast);
+  }
+
+  .is-current .now-month {
+    color: var(--accent);
+  }
+
+  /* ── Current Badge ── */
+  .now-current-badge {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wider);
+    color: var(--accent);
+    margin-top: var(--space-xs);
+  }
+
+  .now-content-col {
+    min-width: 0;
+  }
+
+  /* ── Markdown Content Styling ── */
+  .now-log-content :global(ul) {
+    margin: 0;
+    padding-left: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .now-log-content :global(li) {
+    line-height: var(--leading-normal);
+    color: var(--text-muted);
+    font-size: var(--text-base);
+  }
+
+  .now-log-content :global(a) {
+    color: var(--text-muted);
+    text-decoration: underline;
+    text-decoration-color: var(--border);
+    text-underline-offset: 3px;
+    transition:
+      color var(--transition-fast),
+      text-decoration-color var(--transition-fast);
+  }
+
+  .now-log-content :global(a:hover) {
+    color: var(--accent);
+    text-decoration-color: var(--accent);
+  }
+
+  .now-log-content :global(strong) {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .now-log-content :global(em) {
+    font-style: italic;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .now-row {
+      grid-template-columns: 1fr;
+      gap: var(--space-sm);
+      padding: var(--space-lg) 0;
+    }
+  }
+</style>

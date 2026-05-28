@@ -1,0 +1,217 @@
+---
+import type { GitHubRepo } from "../services/github"
+
+interface Props {
+  repo: GitHubRepo
+  highlighted?: boolean
+}
+
+const { repo, highlighted = false } = Astro.props
+
+const lastCommitDate = new Date(repo.lastCommitAt)
+const timeAgo = getTimeAgo(lastCommitDate)
+
+function getTimeAgo(date: Date): string {
+  const now = new Date()
+  const diffMs = now.getTime() - date.getTime()
+  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24))
+
+  if (diffDays === 0) return "today"
+  if (diffDays === 1) return "yesterday"
+  if (diffDays < 30) return `${diffDays}d ago`
+  if (diffDays < 365) return `${Math.floor(diffDays / 30)}mo ago`
+  return `${Math.floor(diffDays / 365)}y ago`
+}
+---
+
+<a
+  href={repo.url}
+  target="_blank"
+  rel="noopener noreferrer"
+  class:list={[
+    "project-row",
+    { "project-row--highlighted": highlighted },
+  ]}
+>
+  <div class="project-main">
+    {
+      highlighted && (
+        <span class="highlight-marker" aria-hidden="true">
+          ◆
+        </span>
+      )
+    }
+    <span class="project-name">
+      {repo.name}
+    </span>
+    {repo.isFork && <span class="tag">fork</span>}
+  </div>
+
+  <div class="project-desc">
+    {repo.description || ""}
+    {
+      repo.topics && repo.topics.length > 0 && (
+        <div class="project-topics">
+          {repo.topics.map((topic) => (
+            <span class="topic-tag">#{topic}</span>
+          ))}
+        </div>
+      )
+    }
+  </div>
+
+  <div class="project-meta">
+    {
+      repo.primaryLanguage && (
+        <span class="lang">
+          <span
+            class="lang-dot"
+            style={`background-color: ${repo.primaryLanguage.color}`}
+          />
+          {repo.primaryLanguage.name}
+        </span>
+      )
+    }
+    <span class="time">{timeAgo}</span>
+  </div>
+</a>
+
+<style>
+  .project-row {
+    display: grid;
+    grid-template-columns: 200px 1fr 160px;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md) 12px;
+    margin: 0 -12px;
+    border-bottom: 1px solid var(--border-subtle);
+    border-left: 2px solid transparent;
+    border-radius: 6px;
+    text-decoration: none;
+    color: var(--text);
+    transition:
+      background-color var(--transition-fast),
+      border-left-color var(--transition-fast),
+      opacity var(--transition-fast);
+  }
+
+  .project-row:hover {
+    background: color-mix(in srgb, var(--bg-surface) 45%, transparent);
+  }
+
+  .project-row:hover .project-name {
+    color: var(--accent);
+  }
+
+  /* ── Highlighted variant ── */
+  .project-row--highlighted {
+    background: color-mix(in srgb, var(--accent) 4%, transparent);
+    border-left-color: var(--accent);
+    border-radius: 0 6px 6px 0;
+  }
+
+  .project-row--highlighted:hover {
+    background: color-mix(in srgb, var(--accent) 8%, transparent);
+  }
+
+  .project-row--highlighted:hover .project-name {
+    color: var(--accent-hover);
+  }
+
+  .highlight-marker {
+    font-size: 0.5rem;
+    color: var(--accent);
+    flex-shrink: 0;
+    line-height: 1;
+    align-self: center;
+    opacity: 0.85;
+  }
+
+  .project-main {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    min-width: 0;
+  }
+
+  .project-name {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color var(--transition-fast);
+  }
+
+  .project-row--highlighted .project-name {
+    color: var(--text);
+  }
+
+  .project-desc {
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+    min-width: 0;
+  }
+
+  .project-topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-top: var(--space-xs);
+  }
+
+  .topic-tag {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-faint);
+    background: transparent;
+    padding: 0;
+    margin-right: var(--space-sm);
+  }
+
+  .project-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    justify-content: flex-end;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-faint);
+  }
+
+  .lang {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    white-space: nowrap;
+  }
+
+  .lang-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+
+  .time {
+    white-space: nowrap;
+  }
+
+  @media (max-width: 768px) {
+    .project-row {
+      grid-template-columns: 1fr;
+      gap: var(--space-xs);
+      padding: var(--space-md) 0;
+    }
+
+    .project-desc {
+      white-space: normal;
+    }
+
+    .project-meta {
+      justify-content: flex-start;
+    }
+  }
+</style>

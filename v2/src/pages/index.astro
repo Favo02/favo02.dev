@@ -1,0 +1,183 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro"
+---
+
+<BaseLayout title="Luca Favini — favo02" description="Luca Favini — favo02">
+  <div class="home">
+    <!-- Big typographic name -->
+    <section class="hero">
+      <h1 class="hero-name">
+        <span class="name-first">Luca</span>
+        <span class="name-last">Favini</span>
+      </h1>
+    </section>
+
+    <!-- Vertical nav list -->
+    <nav aria-label="Main navigation">
+      <a href="/projects" class="nav-item">
+        <span class="nav-num mono-sm">01</span>
+        <span class="nav-label">Projects</span>
+        <span class="nav-arrow">→</span>
+      </a>
+      <a href="/about" class="nav-item">
+        <span class="nav-num mono-sm">02</span>
+        <span class="nav-label">About</span>
+        <span class="nav-arrow">→</span>
+      </a>
+      <a href="/now" class="nav-item">
+        <span class="nav-num mono-sm">03</span>
+        <span class="nav-label">Now</span>
+        <span class="nav-arrow">→</span>
+      </a>
+      <a
+        href="/blog"
+        class="nav-item"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span class="nav-num mono-sm">04</span>
+        <span class="nav-label">Blog</span>
+        <span class="nav-arrow">→</span>
+      </a>
+    </nav>
+  </div>
+</BaseLayout>
+
+<style>
+  .home {
+    display: grid;
+    grid-template-rows: 1fr auto auto;
+    min-height: calc(100vh - 160px);
+    padding-top: var(--space-3xl);
+    gap: 0;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    padding-bottom: var(--space-2xl);
+  }
+
+  .hero-name {
+    font-family: var(--font-display);
+    font-weight: 400;
+    line-height: 0.92;
+    letter-spacing: -0.025em;
+    color: var(--text);
+    margin-bottom: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .name-first {
+    font-size: clamp(4rem, 12vw, 9rem);
+    font-style: italic;
+    color: var(--text-muted);
+    font-weight: 400;
+  }
+
+  .name-last {
+    font-size: clamp(4rem, 12vw, 9rem);
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .hero-role {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--text-faint);
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    margin-bottom: 0;
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  /* ── Nav ── */
+  .home-nav {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--border);
+    padding: var(--space-md) 0;
+  }
+
+  .nav-item {
+    display: grid;
+    grid-template-columns: 2.5rem 1fr auto;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md) 0;
+    border-bottom: 1px solid var(--border-subtle);
+    text-decoration: none;
+    color: var(--text);
+    transition: color var(--transition-fast);
+  }
+
+  .nav-item:hover {
+    color: var(--accent);
+  }
+
+  .nav-num {
+    color: var(--text-faint);
+    transition: color var(--transition-fast);
+  }
+
+  .nav-item:hover .nav-num {
+    color: var(--accent);
+  }
+
+  .nav-label {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1;
+    transition: letter-spacing var(--transition-base);
+  }
+
+  .nav-item:hover .nav-label {
+    letter-spacing: 0.02em;
+  }
+
+  .nav-arrow {
+    font-family: var(--font-mono);
+    font-size: var(--text-base);
+    color: var(--text-faint);
+    transition:
+      transform var(--transition-fast),
+      color var(--transition-fast);
+    display: inline-block;
+  }
+
+  .nav-item:hover .nav-arrow {
+    transform: translateX(6px);
+    color: var(--accent);
+  }
+
+  /* ── Status ── */
+  .home-status {
+    padding: var(--space-xl) 0 0;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .home-status a {
+    color: var(--text-faint);
+    text-decoration: underline;
+    text-decoration-color: var(--border);
+    text-underline-offset: 3px;
+  }
+
+  .home-status a:hover {
+    color: var(--accent);
+    text-decoration-color: var(--accent);
+  }
+
+  @media (max-width: 640px) {
+    .home {
+      padding-top: var(--space-2xl);
+    }
+
+    .nav-label {
+      font-size: var(--text-lg);
+    }
+  }
+</style>

@@ -1,0 +1,357 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro"
+import PageHeader from "../components/PageHeader.astro"
+import ProjectCard from "../components/ProjectCard.astro"
+import {
+  getCachedRepos,
+  categorizeRepos,
+  FETCH_LOGIN,
+  OWNER_SECTIONS,
+  isHighlighted,
+} from "../services/github"
+import type { GitHubRepo } from "../services/github"
+import { Star, GitFork, ExternalLink } from "@lucide/astro"
+
+let repos: GitHubRepo[] = []
+let error = false
+
+try {
+  repos = await getCachedRepos()
+} catch (e) {
+  console.error("Failed to fetch GitHub repos:", e)
+  error = true
+}
+
+const { featured, personal, academic, contributions } = categorizeRepos(repos)
+
+// Derive the academic login from OWNER_SECTIONS for featured card tag classification
+const academicLogin = Object.entries(OWNER_SECTIONS).find(
+  ([, section]) => section === "academic",
+)?.[0]
+---
+
+<BaseLayout
+  title="Projects"
+  description="All my projects, both personal and academic."
+  wide
+>
+  <div class="projects-page">
+    <PageHeader
+      title="Projects"
+      subtitle="All my work, pulled from GitHub — personal, academic, and contributions."
+    >
+      <Fragment slot="meta">
+        <a
+          href={`https://github.com/Favo02`}
+          target="_blank"
+          rel="noopener noreferrer">gh/Favo02</a
+        >
+        —
+        <a
+          href={`https://github.com/Favo02-unimi`}
+          target="_blank"
+          rel="noopener noreferrer">gh/Favo02-unimi</a
+        >
+      </Fragment>
+    </PageHeader>
+
+    {
+      error && (
+        <div class="error-banner">
+          <p>
+            Failed to load projects from GitHub.{" "}
+            <a href="/api/github.json">Try refreshing the cache</a>.
+          </p>
+        </div>
+      )
+    }
+
+    {
+      featured.length > 0 && (
+        <section class="projects-section">
+          <h2 class="section-title mono">Featured</h2>
+          <div class="featured-grid">
+            {featured.map((repo) => (
+              <a
+                href={repo.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="featured-card"
+              >
+                <div class="featured-card-header">
+                  <h3 class="featured-card-name">{repo.name}</h3>
+                  <span
+                    class:list={[
+                      "tag",
+                      repo.fullName.split("/")[0].toLowerCase() ===
+                      academicLogin
+                        ? "tag-academic"
+                        : repo.isFork
+                          ? "tag-contributions"
+                          : "tag-personal",
+                    ]}
+                  >
+                    {repo.fullName.split("/")[0].toLowerCase() === academicLogin
+                      ? "academic"
+                      : repo.isFork
+                        ? "contribution"
+                        : "personal"}
+                  </span>
+                </div>
+                {repo.description && (
+                  <p class="featured-card-desc">{repo.description}</p>
+                )}
+                {repo.topics && repo.topics.length > 0 && (
+                  <div class="project-topics">
+                    {repo.topics.map((topic) => (
+                      <span class="topic-tag">#{topic}</span>
+                    ))}
+                  </div>
+                )}
+                <div class="featured-card-meta">
+                  {repo.primaryLanguage && (
+                    <span class="lang-indicator">
+                      <span
+                        class="lang-dot"
+                        style={`background-color: ${repo.primaryLanguage.color}`}
+                      />
+                      {repo.primaryLanguage.name}
+                    </span>
+                  )}
+                  {repo.stargazerCount > 0 && (
+                    <span class="meta-item">
+                      <Star size={12} /> {repo.stargazerCount}
+                    </span>
+                  )}
+                  {repo.forkCount > 0 && (
+                    <span class="meta-item">
+                      <GitFork size={12} /> {repo.forkCount}
+                    </span>
+                  )}
+                  <span class="meta-item">
+                    <ExternalLink size={12} />
+                  </span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+      )
+    }
+
+    {
+      personal.length > 0 && (
+        <section class="projects-section">
+          <h2 class="section-title mono">
+            <span class="section-dot personal" />
+            Personal
+          </h2>
+          <div class="projects-list">
+            {personal.map((repo) => (
+              <ProjectCard repo={repo} highlighted={isHighlighted(repo.name)} />
+            ))}
+          </div>
+        </section>
+      )
+    }
+
+    {
+      academic.length > 0 && (
+        <section class="projects-section">
+          <h2 class="section-title mono">
+            <span class="section-dot academic" />
+            Academic
+          </h2>
+          <div class="projects-list">
+            {academic.map((repo) => (
+              <ProjectCard repo={repo} highlighted={isHighlighted(repo.name)} />
+            ))}
+          </div>
+        </section>
+      )
+    }
+
+    {
+      contributions.length > 0 && (
+        <section class="projects-section">
+          <h2 class="section-title mono">
+            <span class="section-dot contributions" />
+            Contributions
+          </h2>
+          <div class="projects-list">
+            {contributions.map((repo) => (
+              <ProjectCard repo={repo} highlighted={isHighlighted(repo.name)} />
+            ))}
+          </div>
+        </section>
+      )
+    }
+  </div>
+</BaseLayout>
+
+<style>
+  .projects-page {
+    padding-top: var(--space-2xl);
+  }
+
+  .error-banner {
+    background: var(--bg-surface);
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    padding: var(--space-md) var(--space-lg);
+    margin-bottom: var(--space-xl);
+    color: var(--accent);
+    font-size: var(--text-sm);
+  }
+
+  .projects-section {
+    margin-bottom: var(--space-3xl);
+  }
+
+  .section-title {
+    font-size: var(--text-xs) !important;
+    font-family: var(--font-mono) !important;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wider);
+    color: var(--text-muted);
+    margin-bottom: var(--space-lg);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-weight: 500;
+  }
+
+  .section-description {
+    color: var(--text-faint);
+    font-size: var(--text-sm);
+    margin-top: calc(-1 * var(--space-md));
+    margin-bottom: var(--space-lg);
+  }
+
+  .section-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .section-dot.personal {
+    background: var(--tag-personal);
+  }
+
+  .section-dot.academic {
+    background: var(--tag-academic);
+  }
+
+  .section-dot.contributions {
+    background: var(--tag-contributions);
+  }
+
+  /* Featured Grid */
+  .featured-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: var(--space-xl);
+  }
+
+  .featured-card {
+    display: block;
+    text-decoration: none;
+    color: var(--text);
+    padding: var(--space-md) 16px;
+    margin: 0 -16px;
+    border-radius: 6px;
+    transition:
+      background-color var(--transition-fast),
+      opacity var(--transition-fast);
+  }
+
+  .featured-card:hover {
+    background: color-mix(in srgb, var(--bg-surface) 45%, transparent);
+  }
+
+  .featured-card:hover .featured-card-name {
+    color: var(--accent);
+  }
+
+  .featured-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-md);
+    margin-bottom: var(--space-sm);
+  }
+
+  .featured-card-name {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 400;
+    letter-spacing: var(--tracking-tight);
+    line-height: var(--leading-snug);
+    transition: color var(--transition-fast);
+  }
+
+  .featured-card-desc {
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+    line-height: var(--leading-normal);
+    margin-bottom: var(--space-md);
+  }
+
+  .project-topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-md);
+  }
+
+  .topic-tag {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-faint);
+    background: transparent;
+    padding: 0;
+    margin-right: var(--space-sm);
+  }
+
+  .featured-card-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-faint);
+  }
+
+  .lang-indicator {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  .lang-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
+
+  /* Projects List (compact) */
+  .projects-list {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  @media (max-width: 768px) {
+    .featured-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

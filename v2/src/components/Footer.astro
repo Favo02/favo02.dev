@@ -1,0 +1,214 @@
+---
+
+---
+
+<footer class="site-footer">
+  <div class="footer-inner container-wide">
+    <!-- Left: giant display name -->
+    <div class="footer-left">
+      <p class="footer-name">
+        <span class="footer-name-first">Luca</span>
+        <span class="footer-name-last">Favini</span>
+      </p>
+      <p class="footer-copy mono-sm">{new Date().getFullYear()} · favo02.dev</p>
+    </div>
+
+    <!-- Right: nav + contacts stacked -->
+    <div class="footer-right">
+      <!-- Site nav -->
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="/projects" class="footer-link">Projects</a>
+        <a href="/about" class="footer-link">About</a>
+        <a href="/now" class="footer-link">Now</a>
+        <a href="/blog" class="footer-link">Blog</a>
+        <a
+          href="https://v1.favo02.dev"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="footer-link footer-link--faint"
+        >
+          v1
+        </a>
+      </nav>
+
+      <!-- Divider -->
+      <div class="footer-divider" aria-hidden="true"></div>
+
+      <!-- Contacts -->
+      <div class="footer-contacts">
+        <a
+          href="https://github.com/Favo02"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="contact-row"
+        >
+          <span class="contact-key mono-sm">GitHub</span>
+          <span class="contact-val mono-sm">Favo02</span>
+        </a>
+        <a
+          href="https://linkedin.com/in/lucafavini"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="contact-row"
+        >
+          <span class="contact-key mono-sm">LinkedIn</span>
+          <span class="contact-val mono-sm">lucafavini</span>
+        </a>
+        <div
+          class="contact-row contact-row--static"
+          title="Dumb and bot filter: if you can't correctly understand this email you shouldn't contact me."
+        >
+          <span class="contact-key mono-sm">Email</span>
+          <span class="contact-val mono-sm">me AT favo02.dev</span>
+        </div>
+        <div class="contact-row contact-row--static">
+          <span class="contact-key mono-sm">Signal</span>
+          <span class="contact-val mono-sm">favo.02</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: var(--space-4xl);
+    background: var(--bg-header);
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-inner {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: var(--space-3xl);
+    padding-top: var(--space-2xl);
+    padding-bottom: var(--space-2xl);
+    align-items: end;
+  }
+
+  /* ── Left: name block ── */
+  .footer-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-self: stretch;
+    gap: var(--space-lg);
+  }
+
+  .footer-name {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 8vw, 7rem);
+    line-height: 0.88;
+    letter-spacing: -0.03em;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .footer-name-first {
+    font-weight: 400;
+    font-style: italic;
+    color: var(--text-muted);
+  }
+
+  .footer-name-last {
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .footer-copy {
+    color: var(--text-faint);
+    margin: 0;
+  }
+
+  /* ── Right: nav + contacts ── */
+  .footer-right {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  /* Site nav */
+  .footer-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs) var(--space-lg);
+  }
+
+  .footer-link {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+    white-space: nowrap;
+  }
+
+  .footer-link:hover {
+    color: var(--accent);
+  }
+
+  .footer-link--faint {
+    color: var(--text-faint);
+  }
+
+  /* Divider */
+  .footer-divider {
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* Contacts */
+  .footer-contacts {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .contact-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-md);
+    padding: var(--space-sm) 0;
+    border-bottom: 1px solid var(--border-subtle);
+    text-decoration: none;
+    color: var(--text-muted);
+    transition: color var(--transition-fast);
+  }
+
+  a.contact-row:hover {
+    color: var(--accent);
+  }
+
+  .contact-row--static {
+    cursor: default;
+    color: var(--text-faint);
+  }
+
+  .contact-key {
+    color: var(--text-faint);
+    flex-shrink: 0;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+  }
+
+  .contact-val {
+    text-align: right;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .footer-inner {
+      grid-template-columns: 1fr;
+      gap: var(--space-2xl);
+      align-items: start;
+    }
+
+    .footer-name {
+      font-size: clamp(3rem, 14vw, 5rem);
+    }
+  }
+</style>

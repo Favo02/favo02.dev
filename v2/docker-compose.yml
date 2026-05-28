@@ -1,0 +1,12 @@
+services:
+  favo02-dev:
+    build:
+      context: .
+      args:
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
+    container_name: favo02-dev-v2
+    restart: unless-stopped
+    ports:
+      - 4321:4321
+    environment:
+      - GITHUB_TOKEN=${GITHUB_TOKEN}

@@ -1,0 +1,143 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro"
+import PageHeader from "../../components/PageHeader.astro"
+import { getCollection } from "astro:content"
+
+const posts = (await getCollection("blog"))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+
+function estimateReadingTime(body: string): string {
+  const words = body.split(/\s+/).length
+  const minutes = Math.ceil(words / 200)
+  return `${minutes} min read`
+}
+---
+
+<BaseLayout
+  title="Blog"
+  description="Blog posts by Luca Favini on programming, technology, and computer science."
+>
+  <div class="blog-page">
+    <PageHeader
+      title="Blog"
+      subtitle="Yapping about whatever comes to my mind."
+    />
+
+    {
+      posts.length === 0 ? (
+        <p class="empty-state">No posts yet. Check back later.</p>
+      ) : (
+        <div class="post-list">
+          {posts.map((post) => (
+            <a href={`/blog/${post.id}`} class="post-item">
+              <time
+                datetime={post.data.date.toISOString()}
+                class="post-date mono-sm"
+              >
+                {post.data.date.toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                })}
+              </time>
+              <div class="post-content">
+                <h2 class="post-title">{post.data.title}</h2>
+                {post.data.description && (
+                  <p class="post-excerpt">{post.data.description}</p>
+                )}
+              </div>
+              {post.data.tags.length > 0 && (
+                <div class="post-tags">
+                  {post.data.tags.map((tag) => (
+                    <span class="tag">{tag}</span>
+                  ))}
+                </div>
+              )}
+            </a>
+          ))}
+        </div>
+      )
+    }
+  </div>
+</BaseLayout>
+
+<style>
+  .blog-page {
+    padding-top: var(--space-2xl);
+  }
+
+  .empty-state {
+    color: var(--text-faint);
+    font-style: italic;
+  }
+
+  .post-list {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .post-item {
+    display: grid;
+    grid-template-columns: 120px 1fr auto;
+    align-items: baseline;
+    gap: var(--space-lg);
+    padding: var(--space-lg) 12px;
+    margin: 0 -12px;
+    border-bottom: 1px solid var(--border-subtle);
+    border-left: 2px solid transparent;
+    border-radius: 6px;
+    text-decoration: none;
+    color: var(--text);
+    transition:
+      background-color var(--transition-fast),
+      opacity var(--transition-fast);
+  }
+
+  .post-item:hover {
+    background: color-mix(in srgb, var(--bg-surface) 45%, transparent);
+  }
+
+  .post-item:hover .post-title {
+    color: var(--accent);
+  }
+
+  .post-date {
+    white-space: nowrap;
+    padding-top: 4px;
+  }
+
+  .post-title {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 400;
+    margin-bottom: var(--space-xs);
+    line-height: var(--leading-snug);
+    transition: color var(--transition-fast);
+  }
+
+  .post-excerpt {
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+    margin-bottom: 0;
+  }
+
+  .post-tags {
+    display: flex;
+    gap: var(--space-xs);
+    flex-wrap: wrap;
+    align-self: center;
+  }
+
+  @media (max-width: 640px) {
+    .post-item {
+      grid-template-columns: 1fr;
+      gap: var(--space-xs);
+    }
+
+    .post-tags {
+      margin-top: var(--space-xs);
+    }
+  }
+</style>
