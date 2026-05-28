@@ -1,10 +1,12 @@
+> [!CAUTION]
+> This is a legacy version of [favo02.dev](https://favo02.dev).
+> Some features might be **broken** (projects page, github actions) and some information might be **outdated**.
+
 ## favo02.dev
 
 Personal website (and portfolio), built using `React Typescript` and `Tailwind`.
 
 Deployed automatically at [favo02.dev](https://favo02.dev).
-
-<br>
 
 ## License and Credits
 
