@@ -55,6 +55,7 @@ export const FEATURED_REPOS: string[] = [
   "workspaces-by-open-apps",
   "homelab",
   "recommendation-system",
+  "algoritmi-e-complessita",
 ]
 
 // Highlighted repos (visually accented inside the list — edit to taste)
