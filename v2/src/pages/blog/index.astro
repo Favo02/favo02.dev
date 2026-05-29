@@ -31,16 +31,21 @@ function estimateReadingTime(body: string): string {
         <div class="post-list">
           {posts.map((post) => (
             <a href={`/blog/${post.id}`} class="post-item">
-              <time
-                datetime={post.data.date.toISOString()}
-                class="post-date mono-sm"
-              >
-                {post.data.date.toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "short",
-                  day: "numeric",
-                })}
-              </time>
+              <div class="post-date-wrapper">
+                <time
+                  datetime={post.data.date.toISOString()}
+                  class="post-date mono-sm"
+                >
+                  {post.data.date.toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                  })}
+                </time>
+                <span class="post-reading-time mono-sm">
+                  {estimateReadingTime(post.body || "")}
+                </span>
+              </div>
               <div class="post-content">
                 <h2 class="post-title">{post.data.title}</h2>
                 {post.data.description && (
@@ -75,6 +80,9 @@ function estimateReadingTime(body: string): string {
   .post-list {
     display: flex;
     flex-direction: column;
+  }
+
+  .post-item:first-child {
     border-top: 1px solid var(--border-subtle);
   }
 
@@ -103,9 +111,20 @@ function estimateReadingTime(body: string): string {
     color: var(--accent);
   }
 
+  .post-date-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
   .post-date {
     white-space: nowrap;
     padding-top: 4px;
+  }
+
+  .post-reading-time {
+    color: var(--text-faint);
+    white-space: nowrap;
   }
 
   .post-title {
@@ -134,6 +153,23 @@ function estimateReadingTime(body: string): string {
     .post-item {
       grid-template-columns: 1fr;
       gap: var(--space-xs);
+    }
+
+    .post-date-wrapper {
+      flex-direction: row;
+      align-items: center;
+      gap: var(--space-xs);
+      padding-top: 0;
+    }
+
+    .post-date {
+      padding-top: 0;
+    }
+
+    .post-reading-time::before {
+      content: "•";
+      margin-right: var(--space-xs);
+      color: var(--text-faint);
     }
 
     .post-tags {
