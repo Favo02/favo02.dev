@@ -539,6 +539,9 @@ const myAge = calculateAge(new Date("August 25, 2002"))
       margin: 0;
       display: flex;
       flex-direction: column;
+    }
+
+    .tl-item:first-child {
       border-top: 1px solid var(--border-subtle);
     }
 
@@ -756,7 +759,8 @@ const myAge = calculateAge(new Date("August 25, 2002"))
       .tl-item--compact {
         grid-template-columns: 60px 1fr auto !important;
         gap: var(--space-sm) !important;
-        padding: 0.5rem 0 !important;
+        padding: 0.5rem 12px !important;
+        margin: 0 -12px !important;
         align-items: flex-start !important;
       }
 
@@ -782,15 +786,6 @@ const myAge = calculateAge(new Date("August 25, 2002"))
 
       .tl-period {
         padding-top: 0;
-      }
-
-      .tl-top {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .tl-badges {
-        justify-content: flex-start;
       }
     }
   </style>

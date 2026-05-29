@@ -102,9 +102,12 @@ const lastUpdated = latestEntry ? latestEntry.data.date : new Date()
   .now-list {
     display: flex;
     flex-direction: column;
-    border-top: 1px solid var(--border-subtle);
     margin-top: var(--space-xl);
     max-width: var(--max-width-prose);
+  }
+
+  .now-row:first-child {
+    border-top: 1px solid var(--border-subtle);
   }
 
   .now-row {
@@ -221,7 +224,8 @@ const lastUpdated = latestEntry ? latestEntry.data.date : new Date()
     .now-row {
       grid-template-columns: 1fr;
       gap: var(--space-sm);
-      padding: var(--space-lg) 0;
+      padding: var(--space-lg) 12px;
+      margin: 0 -12px;
     }
   }
 </style>

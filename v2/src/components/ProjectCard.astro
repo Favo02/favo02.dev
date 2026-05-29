@@ -28,10 +28,7 @@ function getTimeAgo(date: Date): string {
   href={repo.url}
   target="_blank"
   rel="noopener noreferrer"
-  class:list={[
-    "project-row",
-    { "project-row--highlighted": highlighted },
-  ]}
+  class:list={["project-row", { "project-row--highlighted": highlighted }]}
 >
   <div class="project-main">
     {
@@ -77,6 +74,10 @@ function getTimeAgo(date: Date): string {
 </a>
 
 <style>
+  .project-row:first-child {
+    border-top: 1px solid var(--border-subtle);
+  }
+
   .project-row {
     display: grid;
     grid-template-columns: 200px 1fr 160px;
@@ -203,7 +204,8 @@ function getTimeAgo(date: Date): string {
     .project-row {
       grid-template-columns: 1fr;
       gap: var(--space-xs);
-      padding: var(--space-md) 0;
+      padding: var(--space-md) 12px;
+      margin: 0 -12px;
     }
 
     .project-desc {
