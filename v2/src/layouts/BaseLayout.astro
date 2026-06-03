@@ -19,6 +19,9 @@ const {
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 const pageTitle = title === "Luca Favini" ? title : `${title} — favo02`
+
+const isProd = import.meta.env.PROD
+const umamiWebsiteId = import.meta.env.PUBLIC_UMAMI_WEBSITE_ID
 ---
 
 <!doctype html>
@@ -62,6 +65,17 @@ const pageTitle = title === "Luca Favini" ? title : `${title} — favo02`
         document.documentElement.setAttribute("data-theme", preferred)
       })()
     </script>
+
+    <!-- Umami Analytics -->
+    {
+      isProd && umamiWebsiteId && (
+        <script
+          defer
+          src="https://umami.favo02.dev/script.js"
+          data-website-id={umamiWebsiteId}
+        />
+      )
+    }
   </head>
   <body>
     <Nav />
