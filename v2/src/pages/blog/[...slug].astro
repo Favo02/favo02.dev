@@ -1,6 +1,7 @@
 ---
 import ProseLayout from "../../layouts/ProseLayout.astro"
 import { getCollection, render } from "astro:content"
+import Comments from "../../components/Comments.astro"
 
 export const prerender = true
 
@@ -42,25 +43,26 @@ const readingTime = `${Math.ceil(words / 200)} min read`
 >
   <Content />
 
+  {
+    post.data.tags.length > 0 && (
+      <div class="post-tags">
+        {post.data.tags.map((tag) => (
+          <span class="tag">{tag}</span>
+        ))}
+      </div>
+    )
+  }
+
+  <Comments />
+
   <footer class="post-footer">
-    {
-      post.data.tags.length > 0 && (
-        <div class="post-tags">
-          {post.data.tags.map((tag) => (
-            <span class="tag">{tag}</span>
-          ))}
-        </div>
-      )
-    }
     <a href="/blog" class="link-arrow back-link">← back to blog</a>
   </footer>
 </ProseLayout>
 
 <style>
   .post-footer {
-    margin-top: var(--space-3xl);
     padding-top: var(--space-xl);
-    border-top: 1px solid var(--border);
     display: flex;
     flex-direction: column;
     gap: var(--space-md);
