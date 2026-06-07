@@ -61,7 +61,7 @@ const isDev = import.meta.env.DEV;
     const observer = new MutationObserver(() => {
       const theme = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
       const iframe = document.querySelector('iframe.giscus-frame');
-      if (iframe) {
+      if (iframe && iframe.src.includes('giscus.app')) {
         iframe.contentWindow.postMessage(
           {
             giscus: {
@@ -79,6 +79,12 @@ const isDev = import.meta.env.DEV;
       attributes: true,
       attributeFilter: ["data-theme"]
     });
+
+    // Clean up observer and listeners on view transition to avoid memory leaks
+    document.addEventListener("astro:before-swap", () => {
+      observer.disconnect();
+      document.removeEventListener("astro:after-swap", loadGiscus);
+    }, { once: true });
   </script>
 ) : isDev ? (
   <section class="comments-section-placeholder">
