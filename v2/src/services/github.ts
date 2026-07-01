@@ -67,6 +67,7 @@ export const HIGHLIGHTED_REPOS: string[] = [
   "statistica-e-analisi-dei-dati",
   "linguaggi-di-programmazione",
   "rusty-ex",
+  "sm4ml-adaboost",
 ]
 
 const GRAPHQL_QUERY = `
