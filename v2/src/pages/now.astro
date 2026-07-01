@@ -1,30 +1,50 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro"
 import PageHeader from "../components/PageHeader.astro"
-import { getCollection, render } from "astro:content"
+import { getEntry } from "astro:content"
+import { marked } from "marked"
 
-// Fetch all monthly logs from Content Collections
-const entries = await getCollection("now")
+export const prerender = true
 
-// Sort logs by date descending
-const sortedEntries = entries.sort(
-  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
-)
+// Fetch the single "now" entry (now.md)
+const entry = await getEntry("now", "now")
+if (!entry) {
+  throw new Error("Could not find now.md entry")
+}
 
-// Render each markdown file to its HTML component
-const renderedEntries = await Promise.all(
-  sortedEntries.map(async (entry) => {
-    const { Content } = await render(entry)
+const lastUpdated = entry.data.updated
+const rawBody = entry.body || ""
+
+// Split the body by heading ##
+const sectionsRaw = rawBody.split(/(?=^##\s+)/m)
+
+// Configure marked to escape any raw HTML input to mitigate XSS risks
+const renderer = {
+  html(token: { text: string }) {
+    return token.text.replace(/</g, "&lt;").replace(/>/g, "&gt;")
+  },
+}
+marked.use({ renderer })
+
+const sections = sectionsRaw
+  .map((chunk) => {
+    const match = chunk.match(/^##\s+(.+)$/m)
+    if (!match) return null
+    const title = match[1].trim()
+    const contentMarkdown = chunk.replace(/^##\s+.+$/m, "").trim()
+    const contentHtml = marked.parse(contentMarkdown)
     return {
-      entry,
-      Content,
+      title,
+      contentHtml,
+      isCurrent: false,
     }
-  }),
-)
+  })
+  .filter((s): s is NonNullable<typeof s> => s !== null)
 
-// Derive the last updated date from the newest entry
-const latestEntry = sortedEntries[0]
-const lastUpdated = latestEntry ? latestEntry.data.date : new Date()
+// Set isCurrent to true for the first section (top of the file)
+if (sections.length > 0) {
+  sections[0].isCurrent = true
+}
 ---
 
 <BaseLayout
@@ -56,22 +76,20 @@ const lastUpdated = latestEntry ? latestEntry.data.date : new Date()
 
     <div class="now-list">
       {
-        renderedEntries.map(({ entry, Content }) => (
+        sections.map((section) => (
           <section
-            class:list={["now-row", { "is-current": entry.data.isCurrent }]}
-            aria-label={`Update from ${entry.data.month}`}
+            class:list={["now-row", { "is-current": section.isCurrent }]}
+            aria-label={`Update from ${section.title}`}
           >
-            <div class="now-meta-col">
-              <h2 class="now-month">{entry.data.month}</h2>
-              {entry.data.isCurrent && (
-                <span class="now-current-badge mono">Current</span>
+            <header class="now-header">
+              <h2 class="now-month">{section.title}</h2>
+              {section.isCurrent && (
+                <span class="now-current-badge">Current</span>
               )}
-            </div>
+            </header>
 
             <div class="now-content-col">
-              <div class="now-log-content">
-                <Content />
-              </div>
+              <div class="now-log-content" set:html={section.contentHtml} />
             </div>
           </section>
         ))
@@ -111,17 +129,15 @@ const lastUpdated = latestEntry ? latestEntry.data.date : new Date()
   }
 
   .now-row {
-    display: grid;
-    grid-template-columns: 160px 1fr;
-    gap: var(--space-lg);
-    padding: var(--space-xl) 12px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    padding: var(--space-md) 12px;
     margin: 0 -12px;
     border-bottom: 1px solid var(--border-subtle);
-    border-left: 2px solid transparent;
     border-radius: 6px;
     transition:
       background-color var(--transition-fast),
-      border-left-color var(--transition-fast),
       opacity var(--transition-fast);
   }
 
@@ -129,51 +145,46 @@ const lastUpdated = latestEntry ? latestEntry.data.date : new Date()
     background: color-mix(in srgb, var(--bg-surface) 45%, transparent);
   }
 
-  .now-row:hover .now-month {
-    color: var(--accent);
-  }
-
   /* ── Highlighted current log ── */
   .now-row.is-current {
-    background: color-mix(in srgb, var(--accent) 3%, transparent);
-    border-left-color: var(--accent);
-    border-radius: 0 6px 6px 0;
+    background: color-mix(in srgb, var(--accent) 2%, transparent);
   }
 
   .now-row.is-current:hover {
-    background: color-mix(in srgb, var(--accent) 6%, transparent);
+    background: color-mix(in srgb, var(--accent) 5%, transparent);
   }
 
-  .now-meta-col {
+  /* ── Header Area ── */
+  .now-header {
     display: flex;
-    flex-direction: column;
-    gap: var(--space-xs);
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
   }
 
   .now-month {
     font-family: var(--font-display);
-    font-size: var(--text-lg);
-    font-style: italic;
+    font-size: var(--text-base);
     font-weight: 500;
     color: var(--text);
     margin: 0;
     line-height: var(--leading-tight);
-    transition: color var(--transition-fast);
-  }
-
-  .is-current .now-month {
-    color: var(--accent);
   }
 
   /* ── Current Badge ── */
   .now-current-badge {
+    display: inline-flex;
+    align-items: center;
     font-family: var(--font-mono);
     font-size: 0.6rem;
-    font-weight: 500;
     text-transform: uppercase;
     letter-spacing: var(--tracking-wider);
+    padding: 0.15em 0.5em;
+    border-radius: 4px;
+    border: 1px solid var(--accent);
     color: var(--accent);
-    margin-top: var(--space-xs);
+    background: color-mix(in srgb, var(--accent) 5%, transparent);
+    white-space: nowrap;
   }
 
   .now-content-col {
@@ -192,13 +203,17 @@ const lastUpdated = latestEntry ? latestEntry.data.date : new Date()
   .now-log-content :global(li) {
     line-height: var(--leading-normal);
     color: var(--text-muted);
-    font-size: var(--text-base);
+    font-size: var(--text-sm);
   }
 
   .now-log-content :global(a) {
     color: var(--text-muted);
     text-decoration: underline;
-    text-decoration-color: var(--border);
+    text-decoration-color: color-mix(
+      in srgb,
+      var(--border) 50%,
+      var(--text-muted)
+    );
     text-underline-offset: 3px;
     transition:
       color var(--transition-fast),
@@ -220,12 +235,14 @@ const lastUpdated = latestEntry ? latestEntry.data.date : new Date()
   }
 
   /* ── Responsive ── */
-  @media (max-width: 768px) {
+  @media (max-width: 640px) {
     .now-row {
-      grid-template-columns: 1fr;
-      gap: var(--space-sm);
-      padding: var(--space-lg) 12px;
-      margin: 0 -12px;
+      padding: var(--space-sm) 12px;
+      gap: var(--space-xs);
+    }
+
+    .now-month {
+      font-size: var(--text-sm);
     }
   }
 </style>

@@ -13,11 +13,9 @@ const blog = defineCollection({
 })
 
 const now = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/content/now" }),
+  loader: glob({ pattern: "now.md", base: "./src/content" }),
   schema: z.object({
-    month: z.string(),
-    date: z.coerce.date(),
-    isCurrent: z.boolean().default(false),
+    updated: z.coerce.date(),
   }),
 })
 
