@@ -1,13 +1,17 @@
 ---
-updated: 2026-07-01
+updated: 2026-07-15
 ---
 
-## June and early July 2026
+## July 2026
+
+- 🧮📚 Learned numerical methods and a bit of Matlab for _Calcolo Numerico_ exam ([calcolo-numerico](https://github.com/Favo02-unimi/calcolo-numerico) repo)
+- 🥵 Still suffering the heat
+- 📚 Studying _Statistical Methods for Machine Learning_ theory
+
+## June 2026
 
 - 📺👴 Vibe coded [nonno-puffo](https://github.com/Favo02/nonno-puffo), a TV guide for my grandparents
-- 📚 Preparing _Statistical Methods for Machine Learning exam_:
-  - Worked on the final project: [sm4ml-adaboost](https://github.com/Favo02/sm4ml-adaboost), an AdaBoost implementation
-  - Now studying the _very mathy_ theory
+- 📚 Prepared _Statistical Methods for Machine Learning_ final project: [sm4ml-adaboost](https://github.com/Favo02/sm4ml-adaboost), an AdaBoost implementation
 - 🥵 Suffered the heat
 
 ## May 2026
