@@ -1,18 +1,27 @@
 ---
-updated: 2026-07-15
+updated: 2026-07-25
 ---
+
+## Late July to mid August 2026
+
+- 🧘‍♂️ Time to relax after an infinite exam session:
+  - Sports, a ton of 🏃🚴🥾 in the ⛰️ [(if it's not on Strava, it didn't happen)](https://www.strava.com/athletes/favo02)
+  - Shorten 📚toread and 🎥towatch lists
+  - A few days at the 🏖️ with friends
+- 🚧🏡 Finally some time for homelab maintenance and work on personal projects
 
 ## July 2026
 
-- 🧮📚 Learned numerical methods and a bit of Matlab for _Calcolo Numerico_ exam ([calcolo-numerico](https://github.com/Favo02-unimi/calcolo-numerico) repo)
-- 🥵 Still suffering the heat
-- 📚 Studying _Statistical Methods for Machine Learning_ theory
+- 🧮📚 Learned numerical methods and a bit of MATLAB for _Calcolo Numerico_ exam ([calcolo-numerico](https://github.com/Favo02-unimi/calcolo-numerico) repo)
+- 🧑‍💻 Solved [FlipFlop 2026](https://flipflop.slome.org/2026/) puzzles [(solutions)](https://github.com/Favo02/competitive-programming/tree/main/flipflop/2026)
+- 🥵 Still enduring the heat
+- 📚 Studied _Statistical Methods for Machine Learning_ theory
 
 ## June 2026
 
 - 📺👴 Vibe coded [nonno-puffo](https://github.com/Favo02/nonno-puffo), a TV guide for my grandparents
 - 📚 Prepared _Statistical Methods for Machine Learning_ final project: [sm4ml-adaboost](https://github.com/Favo02/sm4ml-adaboost), an AdaBoost implementation
-- 🥵 Suffered the heat
+- 🥵 Suffered from the heat
 
 ## May 2026
 
