@@ -18,10 +18,33 @@ const rawBody = entry.body || ""
 // Split the body by heading ##
 const sectionsRaw = rawBody.split(/(?=^##\s+)/m)
 
-// Configure marked to escape any raw HTML input to mitigate XSS risks
+// Configure marked to escape any raw HTML input to mitigate XSS risks and non-relative links in a new tab
 const renderer = {
   html(token: { text: string }) {
     return token.text.replace(/</g, "&lt;").replace(/>/g, "&gt;")
+  },
+  link({
+    href,
+    title,
+    text,
+  }: {
+    href: string
+    title: string | null | undefined
+    text: string
+  }) {
+    const escapeAttr = (s: string) =>
+      s
+        .replace(/&/g, "&amp;")
+        .replace(/"/g, "&quot;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+    const safeHref = escapeAttr(href)
+    const targetAttr =
+      !href.startsWith("/") && !href.startsWith("#")
+        ? ' target="_blank" rel="noopener noreferrer"'
+        : ""
+    const titleAttr = title ? ` title="${escapeAttr(title)}"` : ""
+    return `<a href="${safeHref}"${targetAttr}${titleAttr}>${text}</a>`
   },
 }
 marked.use({ renderer })
