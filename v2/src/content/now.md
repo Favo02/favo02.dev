@@ -1,8 +1,21 @@
 ---
-updated: 2026-07-25
+updated: 2026-09-21
 ---
 
-## Late July to mid August 2026
+## Late August and September 2026
+
+- 🧑‍💻 Solved [everybody.codes story 04](https://everybody.codes/story/4/quests) puzzles [(solutions)](https://github.com/Favo02/competitive-programming/tree/main/everybody-codes/story04)
+- 🇩🇰 Moved to Copenhagen for my exchange semester at 🎓 [KU](https://www.ku.dk/):
+  - Handled lots of 📜 bureaucracy and 🏚️ logistics
+  - Met many 👥 new people and worked hard to find my 🫂 own group
+  - Adjusted to a new ⏰ routine
+  - Cycled a ton 🚲
+  - Started playing 🏐 volleyball with KU sports
+- 🏃💨 Ran my first official race: the [World Athletics Road Running Championships Copenhagen 2026 5K](https://worldathletics.org/en/competitions/world-athletics-road-running-championships/copenhagen26)
+  - Smashed my old 🏅 PB with a time of [20:40](https://live.wrrc26.dk/5k/en/runner/?bib=53301) _[(strava activity)](https://www.strava.com/activities/20242855656)_
+  - More eager than ever to keep 🚀 improving
+
+## Late July and August 2026
 
 - 🧘‍♂️ Time to relax after an infinite exam session:
   - Sports, a ton of 🏃🚴🥾 in the ⛰️ [(if it's not on Strava, it didn't happen)](https://www.strava.com/athletes/favo02)
